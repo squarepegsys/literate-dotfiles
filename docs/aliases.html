@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2019-08-04 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mike&rsquo;s Alias Collection</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Mike Hostetler">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<main id="content">
+<header>
+<h1 class="title">Mike&rsquo;s Alias Collection</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org9700f41">Quick and Dirty things</a>
+<ul>
+<li><a href="#org6ac3383">Docker</a></li>
+<li><a href="#org3aa944e">Random git stuff</a></li>
+<li><a href="#orgb05e4b8">Grails stuff</a></li>
+<li><a href="#orgc910e56">Misc Fun</a></li>
+</ul>
+</li>
+<li><a href="#orgee3678d">Functions</a></li>
+</ul>
+</div>
+</nav>
+
+<section id="outline-container-org9700f41" class="outline-2">
+<h2 id="org9700f41">Quick and Dirty things</h2>
+<div class="outline-text-2" id="text-org9700f41">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">devBoot</span>=<span class="org-string">"SPRING_PROFILES_ACTIVE=localdb gradle bootRun"</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">gitdev</span>=<span class="org-string">"git pull origin dev"</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">l</span>=<span class="org-string">"ls -l"</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">unzip</span>=<span class="org-string">"unzip -q"</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">srcstatus</span>=<span class="org-string">"svn status src"</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">srccommit</span>=<span class="org-string">"svn commit src"</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">edit</span>=$<span class="org-variable-name">EDITOR</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">dl</span>=<span class="org-string">'dirs -v'</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">c</span>=clear
+<span class="org-builtin">alias</span> <span class="org-variable-name">grep</span>=<span class="org-string">"grep --color=auto "</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org6ac3383" class="outline-3">
+<h3 id="org6ac3383">Docker</h3>
+<div class="outline-text-3" id="text-org6ac3383">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">dockup</span>=<span class="org-string">"docker-compose up -d"</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">dockdown</span>=<span class="org-string">"docker-compose down"</span>
+
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3aa944e" class="outline-3">
+<h3 id="org3aa944e">Random git stuff</h3>
+<div class="outline-text-3" id="text-org3aa944e">
+<p>
+Most of things require <a href="https://github.com/geelen/git-smart">git-smart</a>. And has been replaced by Magit, but once in a while I still use them
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">gss</span>=<span class="org-string">'git status --short'</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">gl</span>=<span class="org-string">'git smart-log'</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">gm</span>=<span class="org-string">'git smart-merge'</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">gup</span>=<span class="org-string">'git smart-pull'</span>
+
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb05e4b8" class="outline-3">
+<h3 id="orgb05e4b8">Grails stuff</h3>
+<div class="outline-text-3" id="text-orgb05e4b8">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">gclean</span>=<span class="org-string">"grails clean"</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">gapp</span>=<span class="org-string">"grails clean &amp;&amp; grails run-app"</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">gtest</span>=<span class="org-string">"grails clean &amp;&amp; grails test-app"</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">gwar</span>=<span class="org-string">"grails clean &amp;&amp; grails war"</span>
+
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc910e56" class="outline-3">
+<h3 id="orgc910e56">Misc Fun</h3>
+<div class="outline-text-3" id="text-orgc910e56">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">weather</span>=<span class="org-string">"curl wttr.in"</span>
+
+</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="outline-container-orgee3678d" class="outline-2">
+<h2 id="orgee3678d">Functions</h2>
+<div class="outline-text-2" id="text-orgee3678d">
+<p>
+I found it difficult to add parameters to my aliases but found in zsh anyway (and probably bash) that I could use functions. This was also handy for multi-line aliases. Instead of a bunch of little scripts around, I keep them in here as shell functions.
+</p>
+
+<p>
+This is uses the Yubikey command line interface to find my 2FA codes. Goodbye GUI, hello CLI. Installed with <code>port install ykman</code>. see <a href="https://support.yubico.com/support/solutions/articles/15000012643-yubikey-manager-cli-ykman-user-guide#ykman_oathfmulw6">https://support.yubico.com/support/solutions/articles/15000012643-yubikey-manager-cli-ykman-user-guide#ykman_oathfmulw6</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-keyword">function</span> <span class="org-function-name">yubi</span> ()  {
+
+ ykman oath code $<span class="org-variable-name">1</span> 
+}
+
+</pre>
+</div>
+
+<p>
+Misc ones I&rsquo;ve had forever
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">
+
+<span class="org-keyword">function</span> <span class="org-function-name">newlibs</span> ()  {
+         svn status lib|egrep <span class="org-string">"^\?"</span>|gawk -F/ <span class="org-string">'{print "${project.lib.dir}/"$2":\\"}'</span>
+}
+<span class="org-keyword">function</span> <span class="org-function-name">lookwar</span>() {
+         unzip -c $<span class="org-variable-name">1</span>.ear $<span class="org-variable-name">1</span>.war|jar t
+}
+
+<span class="org-keyword">function</span> <span class="org-function-name">addsrcs</span>() {
+         srcstatus|egrep <span class="org-string">"^\?"</span>| awk <span class="org-string">'{print $2}'</span>|xargs svn add
+}
+<span class="org-keyword">function</span> <span class="org-function-name">grepJars</span>() {
+
+         <span class="org-keyword">for</span> x<span class="org-keyword"> in</span> <span class="org-sh-quoted-exec">`find . -name "*.jar"`</span>; <span class="org-keyword">do</span>
+             <span class="org-builtin">echo</span> $<span class="org-variable-name">x</span>
+            unzip -l $<span class="org-variable-name">x</span>|grep $<span class="org-variable-name">1</span>
+    <span class="org-keyword">done</span>
+}
+
+<span class="org-keyword">function</span> <span class="org-function-name">svnstat</span>() {
+         <span class="org-variable-name">tmpfile</span>=/tmp/svn-diff.$<span class="org-variable-name">$</span>
+         svn diff <span class="org-string">"$@"</span> &gt; $<span class="org-variable-name">tmpfile</span>
+         <span class="org-builtin">typeset</span> -i added removed delta
+         <span class="org-variable-name">added</span>=$(grep <span class="org-string">'^+'</span> $<span class="org-variable-name">tmpfile</span> | wc -l)
+         <span class="org-variable-name">removed</span>=$(grep <span class="org-string">'^-'</span> $<span class="org-variable-name">tmpfile</span> | wc -l)
+         <span class="org-variable-name">delta</span>=$((added - removed))
+         <span class="org-keyword">if</span> [ $<span class="org-variable-name">delta</span> -lt 0 ]; <span class="org-keyword">then</span>
+             <span class="org-variable-name">deltachr</span>=&#8221;-&#8221;
+         <span class="org-keyword">elif</span> [ $<span class="org-variable-name">delta</span> -eq 0 ]; <span class="org-keyword">then</span>
+             <span class="org-variable-name">deltachr</span>=&#8221; &#8221;
+         <span class="org-keyword">else</span>
+             <span class="org-variable-name">deltachr</span>=&#8221;+&#8221;
+         <span class="org-keyword">fi</span>
+         svn status
+         <span class="org-builtin">echo</span> &#8221; + ${<span class="org-variable-name">added</span>} lines&#8221;
+         <span class="org-builtin">echo</span> &#8221; - ${<span class="org-variable-name">removed</span>} lines&#8221;
+         <span class="org-builtin">echo</span> &#8221; ${<span class="org-variable-name">deltachr</span>} ${<span class="org-variable-name">delta</span>} lines overall&#8221;
+         rm -f $<span class="org-variable-name">tmpfile</span>
+}
+
+<span class="org-keyword">function</span> <span class="org-function-name">listwar</span>() {
+         <span class="org-variable-name">appname</span>=$(<span class="org-builtin">echo</span> $<span class="org-variable-name">PWD</span>|awk -F/ <span class="org-string">'{print $NF}'</span>)
+
+         unzip -l build/war/$<span class="org-variable-name">appname</span>.war
+}
+
+<span class="org-keyword">function</span> <span class="org-function-name">listear</span>() {
+         <span class="org-variable-name">appname</span>=$(<span class="org-builtin">echo</span> $<span class="org-variable-name">PWD</span>|awk -F/ <span class="org-string">'{print $NF}'</span>)
+
+         unzip -l build/ear/$<span class="org-variable-name">appname</span>.ear
+}
+<span class="org-keyword">function</span> <span class="org-function-name">listjar</span>() {
+         <span class="org-variable-name">appname</span>=$(<span class="org-builtin">echo</span> $<span class="org-variable-name">PWD</span>|awk -F/ <span class="org-string">'{print $NF}'</span>)
+
+         unzip -l build/lib/$<span class="org-variable-name">appname</span>.jar
+}
+<span class="org-keyword">function</span> <span class="org-function-name">winmacaddr</span>() {
+         ipconfig /all|grep <span class="org-string">"Physical Address"</span>|awk -F : <span class="org-string">'{print $2}'</span>
+}
+
+<span class="org-keyword">function</span> <span class="org-function-name">testerror</span>() {
+
+         <span class="org-variable-name">file</span>=$(find build/test/reports -name <span class="org-string">"TEST-*$1*"</span>)
+         less $<span class="org-variable-name">file</span>
+}
+
+
+<span class="org-keyword">function</span> <span class="org-function-name">findGrep</span>() {
+find $<span class="org-variable-name">1</span> -name <span class="org-string">"$2"</span> |xargs grep $<span class="org-variable-name">3</span>
+
+}
+funtion empty() {
+        rm $<span class="org-variable-name">1</span>
+        touch $<span class="org-variable-name">1</span>
+}
+
+<span class="org-keyword">function</span> <span class="org-function-name">ldirs</span>() {
+         (( <span class="org-variable-name">count</span>=0))
+         <span class="org-keyword">for</span> x<span class="org-keyword"> in</span> $(<span class="org-builtin">dirs</span>); <span class="org-keyword">do</span>
+            <span class="org-builtin">echo</span> <span class="org-string">"+$count\t$x"</span>
+            ((<span class="org-variable-name">count</span>+=1))
+         <span class="org-keyword">done</span>
+}
+
+
+<span class="org-keyword">function</span> <span class="org-function-name">jconsole</span>() {
+         <span class="org-variable-name">thisdir</span>=$<span class="org-variable-name">PWD</span>
+         <span class="org-builtin">cd</span> $<span class="org-variable-name">JAVA_HOME</span>/bin/
+         ./jconsole -pluginpath  ../demo/scripting/jconsole-plugin/jconsole-plugin.jar &amp;
+
+         <span class="org-builtin">cd</span> $<span class="org-variable-name">thisdir</span>
+
+}
+
+<span class="org-keyword">function</span> <span class="org-function-name">mkdatedir</span>() {
+    mkdir <span class="org-sh-quoted-exec">`date +%Y%m%d%H%M`</span>
+}
+
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org12c929b" class="outline-4">
+<h4 id="org12c929b">client-specific</h4>
+<div class="outline-text-4" id="text-org12c929b">
+<div class="org-src-container">
+<pre class="src src-sh">
+<span class="org-builtin">source</span> ~/.private-aliases
+
+</pre>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<hr>
+<p>
+<p class="Source">Source: <a href="https://github.com/squarepegsys/literate-dotfiles/blob/master/aliases.org">aliases.org</a></p><p>Return to <a href="index.html">index</a>.</p>
+</footer>
+</body>
+</html>
