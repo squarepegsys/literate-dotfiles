@@ -208,22 +208,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org11f902b">Quick and Dirty things</a>
+<li><a href="#org9700f41">Quick and Dirty things</a>
 <ul>
-<li><a href="#orgc0c38a2">Docker</a></li>
-<li><a href="#orgb1727f3">Random git stuff</a></li>
-<li><a href="#org8680415">Grails stuff</a></li>
-<li><a href="#orgd4ac743">Misc Fun</a></li>
+<li><a href="#org6ac3383">Docker</a></li>
+<li><a href="#org3aa944e">Random git stuff</a></li>
+<li><a href="#orgb05e4b8">Grails stuff</a></li>
+<li><a href="#orgc910e56">Misc Fun</a></li>
 </ul>
 </li>
-<li><a href="#orge999f48">Functions</a></li>
+<li><a href="#orgee3678d">Functions</a></li>
 </ul>
 </div>
 </nav>
 
-<section id="outline-container-org11f902b" class="outline-2">
-<h2 id="org11f902b">Quick and Dirty things</h2>
-<div class="outline-text-2" id="text-org11f902b">
+<section id="outline-container-org9700f41" class="outline-2">
+<h2 id="org9700f41">Quick and Dirty things</h2>
+<div class="outline-text-2" id="text-org9700f41">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">devBoot</span>=<span class="org-string">"SPRING_PROFILES_ACTIVE=localdb gradle bootRun"</span>
 <span class="org-builtin">alias</span> <span class="org-variable-name">gitdev</span>=<span class="org-string">"git pull origin dev"</span>
@@ -239,9 +239,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgc0c38a2" class="outline-3">
-<h3 id="orgc0c38a2">Docker</h3>
-<div class="outline-text-3" id="text-orgc0c38a2">
+<div id="outline-container-org6ac3383" class="outline-3">
+<h3 id="org6ac3383">Docker</h3>
+<div class="outline-text-3" id="text-org6ac3383">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">dockup</span>=<span class="org-string">"docker-compose up -d"</span>
 <span class="org-builtin">alias</span> <span class="org-variable-name">dockdown</span>=<span class="org-string">"docker-compose down"</span>
@@ -251,9 +251,9 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgb1727f3" class="outline-3">
-<h3 id="orgb1727f3">Random git stuff</h3>
-<div class="outline-text-3" id="text-orgb1727f3">
+<div id="outline-container-org3aa944e" class="outline-3">
+<h3 id="org3aa944e">Random git stuff</h3>
+<div class="outline-text-3" id="text-org3aa944e">
 <p>
 Most of things require <a href="https://github.com/geelen/git-smart">git-smart</a>. And has been replaced by Magit, but once in a while I still use them
 </p>
@@ -270,9 +270,9 @@ Most of things require <a href="https://github.com/geelen/git-smart">git-smart</
 </div>
 </div>
 
-<div id="outline-container-org8680415" class="outline-3">
-<h3 id="org8680415">Grails stuff</h3>
-<div class="outline-text-3" id="text-org8680415">
+<div id="outline-container-orgb05e4b8" class="outline-3">
+<h3 id="orgb05e4b8">Grails stuff</h3>
+<div class="outline-text-3" id="text-orgb05e4b8">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">gclean</span>=<span class="org-string">"grails clean"</span>
 <span class="org-builtin">alias</span> <span class="org-variable-name">gapp</span>=<span class="org-string">"grails clean &amp;&amp; grails run-app"</span>
@@ -285,9 +285,9 @@ Most of things require <a href="https://github.com/geelen/git-smart">git-smart</
 </div>
 </div>
 
-<div id="outline-container-orgd4ac743" class="outline-3">
-<h3 id="orgd4ac743">Misc Fun</h3>
-<div class="outline-text-3" id="text-orgd4ac743">
+<div id="outline-container-orgc910e56" class="outline-3">
+<h3 id="orgc910e56">Misc Fun</h3>
+<div class="outline-text-3" id="text-orgc910e56">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">weather</span>=<span class="org-string">"curl wttr.in"</span>
 
@@ -296,9 +296,9 @@ Most of things require <a href="https://github.com/geelen/git-smart">git-smart</
 </div>
 </div>
 </section>
-<section id="outline-container-orge999f48" class="outline-2">
-<h2 id="orge999f48">Functions</h2>
-<div class="outline-text-2" id="text-orge999f48">
+<section id="outline-container-orgee3678d" class="outline-2">
+<h2 id="orgee3678d">Functions</h2>
+<div class="outline-text-2" id="text-orgee3678d">
 <p>
 I found it difficult to add parameters to my aliases but found in zsh anyway (and probably bash) that I could use functions. This was also handy for multi-line aliases. Instead of a bunch of little scripts around, I keep them in here as shell functions.
 </p>
@@ -344,8 +344,8 @@ Misc ones I&rsquo;ve had forever
          <span class="org-variable-name">tmpfile</span>=/tmp/svn-diff.$<span class="org-variable-name">$</span>
          svn diff <span class="org-string">"$@"</span> &gt; $<span class="org-variable-name">tmpfile</span>
          <span class="org-builtin">typeset</span> -i added removed delta
-         <span class="org-variable-name">added</span>=$(<span class="org-sh-quoted-exec">grep</span> <span class="org-string">'^+'</span> $<span class="org-variable-name">tmpfile</span> | wc -l)
-         <span class="org-variable-name">removed</span>=$(<span class="org-sh-quoted-exec">grep</span> <span class="org-string">'^-'</span> $<span class="org-variable-name">tmpfile</span> | wc -l)
+         <span class="org-variable-name">added</span>=$(grep <span class="org-string">'^+'</span> $<span class="org-variable-name">tmpfile</span> | wc -l)
+         <span class="org-variable-name">removed</span>=$(grep <span class="org-string">'^-'</span> $<span class="org-variable-name">tmpfile</span> | wc -l)
          <span class="org-variable-name">delta</span>=$((added - removed))
          <span class="org-keyword">if</span> [ $<span class="org-variable-name">delta</span> -lt 0 ]; <span class="org-keyword">then</span>
              <span class="org-variable-name">deltachr</span>=&#8221;-&#8221;
@@ -362,18 +362,18 @@ Misc ones I&rsquo;ve had forever
 }
 
 <span class="org-keyword">function</span> <span class="org-function-name">listwar</span>() {
-         <span class="org-variable-name">appname</span>=$(<span class="org-sh-quoted-exec">echo</span> $<span class="org-variable-name">PWD</span>|awk -F/ <span class="org-string">'{print $NF}'</span>)
+         <span class="org-variable-name">appname</span>=$(<span class="org-builtin">echo</span> $<span class="org-variable-name">PWD</span>|awk -F/ <span class="org-string">'{print $NF}'</span>)
 
          unzip -l build/war/$<span class="org-variable-name">appname</span>.war
 }
 
 <span class="org-keyword">function</span> <span class="org-function-name">listear</span>() {
-         <span class="org-variable-name">appname</span>=$(<span class="org-sh-quoted-exec">echo</span> $<span class="org-variable-name">PWD</span>|awk -F/ <span class="org-string">'{print $NF}'</span>)
+         <span class="org-variable-name">appname</span>=$(<span class="org-builtin">echo</span> $<span class="org-variable-name">PWD</span>|awk -F/ <span class="org-string">'{print $NF}'</span>)
 
          unzip -l build/ear/$<span class="org-variable-name">appname</span>.ear
 }
 <span class="org-keyword">function</span> <span class="org-function-name">listjar</span>() {
-         <span class="org-variable-name">appname</span>=$(<span class="org-sh-quoted-exec">echo</span> $<span class="org-variable-name">PWD</span>|awk -F/ <span class="org-string">'{print $NF}'</span>)
+         <span class="org-variable-name">appname</span>=$(<span class="org-builtin">echo</span> $<span class="org-variable-name">PWD</span>|awk -F/ <span class="org-string">'{print $NF}'</span>)
 
          unzip -l build/lib/$<span class="org-variable-name">appname</span>.jar
 }
@@ -383,7 +383,7 @@ Misc ones I&rsquo;ve had forever
 
 <span class="org-keyword">function</span> <span class="org-function-name">testerror</span>() {
 
-         <span class="org-variable-name">file</span>=$(<span class="org-sh-quoted-exec">find</span> build/test/reports -name <span class="org-string">"TEST-*$1*"</span>)
+         <span class="org-variable-name">file</span>=$(find build/test/reports -name <span class="org-string">"TEST-*$1*"</span>)
          less $<span class="org-variable-name">file</span>
 }
 
@@ -399,7 +399,7 @@ funtion empty() {
 
 <span class="org-keyword">function</span> <span class="org-function-name">ldirs</span>() {
          (( <span class="org-variable-name">count</span>=0))
-         <span class="org-keyword">for</span> x<span class="org-keyword"> in</span> $(<span class="org-sh-quoted-exec">dirs</span>); <span class="org-keyword">do</span>
+         <span class="org-keyword">for</span> x<span class="org-keyword"> in</span> $(<span class="org-builtin">dirs</span>); <span class="org-keyword">do</span>
             <span class="org-builtin">echo</span> <span class="org-string">"+$count\t$x"</span>
             ((<span class="org-variable-name">count</span>+=1))
          <span class="org-keyword">done</span>
@@ -423,9 +423,9 @@ funtion empty() {
 </div>
 </div>
 
-<div id="outline-container-orgaeec2a5" class="outline-4">
-<h4 id="orgaeec2a5">client-specific</h4>
-<div class="outline-text-4" id="text-orgaeec2a5">
+<div id="outline-container-org12c929b" class="outline-4">
+<h4 id="org12c929b">client-specific</h4>
+<div class="outline-text-4" id="text-org12c929b">
 <div class="org-src-container">
 <pre class="src src-sh">
 <span class="org-builtin">source</span> ~/.private-aliases
@@ -439,7 +439,7 @@ funtion empty() {
 <footer id="postamble" class="status">
 <hr>
 <p>
-<p class="Source">Source: <a href="https://fred.com/to1ne/literate-dotfiles/blob/master/aliases.org">aliases.org</a></p><p>Return to <a href="index.html">index</a>.</p>
+<p class="Source">Source: <a href="https://github.com/squarepegsys/literate-dotfiles/blob/master/aliases.org">aliases.org</a></p><p>Return to <a href="index.html">index</a>.</p>
 </footer>
 </body>
 </html>

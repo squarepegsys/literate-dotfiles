@@ -28,7 +28,7 @@ INFO is a plist used as a communication channel."
 <p>
 <p class=\"Source\">Source: "
             (format "<a href=\"%s/%s\">%s</a></p>"
-                    "https://fred.com/to1ne/literate-dotfiles/blob/master"
+                    "https://github.com/squarepegsys/literate-dotfiles/blob/master"
                     buffer buffer)
             (unless (equal buffer "README.org")
               "<p>Return to <a href=\"index.html\">index</a>.</p>"))))
