@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2019-08-04 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Some Random Emacs Shortcuts</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Mike Hostetler">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<main id="content">
+<header>
+<h1 class="title">Some Random Emacs Shortcuts</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org3d066a7">Prologue</a></li>
+<li><a href="#org82a6d9b">Kdb macros</a>
+<ul>
+<li><a href="#org4330891">make terraform variable</a></li>
+<li><a href="#orgf77a9bb">get issue number from feature branch</a></li>
+</ul>
+</li>
+<li><a href="#org95a1fef">Custom prefix</a></li>
+<li><a href="#org384192c">Parens</a></li>
+<li><a href="#orga860abf">Helm Stuff</a></li>
+<li><a href="#org4e96c86">Misc</a></li>
+</ul>
+</div>
+</nav>
+
+<section id="outline-container-org3d066a7" class="outline-2">
+<h2 id="org3d066a7">Prologue</h2>
+<div class="outline-text-2" id="text-org3d066a7">
+<p>
+I have a few keybindings here and there all over my Emacs config. This file is where I started to simply put things by default. This will get <a href="file:///Users/mikeh/.emacs.d/personal/shortcuts.el">file:~/.emacs.d/personal/shortcuts.el</a>
+</p>
+</div>
+</section>
+
+<section id="outline-container-org82a6d9b" class="outline-2">
+<h2 id="org82a6d9b">Kdb macros</h2>
+<div class="outline-text-2" id="text-org82a6d9b">
+</div>
+<div id="outline-container-org4330891" class="outline-3">
+<h3 id="org4330891">make terraform variable</h3>
+<div class="outline-text-3" id="text-org4330891">
+<p>
+This was made while dealing with Terraform and generating a variable from a resource name. With this, be on a line where a resource is defined and run the macro&#x2026; you will then have the variable in the kill-ring
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(fset 'make-terraform-variable
+   (<span class="org-keyword">lambda</span> (<span class="org-type">&amp;optional</span> arg) <span class="org-doc">"Keyboard macro."</span> (<span class="org-keyword">interactive</span> <span class="org-string">"p"</span>) (kmacro-exec-ring-item (<span class="org-keyword">quote</span> ([1 67108896 5 134217847 16 25 1 4 4 4 4 4 4 4 4 4 5 127 127 1 67108896 5 134217765 34 13 13 33 67108896 1 134217765 32 13 46 13 33 1 36 67108896 5 123 1 11] 0 <span class="org-string">"%d"</span>)) arg)))
+
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgf77a9bb" class="outline-3">
+<h3 id="orgf77a9bb">get issue number from feature branch</h3>
+<div class="outline-text-3" id="text-orgf77a9bb">
+<div class="org-src-container">
+<pre class="src src-elisp">
+(fset 'feature-number
+   (<span class="org-keyword">lambda</span> (<span class="org-type">&amp;optional</span> arg) <span class="org-doc">"Keyboard macro."</span> (<span class="org-keyword">interactive</span> <span class="org-string">"p"</span>) (kmacro-exec-ring-item (<span class="org-keyword">quote</span> ([19 102 101 97 116 117 114 101 47 return 67108896 right right 134217847 134217788 73 115 115 117 101 32 35 25 32 45 45 32] 0 <span class="org-string">"%d"</span>)) arg)))
+
+</pre>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org95a1fef" class="outline-2">
+<h2 id="org95a1fef">Custom prefix</h2>
+<div class="outline-text-2" id="text-org95a1fef">
+<p>
+I adopted <code>C-c C-'</code> as my own custom prefix, which I admit is a little awkward, but it&rsquo;s out of the way. Maybe I will change it sometime.
+</p>
+
+<p>
+The <a href="https://emacs-helm.github.io/helm/"><code>helm</code></a> items are the newest and I haven&rsquo;t quite incorporated it into my workflow yet. However, <a href="https://emacs.stackexchange.com/questions/7595/how-do-i-refactor-across-a-project-in-emacs-change-method-name-everywhere/13719#13719">you can do some magic</a> with <code>helm-ag</code>. 
+</p>
+
+<p>
+Also added <a href="https://github.com/tuhdo/org-recipes">org-recipes</a> to handle snippets in my org-files
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">bind-keys</span>
+ <span class="org-builtin">:prefix-map</span> my-map
+ <span class="org-builtin">:prefix-docstring</span> <span class="org-string">"My own keyboard map"</span>
+ <span class="org-builtin">:prefix</span> <span class="org-string">"C-c C-'"</span>
+ <span class="org-comment-delimiter">;; </span><span class="org-comment">2013-03-31: http://stackoverflow.com/questions/3124844/what-are-your-favorite-global-key-bindings-in-emacs</span>
+ (<span class="org-string">"-"</span> . text-scale-decrease)
+ (<span class="org-string">"+"</span> . text-scale-increase)
+ (<span class="org-string">"="</span> . text-scale-increase)<span class="org-comment-delimiter">;; </span><span class="org-comment">because "+" needs "S-=" and I might forget shift</span>
+ (<span class="org-string">"s"</span> . helm-ag)
+ (<span class="org-string">"r"</span> . helm-org-rifle)
+ (<span class="org-string">"o"</span> . org-tags-view)
+ (<span class="org-string">"c"</span> . quick-calc)
+ (<span class="org-string">"i"</span> . org-recipes)
+ (<span class="org-string">"t"</span> . make-terraform-variable)
+ (<span class="org-string">"f"</span> . feature-number)
+ (<span class="org-string">"b"</span> . helm-bookmarks)
+ (<span class="org-string">"j"</span> . helm-all-mark-rings)
+ (<span class="org-string">"l"</span> . org-wiki-helm)
+
+ )
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org384192c" class="outline-2">
+<h2 id="org384192c">Parens</h2>
+<div class="outline-text-2" id="text-org384192c">
+<p>
+This Smartparens config isn&rsquo;t absolutely necessary for me, because in most of the programming modes I&rsquo;m in, typing in a <code>(</code> automatically puts in a <code>)</code>. But sometimes that just more annoying than it&rsquo;s worth. Anyway, this config allows me to highlight any string and put any sort of braces around them.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">require</span> '<span class="org-constant">smartparens-config</span>)
+
+(<span class="org-keyword">require</span> '<span class="org-constant">smartparens-org</span>)
+
+(define-key smartparens-mode-map (kbd <span class="org-string">"M-("</span>) 'sp-wrap-round)
+(define-key smartparens-mode-map (kbd <span class="org-string">"M-["</span>) 'sp-wrap-square)
+(define-key smartparens-mode-map (kbd <span class="org-string">"M-{"</span>) 'sp-wrap-curly)
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orga860abf" class="outline-2">
+<h2 id="orga860abf">Helm Stuff</h2>
+<div class="outline-text-2" id="text-orga860abf">
+<p>
+The more I use Helm, the more I like it. Most of these are substituting the normal Emacs version to the Helm equivalent., 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+(global-set-key (kbd <span class="org-string">"C-x C-f"</span>) #'helm-find-files)
+
+<span class="org-comment-delimiter">; </span><span class="org-comment">I do this all the time anyway</span>
+(global-set-key (kbd <span class="org-string">"s-\\"</span>) 'helm-projectile-find-file)
+
+<span class="org-comment-delimiter">; </span><span class="org-comment">use helm to find functions</span>
+(global-set-key (kbd <span class="org-string">"M-x"</span>) 'helm-M-x)
+
+(global-set-key (kbd <span class="org-string">"C-c h"</span>) 'helm-command-prefix)
+
+(global-set-key (kbd <span class="org-string">"C-x b"</span>) 'helm-buffers-list)
+
+(global-set-key (kbd <span class="org-string">"M-y"</span>) 'helm-show-kill-ring)
+
+(global-set-key (kbd <span class="org-string">"C-c h o"</span>) 'helm-occur)
+
+
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org4e96c86" class="outline-2">
+<h2 id="org4e96c86">Misc</h2>
+<div class="outline-text-2" id="text-org4e96c86">
+<p>
+These are just some shortcuts that just live here.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+(global-set-key (kbd <span class="org-string">"C-k"</span>) 'crux-smart-kill-line)
+<span class="org-comment-delimiter">; </span><span class="org-comment">I would like to use avy more</span>
+(global-set-key (kbd <span class="org-string">"M-t"</span>) 'avy-goto-word-1)
+
+(global-set-key (kbd <span class="org-string">"C-c b"</span>) 'eval-buffer)
+
+
+
+</pre>
+</div>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<hr>
+<p>
+<p class="Source">Source: <a href="https://fred.com/to1ne/literate-dotfiles/blob/master/shortcuts-el.org">shortcuts-el.org</a></p><p>Return to <a href="index.html">index</a>.</p>
+</footer>
+</body>
+</html>
