@@ -1,0 +1,11 @@
+#+TITLE: Sitemap for project site-org
+#+OPTIONS: toc:2  
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+* Files found here
+
+- [[file:direnvrc.org][Direnv config]]
+- [[file:aliases.org][Mike's Alias Collection]]
+- [[file:shortcuts-el.org][Some Random Emacs Shortcuts]]
+- [[file:tmux-config.org][Tmux.conf]]
+- [[file:ReadMe.org][Mike Hostetler's Literate Dotfiles]]

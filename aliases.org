@@ -1,0 +1,191 @@
+#+TITLE: Mike's Alias Collection
+#+AUTHOR: Mike Hostetler
+#+PROPERTY:   header-args+ :comments both
+#+PROPERTY:   header-args+ :mkdirp yes
+#+PROPERTY:   header-args+ :tangle "~/.aliases"
+#+bind: org-html-htmlize-output-type csspuA
+#+OPTIONS: toc:2  
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+* Quick and Dirty things
+
+#+BEGIN_SRC sh
+alias devBoot="SPRING_PROFILES_ACTIVE=localdb gradle bootRun"
+alias gitdev="git pull origin dev"
+alias l="ls -l"
+alias unzip="unzip -q"
+alias srcstatus="svn status src"
+alias srccommit="svn commit src"
+alias edit=$EDITOR
+alias dl='dirs -v'
+alias c=clear
+alias grep="grep --color=auto "
+#+END_SRC
+
+** Docker
+
+#+begin_src sh
+alias dockup="docker-compose up -d"
+alias dockdown="docker-compose down"
+
+
+#+end_src
+** Random git stuff
+
+
+
+
+
+Most of things require [[https://github.com/geelen/git-smart][git-smart]]. And has been replaced by Magit, but once in a while I still use them
+
+#+BEGIN_SRC sh
+alias gss='git status --short'
+alias gl='git smart-log'
+alias gm='git smart-merge'
+alias gup='git smart-pull'
+
+
+#+END_SRC
+
+** Grails stuff
+
+
+#+BEGIN_SRC sh
+alias gclean="grails clean"
+alias gapp="grails clean && grails run-app"
+alias gtest="grails clean && grails test-app"
+alias gwar="grails clean && grails war"
+ 
+
+#+END_SRC
+
+** Misc Fun
+
+#+BEGIN_SRC sh
+alias weather="curl wttr.in"
+
+#+END_SRC
+* Functions
+
+I found it difficult to add parameters to my aliases but found in zsh anyway (and probably bash) that I could use functions. This was also handy for multi-line aliases. Instead of a bunch of little scripts around, I keep them in here as shell functions.
+
+This is uses the Yubikey command line interface to find my 2FA codes. Goodbye GUI, hello CLI. Installed with ~port install ykman~. see https://support.yubico.com/support/solutions/articles/15000012643-yubikey-manager-cli-ykman-user-guide#ykman_oathfmulw6
+
+#+begin_src sh
+function yubi ()  {
+
+ ykman oath code $1 
+}
+
+#+end_src
+
+Misc ones I've had forever
+#+BEGIN_SRC sh
+
+
+function newlibs ()  {
+	 svn status lib|egrep "^\?"|gawk -F/ '{print "${project.lib.dir}/"$2":\\"}'
+}
+function lookwar() {
+	 unzip -c $1.ear $1.war|jar t
+}
+
+function addsrcs() {
+	 srcstatus|egrep "^\?"| awk '{print $2}'|xargs svn add
+}
+function grepJars() {
+
+	 for x in `find . -name "*.jar"`; do
+             echo $x
+            unzip -l $x|grep $1
+    done
+}
+
+function svnstat() {
+	 tmpfile=/tmp/svn-diff.$$
+	 svn diff "$@" > $tmpfile
+	 typeset -i added removed delta
+	 added=$(grep '^+' $tmpfile | wc -l)
+	 removed=$(grep '^-' $tmpfile | wc -l)
+	 delta=$((added - removed))
+	 if [ $delta -lt 0 ]; then
+	     deltachr=”-”
+	 elif [ $delta -eq 0 ]; then
+	     deltachr=” ”
+	 else
+	     deltachr=”+”
+	 fi
+	 svn status
+	 echo ” + ${added} lines”
+	 echo ” - ${removed} lines”
+	 echo ” ${deltachr} ${delta} lines overall”
+	 rm -f $tmpfile
+}
+
+function listwar() {
+	 appname=$(echo $PWD|awk -F/ '{print $NF}')
+
+         unzip -l build/war/$appname.war
+}
+
+function listear() {
+	 appname=$(echo $PWD|awk -F/ '{print $NF}')
+
+         unzip -l build/ear/$appname.ear
+}
+function listjar() {
+	 appname=$(echo $PWD|awk -F/ '{print $NF}')
+
+         unzip -l build/lib/$appname.jar
+}
+function winmacaddr() {
+	 ipconfig /all|grep "Physical Address"|awk -F : '{print $2}'
+}
+
+function testerror() {
+
+	 file=$(find build/test/reports -name "TEST-*$1*")
+	 less $file
+}
+
+
+function findGrep() {
+find $1 -name "$2" |xargs grep $3
+
+}
+funtion empty() {
+	rm $1
+	touch $1
+}
+
+function ldirs() {
+	 (( count=0))
+	 for x in $(dirs); do
+	    echo "+$count\t$x"
+	    ((count+=1))
+	 done
+}
+
+
+function jconsole() {
+	 thisdir=$PWD
+	 cd $JAVA_HOME/bin/
+	 ./jconsole -pluginpath  ../demo/scripting/jconsole-plugin/jconsole-plugin.jar &
+
+	 cd $thisdir
+
+}
+
+function mkdatedir() {
+    mkdir `date +%Y%m%d%H%M`
+}
+
+#+END_SRC
+
+*** client-specific
+
+#+begin_src sh
+
+source ~/.private-aliases
+
+#+end_src

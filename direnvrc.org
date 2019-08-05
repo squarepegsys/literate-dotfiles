@@ -1,0 +1,42 @@
+#+TITLE: Direnv config
+#+AUTHOR: Mike Hostetler
+#+PROPERTY:   header-args+ :comments both
+#+PROPERTY:   header-args+ :mkdirp yes
+#+PROPERTY:   header-args+ :tangle "~/.config/direnv/direnvrc"
+#+bind: org-html-htmlize-output-type csspuA
+#+OPTIONS: toc:2  
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+
+
+This a basic config for [[https://direnv.net/][Direnv]], which is really for shell configurations in a per-folder basis. Using it with [[https://github.com/wbolster/emacs-direnv][emacs-direnv]] makes Emacs pick up the per-folder config and use it. 
+
+
+* Python
+
+The following are defining functions that I use in python projects to define the pyenv folder. [[https://objectpartners.com/2019/06/18/managing-python-environments-with-direnv/][I step through what I have in each individual folder here]]. Of course, I have it in a local ~org-recipe~ which  I pull in when I need it 
+
+#+begin_src sh
+use_python() {
+    if [ -n "$(which pyenv)" ]; then
+        local pyversion=$1
+        pyenv local ${pyversion}
+    fi
+}
+
+layout_virtualenv() {
+    local pyversion=$1
+    local pvenv=$2
+    if [ -n "$(which pyenv virtualenv)" ]; then
+        pyenv virtualenv --force --quiet ${pyversion} ${pvenv}-${pyversion}
+    fi
+    pyenv local --unset
+}
+
+layout_activate() {
+    if [ -n "$(which pyenv)" ]; then
+        source $(pyenv root)/versions/$1/bin/activate
+    fi
+}
+
+#+end_src

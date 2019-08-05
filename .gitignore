@@ -1,0 +1,8 @@
+*.html
+TAGS
+GRTAGS
+GPATH
+GTAGS
+*~
+*.out
+*.cache

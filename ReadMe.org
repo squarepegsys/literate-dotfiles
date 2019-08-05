@@ -1,0 +1,39 @@
+#+TITLE:      Mike Hostetler's Literate Dotfiles
+#+AUTHOR:     Mike Hostetler
+#+KEYWORDS:   dotfiles config orgmode
+#+STARTUP:    showall
+#+EXPORT_FILE_NAME: index
+#+EXPORT_FILE_NAME: ReadMe
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+#+OPTIONS: toc:2  
+
+
+These are my config files. There are many like it, and many of those are certainly better, but these are mine. 
+
+
+This was written as an example of [[https://en.wikipedia.org/wiki/Literate_programming][literate programming]]. The original markup is in the magnificent [[https://orgmode.org][OrgMode]] and then exported to source and HTML via some Emacs magic. I didn't come up with this myself -- I'm using the source from [[https://writepermission.com/introducing-literate-dotfiles.html][Toon Claes]]. 
+
+* The Technical Part
+
+This really uses the magic of OrgMode to generate. In OrgMode, you can put in [[https://orgmode.org/manual/Working-with-source-code.html][code blocks]] and export them to a file, which is called [[https://orgmode.org/manual/tangle.html][tangling]]. OrgMode also [[https://orgmode.org/manual/HTML-export.html][exports to HTML]]. Now there is a makefile to handle this on the command line but it all uses Emacs.
+
+The look and feel is ~ReadTheOrg~ from [[https://github.com/fniessen/org-html-themes][org-html-themes]]. 
+
+* Soft Part
+
+I'm choosy on which I'm implementing here. Some are too private or specific to me to publish and others because I don't think it's interesting. 
+
+* Requirements
+
+If you want to build them, you will need:
+
+- a command-line Emacs
+- a copy of ~org-contrib-plus~, which I had to install myself.
+- make to run makefile
+
+* Configs found here
+- [[file:aliases.org][Alias Collection]]
+- [[file:shortcuts-el.org][Random Emacs Shortcuts]]
+- [[file:tmux-config.org][Tmux.conf]]
+- [[file:direnvrc.org][Direnv config]]
+

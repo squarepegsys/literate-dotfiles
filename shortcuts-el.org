@@ -1,0 +1,129 @@
+#+TITLE: Some Random Emacs Shortcuts
+#+AUTHOR: Mike Hostetler
+#+OPTIONS: toc:nil
+#+options: num:0
+#+OPTIONS: ^:nil
+#+PROPERTY:   header-args+ :comments both
+#+PROPERTY:   header-args+ :mkdirp yes
+#+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/shortcuts.el"
+#+bind: org-html-htmlize-output-type csspuA
+#+OPTIONS: toc:2  
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+* Prologue
+
+I have a few keybindings here and there all over my Emacs config. This file is where I started to simply put things by default. This will get [[file:~/.emacs.d/personal/shortcuts.el][file:~/.emacs.d/personal/shortcuts.el]]
+
+* Kdb macros 
+** make terraform variable
+This was made while dealing with Terraform and generating a variable from a resource name. With this, be on a line where a resource is defined and run the macro... you will then have the variable in the kill-ring
+
+#+begin_src elisp
+(fset 'make-terraform-variable
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([1 67108896 5 134217847 16 25 1 4 4 4 4 4 4 4 4 4 5 127 127 1 67108896 5 134217765 34 13 13 33 67108896 1 134217765 32 13 46 13 33 1 36 67108896 5 123 1 11] 0 "%d")) arg)))
+
+#+end_src
+
+
+** get issue number from feature branch
+
+#+begin_src elisp
+
+(fset 'feature-number
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([19 102 101 97 116 117 114 101 47 return 67108896 right right 134217847 134217788 73 115 115 117 101 32 35 25 32 45 45 32] 0 "%d")) arg)))
+
+#+end_src
+
+* Custom prefix
+
+I adopted ~C-c C-'~ as my own custom prefix, which I admit is a little awkward, but it's out of the way. Maybe I will change it sometime.
+
+The [[https://emacs-helm.github.io/helm/][~helm~]] items are the newest and I haven't quite incorporated it into my workflow yet. However, [[https://emacs.stackexchange.com/questions/7595/how-do-i-refactor-across-a-project-in-emacs-change-method-name-everywhere/13719#13719][you can do some magic]] with ~helm-ag~. 
+
+Also added [[https://github.com/tuhdo/org-recipes][org-recipes]] to handle snippets in my org-files
+
+#+BEGIN_SRC elisp
+
+  (bind-keys
+   :prefix-map my-map
+   :prefix-docstring "My own keyboard map"
+   :prefix "C-c C-'"
+   ;; 2013-03-31: http://stackoverflow.com/questions/3124844/what-are-your-favorite-global-key-bindings-in-emacs
+   ("-" . text-scale-decrease)
+   ("+" . text-scale-increase)
+   ("=" . text-scale-increase);; because "+" needs "S-=" and I might forget shift
+   ("s" . helm-ag)
+   ("r" . helm-org-rifle)
+   ("o" . org-tags-view)
+   ("c" . quick-calc)
+   ("i" . org-recipes)
+   ("t" . make-terraform-variable)
+   ("f" . feature-number)
+   ("b" . helm-bookmarks)
+   ("j" . helm-all-mark-rings)
+   ("l" . org-wiki-helm)
+
+   )
+#+END_SRC
+
+
+* Parens
+
+This Smartparens config isn't absolutely necessary for me, because in most of the programming modes I'm in, typing in a ~(~ automatically puts in a ~)~. But sometimes that just more annoying than it's worth. Anyway, this config allows me to highlight any string and put any sort of braces around them.
+
+
+#+BEGIN_SRC elisp
+
+(require 'smartparens-config)
+
+(require 'smartparens-org)
+
+(define-key smartparens-mode-map (kbd "M-(") 'sp-wrap-round)
+(define-key smartparens-mode-map (kbd "M-[") 'sp-wrap-square)
+(define-key smartparens-mode-map (kbd "M-{") 'sp-wrap-curly)
+#+END_SRC
+
+* Helm Stuff
+
+The more I use Helm, the more I like it. Most of these are substituting the normal Emacs version to the Helm equivalent., 
+
+#+begin_src elisp
+
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+
+; I do this all the time anyway
+(global-set-key (kbd "s-\\") 'helm-projectile-find-file)
+
+; use helm to find functions
+(global-set-key (kbd "M-x") 'helm-M-x)
+
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+
+(global-set-key (kbd "C-c h o") 'helm-occur)
+
+
+#+end_src
+
+
+* Misc
+
+These are just some shortcuts that just live here.
+
+#+BEGIN_SRC elisp
+
+(global-set-key (kbd "C-k") 'crux-smart-kill-line)
+; I would like to use avy more
+(global-set-key (kbd "M-t") 'avy-goto-word-1)
+
+(global-set-key (kbd "C-c b") 'eval-buffer)
+
+
+
+#+END_SRC
+
+#+RESULTS:
+: helm-projectile-find-file
