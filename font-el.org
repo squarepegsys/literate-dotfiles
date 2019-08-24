@@ -1,4 +1,4 @@
-#+TITLE: Emacs Font Confit
+#+TITLE: Emacs Font Config
 #+AUTHOR: Mike Hostetler
 #+OPTIONS: toc:nil
 #+options: num:0

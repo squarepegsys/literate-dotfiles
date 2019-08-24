@@ -32,8 +32,9 @@ If you want to build them, you will need:
 - make to run makefile
 
 * Configs found here
-- [[file:aliases.org][Alias Collection]]
-- [[file:shortcuts-el.org][Random Emacs Shortcuts]]
-- [[file:tmux-config.org][Tmux.conf]]
-- [[file:direnvrc.org][Direnv config]]
++ [[file:aliases.org][Alias Collection]]
++ [[file:shortcuts-el.org][Random Emacs Shortcuts]]
++ [[file:font-el.org][Emacs Font Config]]
++ [[file:tmux-config.org][Tmux.conf]]
++ [[file:direnvrc.org][Direnv config]]
 
