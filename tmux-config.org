@@ -12,6 +12,7 @@
 
 
 * The Basics
+See wiki:Tmux for some of my help
 
 I find it annoying that ~C-b~ is the default prefix for Tmux. I assign it to ~C-\~ so it's out of the way and it's something I have to hit on purpose.
 
