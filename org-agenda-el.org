@@ -1,0 +1,42 @@
+#+TITLE: Org Agenda Templates
+#+AUTHOR: Mike Hostetler
+#+PROPERTY:   header-args+ :comments both
+#+PROPERTY:   header-args+ :mkdirp yes
+#+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/org-agenda.el"
+#+bind: org-html-htmlize-output-type csspuA
+#+OPTIONS: toc:2  
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+* Prologue
+
+I don't do too much with the agenda part of OrgMode but I do like it -- easy to make contextual Todos and make notes on your thoughts on it. I don't use it as much as I should.. anyway I found some interesting things so I'll through it in here
+
+First, and most importantly -- make my Agenda files under ~~/org~. My knowledge base is under ~~/org-kb~ -- I have found having fewer files to search for agenda items is much faster
+
+#+begin_src lisp
+
+(setq org-agenda-files '("~/org/" ))
+#+end_src
+* Menu Items
+
+The idea behind the menu items come from 
+https://joshrollinswrites.com/help-desk-head-desk/sub-menus-in-org/
+
+It seems that Mr Rollins dived into the orgmode docs and found something good:
+
+#+begin_src lisp
+(setq org-capture-templates
+      '(("t" "Todo" )
+      ("tw" "Well"  entry (file+headline "~/org/WellDot.org" "Welldot Tasks")
+         "* TODO %?\n  %i\n  %a")
+
+      ("tf" "Farwell"  entry (file+headline "~/org/FarwellIrrigation.org" "Farwell Tasks")
+         "* TODO %?\n  %i\n  %a")
+      ("tt" "Misc" entry (file+headline "~/org/tasks.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
+      ("j" "Journal" entry (file+datetree "~/org/journal.org")
+         "* %?\nEntered on %U\n  %i\n  %a")
+  )
+)
+
+#+end_src

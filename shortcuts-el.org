@@ -121,7 +121,7 @@ These are just some shortcuts that just live here.
 
 (global-set-key (kbd "C-c b") 'eval-buffer)
 
-
+(global-set-key (kbd "C-,") 'hydra-projectile/body)
 
 #+END_SRC
 

@@ -1,0 +1,77 @@
+#+TITLE: My Hydras
+#+AUTHOR: Mike Hostetler
+#+OPTIONS: toc:nil
+#+options: num:0
+#+OPTIONS: ^:nil
+#+PROPERTY:   header-args+ :comments both
+#+PROPERTY:   header-args+ :mkdirp yes
+#+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/mikeh-hydra.el"
+#+bind: org-html-htmlize-output-type csspuA
+#+OPTIONS: toc:2  
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+* Prologue
+
+/Warning/: Deep Emacs nerdery ahead.
+
+I'm trying out some Hydras... mostly because I've heard a lot about them and I don't understand Hydras. And I'm not sure I do yet. Anyway below is what I'm playing with.
+
+[[https://github.com/abo-abo/hydra][You can read more about Hydra]] on Github.
+
+
+* Hydras
+** Projectile
+
+ Shamelessly stolen from https://github.com/abo-abo/hydra/wiki/Projectile and adopted for my useage (i.e Helm). I invoke this [[https://github.com/abo-abo/hydra][in my shortcuts]]. 
+
+ #+begin_src elisp
+
+   (defhydra hydra-projectile-other-window (:color teal)
+     "projectile-other-window"
+     ("f"  projectile-find-file-other-window        "file")
+     ("g"  projectile-find-file-dwim-other-window   "file dwim")
+     ("d"  projectile-find-dir-other-window         "dir")
+     ("b"  projectile-switch-to-buffer-other-window "buffer")
+     ("q"  nil                                      "cancel" :color blue))
+
+   (defhydra hydra-projectile (:color teal
+                                      :hint nil)
+     "
+        PROJECTILE: %(projectile-project-root)
+
+        Find File            Search/Tags          Buffers                Cache
+   ------------------------------------------------------------------------------------------
+     _f_: file            _a_: ag                _i_: Ibuffer           _c_: cache clear
+    _ff_: file dwim       _g_: update gtags      _b_: switch to buffer  _x_: remove known project
+    _fd_: file curr dir   _o_: multi-occur     _s-k_: Kill all buffers  _X_: cleanup non-existing
+     _r_: recent file                                               ^^^^_z_: cache current
+     _d_: dir
+     _C_: compile
+
+   "
+     ("a"   projectile-ag)
+     ("b"   projectile-switch-to-buffer)
+     ("c"   projectile-invalidate-cache)
+     ("C"   projectile-compile-project)
+     ("d"   projectile-find-dir)
+     ("f"   helm-projectile)
+     ("ff"  projectile-find-file-dwim)
+     ("fd"  projectile-find-file-in-directory)
+     ("g"   ggtags-update-tags)
+     ("s-g" ggtags-update-tags)
+     ("i"   helm-projectile-switch-to-buffer)
+     ("K"   projectile-kill-buffers)
+     ("s-k" projectile-kill-buffers)
+     ("m"   projectile-multi-occur)
+     ("o"   projectile-multi-occur)
+     ("s-p" projectile-switch-project "switch project")
+     ("p"   projectile-switch-project)
+     ("s"   projectile-switch-project)
+     ("r"   projectile-recentf)
+     ("x"   projectile-remove-known-project)
+     ("X"   projectile-cleanup-known-projects)
+     ("z"   projectile-cache-current-file)
+     ("`"   hydra-projectile-other-window/body "other window")
+     ("q"   nil "cancel" :color blue))
+
+ #+end_src
