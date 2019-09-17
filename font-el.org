@@ -59,7 +59,7 @@ Basically this little snippet will look if that font name exists and, if so, wil
 
 Sometimes in writing, I may want to use a Sans-Serif font... this function will let me do that
 
-#+begin_src lisp
+#+begin_src elisp
 (defun mikeh-buffer-face-mode-sans ()
   "Sets a sans-serif font in current buffer"
   (interactive)
@@ -67,6 +67,8 @@ Sometimes in writing, I may want to use a Sans-Serif font... this function will 
   (buffer-face-mode))
 
 #+end_src
+
+
 * Lastly... more Unicode
 
 Seems familiar? Just like [[*Unicode][in Unicode]] but different -- that was about what we use, not what we display it. Symbola is pretty ugly but (as the name states) it has a complete UTF-8 state. Prepending this allows us to view all characters.
