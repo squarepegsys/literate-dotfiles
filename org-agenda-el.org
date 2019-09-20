@@ -24,19 +24,75 @@ https://joshrollinswrites.com/help-desk-head-desk/sub-menus-in-org/
 
 It seems that Mr Rollins dived into the orgmode docs and found something good:
 
-#+begin_src lisp
+
+#+begin_src elisp
 (setq org-capture-templates
       '(("t" "Todo" )
       ("tw" "Well"  entry (file+headline "~/org/WellDot.org" "Welldot Tasks")
-         "* TODO %?\n  %i\n  %a")
-
+         "** TODO %?
+:PROPERTIES:
+:ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+%i
+%a
+:END:" :prepend t)
       ("tf" "Farwell"  entry (file+headline "~/org/FarwellIrrigation.org" "Farwell Tasks")
-         "* TODO %?\n  %i\n  %a")
+         "** TODO %?
+:PROPERTIES:
+:ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+%i
+%a
+:END:" :prepend t)
       ("tt" "Misc" entry (file+headline "~/org/tasks.org" "Tasks")
-         "* TODO %?\n  %i\n  %a")
-      ("j" "Journal" entry (file+datetree "~/org/journal.org")
+         "** TODO %?
+:PROPERTIES:
+:ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+%i
+%a
+:END:" :prepend t)
+    ("j" "Journal" entry (file+datetree "~/org/journal.org")
          "* %?\nEntered on %U\n  %i\n  %a")
+  
+    ("r" "Recur" entry (file+datetree "~/org/task.org")
+         "* RECUR %?\nEntered on %U\n  :SCHEDULED:  %U \n%i\n  %a\n")
   )
 )
 
 #+end_src
+
+#+RESULTS:
+| t  | Todo |       |                                                 |            |
+| tw | Well | entry | (file+headline ~/org/WellDot.org Welldot Tasks) | ** TODO %? |
+
+* todo keywords
+
+This is a odd combination between [[https://github.com/jwiegley/dot-emacs/blob/master/org-settings.el][John Wigley's sample file]] and [[http://jr0cket.co.uk/2013/08/defining-custom-workflow-with-Emacs-org-mode.html.html][this really thorough overview]]
+
+Basically I made my own labels (well, jwigley did).
+#+begin_src elisp
+
+(setq org-todo-keyword-faces
+   '((
+    "TODO" :foreground "dark orange" :weight bold)
+     ("EPIC" :foreground "deep sky blue" :weight bold)
+     ("STORY" :foreground "royal blue" :weight bold)
+     ("RECUR" :foreground "cornflowerblue" :weight bold)
+     ("APPT" :foreground "light blue" :weight bold)
+     ("NOTE" :foreground "brown" :weight bold)
+     ("STARTED" :foreground "dark orange" :weight bold)
+     ("WAITING" :foreground "red" :weight bold)
+     ("DELEGATED" :foreground "dark violet" :weight bold)
+     ("DEFERRED" :foreground "dark violet" :weight bold)
+     ("SOMEDAY" :foreground "brown" :weight bold)
+     ("PROJECT" :foreground "#088e8e" :weight bold)
+     ("DONE" :foreground "#088e8e" :weight bold))
+
+)
+
+(setq org-todo-keywords
+   '((sequence "TODO" "EPIC" "STORY" "RECUR" "APPT" "NOTE" "STARTED" "WAITING" "DELEGATED" "DEFERRED" "SOMEDAY" "PROJECT" "DONE"))
+)
+
+#+end_src
+
+#+RESULTS:
+| sequence | TODO | EPIC | STORY | RECUR | APPT | NOTE | STARTED | WAITING | DELEGATED | DEFERRED | SOMEDAY | PROJECT | DONE |
