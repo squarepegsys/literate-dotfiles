@@ -10,6 +10,8 @@
 * Quick and Dirty things
 
 #+BEGIN_SRC sh
+
+# -*- mode: sh -*-
 alias devBoot="SPRING_PROFILES_ACTIVE=localdb gradle bootRun"
 alias gitdev="git pull origin dev"
 alias l="ls -l"
@@ -30,11 +32,17 @@ alias dockdown="docker-compose down"
 
 
 #+end_src
+** Python
+
+Pylint fix a whole directory/project:
+
+#+begin_src sh
+function lintit {
+autopep8  --in-place -r $1
+
+}
+#+end_src
 ** Random git stuff
-
-
-
-
 
 Most of things require [[https://github.com/geelen/git-smart][git-smart]]. And has been replaced by Magit, but once in a while I still use them
 
