@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-08-24 -->
+<!-- 2019-09-17 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Emacs Font Config</title>
@@ -210,7 +210,11 @@
 <ul>
 <li><a href="#orgcfab712">Prologue</a></li>
 <li><a href="#org8ba25d5">Unicode</a></li>
-<li><a href="#org632a7e0">Font selection</a></li>
+<li><a href="#org632a7e0">Font selection</a>
+<ul>
+<li><a href="#org38a7655">Let&rsquo;s get complicated</a></li>
+</ul>
+</li>
 <li><a href="#org7ae65a6">Lastly&#x2026; more Unicode</a></li>
 </ul>
 </div>
@@ -286,7 +290,28 @@ Basically this little snippet will look if that font name exists and, if so, wil
 </pre>
 </div>
 </div>
+
+<div id="outline-container-org38a7655" class="outline-3">
+<h3 id="org38a7655">Let&rsquo;s get complicated</h3>
+<div class="outline-text-3" id="text-org38a7655">
+<p>
+Sometimes in writing, I may want to use a Sans-Serif font&#x2026; this function will let me do that
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">mikeh-buffer-face-mode-sans</span> ()
+  <span class="org-doc">"Sets a sans-serif font in current buffer"</span>
+  (<span class="org-keyword">interactive</span>)
+  (<span class="org-keyword">setq</span> buffer-face-mode-face '(<span class="org-builtin">:family</span> <span class="org-string">"IBM Plex Arabic"</span> <span class="org-builtin">:height</span> 135 <span class="org-builtin">:weight</span> 'normal))
+  (buffer-face-mode))
+
+</pre>
+</div>
+</div>
+</div>
 </section>
+
+
 <section id="outline-container-org7ae65a6" class="outline-2">
 <h2 id="org7ae65a6">Lastly&#x2026; more Unicode</h2>
 <div class="outline-text-2" id="text-org7ae65a6">

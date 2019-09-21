@@ -13,9 +13,11 @@ These are my config files. There are many like it, and many of those are certain
 
 This was written as an example of [[https://en.wikipedia.org/wiki/Literate_programming][literate programming]]. The original markup is in the magnificent [[https://orgmode.org][OrgMode]] and then exported to source and HTML via some Emacs magic. I didn't come up with this myself -- I'm using the source from [[https://writepermission.com/introducing-literate-dotfiles.html][Toon Claes]]. 
 
-* The Technical Part
+[[https://squarepegsys.github.io/literate-dotfiles/][See the published version]].
 
-This really uses the magic of OrgMode to generate. In OrgMode, you can put in [[https://orgmode.org/manual/Working-with-source-code.html][code blocks]] and export them to a file, which is called [[https://orgmode.org/manual/tangle.html][tangling]]. OrgMode also [[https://orgmode.org/manual/HTML-export.html][exports to HTML]]. Now there is a makefile to handle this on the command line but it all uses Emacs.
+* The Technical Part
+  
+This really uses the magic of OrgMode to generate. In OrgMode, you can put in [[https://orgmode.org/manual/Working-with-source-code.html][code blocks]] and export them to a file, which is called [[https://orgmode.org/manual/tangle.html][tangling]]. OrgMode also [[https://orgmode.org/manual/HTML-export.html][exports to HTML]]. Now there is a [[file:Makefile::cache_dir%20:=%20.cache][makefile]] to handle this on the command line but it all uses Emacs.
 
 The look and feel is ~ReadTheOrg~ from [[https://github.com/fniessen/org-html-themes][org-html-themes]]. 
 
