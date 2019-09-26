@@ -1,6 +1,7 @@
 #+TITLE: Org Agenda Templates
 #+AUTHOR: Mike Hostetler
 #+PROPERTY:   header-args+ :comments both
+
 #+PROPERTY:   header-args+ :mkdirp yes
 #+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/org-agenda.el"
 #+bind: org-html-htmlize-output-type csspuA
@@ -9,14 +10,18 @@
 
 * Prologue
 
-I don't do too much with the agenda part of OrgMode but I do like it -- easy to make contextual Todos and make notes on your thoughts on it. I don't use it as much as I should.. anyway I found some interesting things so I'll through it in here
+I'm starting to do more with org-agenda. 
 
 First, and most importantly -- make my Agenda files under ~~/org~. My knowledge base is under ~~/org-kb~ -- I have found having fewer files to search for agenda items is much faster
 
-#+begin_src lisp
+#+begin_src elisp
 
-(setq org-agenda-files '("~/org/" ))
+(setq org-agenda-files '("~/org/" "~/pDrive/org/tasks/"))
 #+end_src
+
+#+RESULTS:
+| ~/org/ | ~/pDrive/org/tasks/ |
+
 * Menu Items
 
 The idea behind the menu items come from 
@@ -42,7 +47,15 @@ It seems that Mr Rollins dived into the orgmode docs and found something good:
 %i
 %a
 :END:" :prepend t)
-      ("tt" "Misc" entry (file+headline "~/org/tasks.org" "Tasks")
+
+      ("tv" "VoterInformation"  entry (file+headline "~/org/VoterInformation.org" "Farwell Tasks")
+         "** TODO %?
+:PROPERTIES:
+:ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+%i
+%a
+:END:" :prepend t)
+      ("tt" "Misc" entry (file+headline "~/pdrive/org/tasks/task.org" "Tasks")
          "** TODO %?
 :PROPERTIES:
 :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
@@ -52,7 +65,7 @@ It seems that Mr Rollins dived into the orgmode docs and found something good:
     ("j" "Journal" entry (file+datetree "~/org/journal.org")
          "* %?\nEntered on %U\n  %i\n  %a")
   
-    ("r" "Recur" entry (file+datetree "~/org/task.org")
+    ("r" "Recur" entry (file+datetree "~/pdrive/org/tasks/task.org")
          "* RECUR %?\nEntered on %U\n  :SCHEDULED:  %U \n%i\n  %a\n")
   )
 )
@@ -63,7 +76,8 @@ It seems that Mr Rollins dived into the orgmode docs and found something good:
 | t  | Todo |       |                                                 |            |
 | tw | Well | entry | (file+headline ~/org/WellDot.org Welldot Tasks) | ** TODO %? |
 
-* todo keywords
+* todo keyword
+
 
 This is a odd combination between [[https://github.com/jwiegley/dot-emacs/blob/master/org-settings.el][John Wigley's sample file]] and [[http://jr0cket.co.uk/2013/08/defining-custom-workflow-with-Emacs-org-mode.html.html][this really thorough overview]]
 
@@ -84,15 +98,98 @@ Basically I made my own labels (well, jwigley did).
      ("DEFERRED" :foreground "dark violet" :weight bold)
      ("SOMEDAY" :foreground "brown" :weight bold)
      ("PROJECT" :foreground "#088e8e" :weight bold)
-     ("DONE" :foreground "#088e8e" :weight bold))
+     ("DONE" :foreground "#088e8e" :weight bold)
+    ("TO-READ" :foreground "dark orange" :weight bold)
+    ("FINISHED" :foreground "royal blue" :weight bold)
+)
 
 )
 
 (setq org-todo-keywords
-   '((sequence "TODO" "EPIC" "STORY" "RECUR" "APPT" "NOTE" "STARTED" "WAITING" "DELEGATED" "DEFERRED" "SOMEDAY" "PROJECT" "DONE"))
+   '((sequence "TODO" "EPIC" "STORY" "RECUR" "APPT" "NOTE" "STARTED" "WAITING" "DELEGATED" "DEFERRED" "SOMEDAY" "PROJECT" "DONE" "TO-READ" "READ"))
 )
 
 #+end_src
 
 #+RESULTS:
-| sequence | TODO | EPIC | STORY | RECUR | APPT | NOTE | STARTED | WAITING | DELEGATED | DEFERRED | SOMEDAY | PROJECT | DONE |
+| sequence | TODO | EPIC | STORY | RECUR | APPT | NOTE | STARTED | WAITING | DELEGATED | DEFERRED | SOMEDAY | PROJECT | DONE | TO-READ | READ |
+* super agenda
+
+Using keywords from above, we can use [[https://github.com/alphapapa/org-super-agenda][org-super-agenda]] to make this really fancy
+
+#+begin_src elisp
+; this no workie
+(require 'org-super-agenda)
+(let ((org-super-agenda-groups
+       '(;; Each group has an implicit boolean OR operator between its selectors.
+         (:name "Today"  ; Optionally specify section name
+                :time-grid t  ; Items that appear on the time grid
+                :todo "TODAY")  ; Items that have this TODO keyword
+         (:name "Important"
+                ;; Single arguments given alone
+                :tag "bills"
+                :priority "A")
+         ;; Set order of multiple groups at once
+         (:order-multi (2 (:name "Shopping in town"
+                                 ;; Boolean AND group matches items that match all subgroups
+                                 :and (:tag "shopping" :tag "@town"))
+                          (:name "Food-related"
+                                 ;; Multiple args given in list with implicit OR
+                                 :tag ("food" "dinner"))
+                          (:name "Space-related (non-moon-or-planet-related)"
+                                 ;; Regexps match case-insensitively on the entire entry
+                                 :and (:regexp ("space" "NASA")
+                                               ;; Boolean NOT also has implicit OR between selectors
+                                               :not (:regexp "moon" :tag "planet")))))
+         ;; Groups supply their own section names when none are given
+         (:todo "WAITING" :order 8)  ; Set order of this section
+         (:todo ("SOMEDAY" "TO-READ" "CHECK" "TO-WATCH" "WATCHING")
+                ;; Show this group at the end of the agenda (since it has the
+                ;; highest number). If you specified this group last, items
+                ;; with these todo keywords that e.g. have priority A would be
+                ;; displayed in that group instead, because items are grouped
+                ;; out in the order the groups are listed.
+                :order 9)
+         (:priority<= "B"
+                      ;; Show this section after "Today" and "Important", because
+                      ;; their order is unspecified, defaulting to 0. Sections
+                      ;; are displayed lowest-number-first.
+                      :order 1)
+         ;; After the last group, the agenda will display items that didn't
+         ;; match any of these groups, with the default order position of 99
+         )))
+
+(org-agenda nil "a"))
+
+
+#+end_src
+
+#+RESULTS:
+* custom commands
+
+Got this from [[https://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html][the Org Worg]]
+
+#+begin_src elisp
+
+(setq org-agenda-custom-commands 
+      '(
+      ("w" "Well Tasks" tags-todo "well" 1
+         ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org")) 
+          (org-agenda-sorting-strategy '(priority-up effort-down))) 
+         ("~/org/wellco.html")) 
+        ("p" "Powerhouse" tags-todo "powerhouse" 
+         ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org")) 
+          (org-agenda-sorting-strategy '(priority-up effort-down))) 
+         ("~/org/powerhouse.html")) 
+        ("v" "VoterInformation" tags-todo "vip" 
+         ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org")) 
+          (org-agenda-sorting-strategy '(priority-up effort-down))) 
+         ("~/org/voterinformation.html"))
+
+        ))
+#+end_src
+
+#+RESULTS:
+| w | Well Tasks       | tags-todo | well       | 1                                                                                                                                 | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/wellco.html) |
+| p | Powerhouse       | tags-todo | powerhouse | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/powerhouse.html)                                                                                                           |                     |
+| v | VoterInformation | tags-todo | vip        | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/voterinformation.html)                                                                                                     |                     |
