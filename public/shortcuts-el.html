@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-09-17 -->
+<!-- 2019-09-05 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Some Random Emacs Shortcuts</title>
@@ -208,37 +208,37 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org96b4152">Prologue</a></li>
-<li><a href="#orge21e206">Kdb macros</a>
+<li><a href="#orgdef5d0b">Prologue</a></li>
+<li><a href="#org669124f">Kdb macros</a>
 <ul>
-<li><a href="#orgf76e12d">make terraform variable</a></li>
-<li><a href="#orga12a47d">get issue number from feature branch</a></li>
+<li><a href="#org8bdfdd9">make terraform variable</a></li>
+<li><a href="#org496ea00">get issue number from feature branch</a></li>
 </ul>
 </li>
-<li><a href="#org38c5db4">Custom prefix</a></li>
-<li><a href="#org60a7e26">Parens</a></li>
-<li><a href="#org3f9a2ae">Helm Stuff</a></li>
-<li><a href="#orgd9e7606">Misc</a></li>
+<li><a href="#orge1eef1c">Custom prefix</a></li>
+<li><a href="#orgbc13148">Parens</a></li>
+<li><a href="#org5c9c93e">Helm Stuff</a></li>
+<li><a href="#orge755d5d">Misc</a></li>
 </ul>
 </div>
 </nav>
 
-<section id="outline-container-org96b4152" class="outline-2">
-<h2 id="org96b4152">Prologue</h2>
-<div class="outline-text-2" id="text-org96b4152">
+<section id="outline-container-orgdef5d0b" class="outline-2">
+<h2 id="orgdef5d0b">Prologue</h2>
+<div class="outline-text-2" id="text-orgdef5d0b">
 <p>
-I have a few keybindings here and there all over my Emacs config. This file is where I started to simply put things by default. This will get <a href="file:///Users/mikeh/.emacs.d/personal/shortcuts.el">file:~/.emacs.d/personal/shortcuts.el</a>
+I have a few keybindings here and there all over my Emacs config. This file is where I started to simply put things by default. This will get <a href="file:///Users/michael.hostetler/.emacs.d/personal/shortcuts.el">file:~/.emacs.d/personal/shortcuts.el</a>
 </p>
 </div>
 </section>
 
-<section id="outline-container-orge21e206" class="outline-2">
-<h2 id="orge21e206">Kdb macros</h2>
-<div class="outline-text-2" id="text-orge21e206">
+<section id="outline-container-org669124f" class="outline-2">
+<h2 id="org669124f">Kdb macros</h2>
+<div class="outline-text-2" id="text-org669124f">
 </div>
-<div id="outline-container-orgf76e12d" class="outline-3">
-<h3 id="orgf76e12d">make terraform variable</h3>
-<div class="outline-text-3" id="text-orgf76e12d">
+<div id="outline-container-org8bdfdd9" class="outline-3">
+<h3 id="org8bdfdd9">make terraform variable</h3>
+<div class="outline-text-3" id="text-org8bdfdd9">
 <p>
 This was made while dealing with Terraform and generating a variable from a resource name. With this, be on a line where a resource is defined and run the macro&#x2026; you will then have the variable in the kill-ring
 </p>
@@ -253,9 +253,9 @@ This was made while dealing with Terraform and generating a variable from a reso
 </div>
 
 
-<div id="outline-container-orga12a47d" class="outline-3">
-<h3 id="orga12a47d">get issue number from feature branch</h3>
-<div class="outline-text-3" id="text-orga12a47d">
+<div id="outline-container-org496ea00" class="outline-3">
+<h3 id="org496ea00">get issue number from feature branch</h3>
+<div class="outline-text-3" id="text-org496ea00">
 <div class="org-src-container">
 <pre class="src src-elisp">
 (fset 'feature-number
@@ -267,9 +267,9 @@ This was made while dealing with Terraform and generating a variable from a reso
 </div>
 </section>
 
-<section id="outline-container-org38c5db4" class="outline-2">
-<h2 id="org38c5db4">Custom prefix</h2>
-<div class="outline-text-2" id="text-org38c5db4">
+<section id="outline-container-orge1eef1c" class="outline-2">
+<h2 id="orge1eef1c">Custom prefix</h2>
+<div class="outline-text-2" id="text-orge1eef1c">
 <p>
 I adopted <code>C-c C-'</code> as my own custom prefix, which I admit is a little awkward, but it&rsquo;s out of the way. Maybe I will change it sometime.
 </p>
@@ -310,9 +310,9 @@ Also added <a href="https://github.com/tuhdo/org-recipes">org-recipes</a> to han
 </section>
 
 
-<section id="outline-container-org60a7e26" class="outline-2">
-<h2 id="org60a7e26">Parens</h2>
-<div class="outline-text-2" id="text-org60a7e26">
+<section id="outline-container-orgbc13148" class="outline-2">
+<h2 id="orgbc13148">Parens</h2>
+<div class="outline-text-2" id="text-orgbc13148">
 <p>
 This Smartparens config isn&rsquo;t absolutely necessary for me, because in most of the programming modes I&rsquo;m in, typing in a <code>(</code> automatically puts in a <code>)</code>. But sometimes that just more annoying than it&rsquo;s worth. Anyway, this config allows me to highlight any string and put any sort of braces around them.
 </p>
@@ -332,9 +332,9 @@ This Smartparens config isn&rsquo;t absolutely necessary for me, because in most
 </div>
 </section>
 
-<section id="outline-container-org3f9a2ae" class="outline-2">
-<h2 id="org3f9a2ae">Helm Stuff</h2>
-<div class="outline-text-2" id="text-org3f9a2ae">
+<section id="outline-container-org5c9c93e" class="outline-2">
+<h2 id="org5c9c93e">Helm Stuff</h2>
+<div class="outline-text-2" id="text-org5c9c93e">
 <p>
 The more I use Helm, the more I like it. Most of these are substituting the normal Emacs version to the Helm equivalent., 
 </p>
@@ -364,9 +364,9 @@ The more I use Helm, the more I like it. Most of these are substituting the norm
 </section>
 
 
-<section id="outline-container-orgd9e7606" class="outline-2">
-<h2 id="orgd9e7606">Misc</h2>
-<div class="outline-text-2" id="text-orgd9e7606">
+<section id="outline-container-orge755d5d" class="outline-2">
+<h2 id="orge755d5d">Misc</h2>
+<div class="outline-text-2" id="text-orge755d5d">
 <p>
 These are just some shortcuts that just live here.
 </p>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-09-18 -->
+<!-- 2019-09-17 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mike&rsquo;s Alias Collection</title>
@@ -208,32 +208,27 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd6d174c">Hey can we all see this</a></li>
-<li><a href="#org9700f41">Quick and Dirty things</a>
+<li><a href="#orgcee275b">Quick and Dirty things</a>
 <ul>
-<li><a href="#org6ac3383">Docker</a></li>
-<li><a href="#org3aa944e">Random git stuff</a></li>
-<li><a href="#orgb05e4b8">Grails stuff</a></li>
-<li><a href="#orgc910e56">Misc Fun</a></li>
+<li><a href="#org15d5a59">Docker</a></li>
+<li><a href="#org71d708e">Python</a></li>
+<li><a href="#org012a553">Random git stuff</a></li>
+<li><a href="#org654c179">Grails stuff</a></li>
+<li><a href="#org409e639">Misc Fun</a></li>
 </ul>
 </li>
-<li><a href="#orgee3678d">Functions</a></li>
+<li><a href="#orgcbc9ef7">Functions</a></li>
 </ul>
 </div>
 </nav>
-<p>
-<a href="Makefile#orgf3d592d">The final ~/.aliases file</a>
-</p>
 
-<section id="outline-container-orgd6d174c" class="outline-2">
-<h2 id="orgd6d174c">Hey can we all see this</h2>
-</section>
-
-<section id="outline-container-org9700f41" class="outline-2">
-<h2 id="org9700f41">Quick and Dirty things</h2>
-<div class="outline-text-2" id="text-org9700f41">
+<section id="outline-container-orgcee275b" class="outline-2">
+<h2 id="orgcee275b">Quick and Dirty things</h2>
+<div class="outline-text-2" id="text-orgcee275b">
 <div class="org-src-container">
-<pre class="src src-shell"><span class="org-builtin">alias</span> <span class="org-variable-name">devBoot</span>=<span class="org-string">"SPRING_PROFILES_ACTIVE=localdb gradle bootRun"</span>
+<pre class="src src-sh">
+<span class="org-comment-delimiter"># </span><span class="org-comment">-*- mode: sh -*-</span>
+<span class="org-builtin">alias</span> <span class="org-variable-name">devBoot</span>=<span class="org-string">"SPRING_PROFILES_ACTIVE=localdb gradle bootRun"</span>
 <span class="org-builtin">alias</span> <span class="org-variable-name">gitdev</span>=<span class="org-string">"git pull origin dev"</span>
 <span class="org-builtin">alias</span> <span class="org-variable-name">l</span>=<span class="org-string">"ls -l"</span>
 <span class="org-builtin">alias</span> <span class="org-variable-name">unzip</span>=<span class="org-string">"unzip -q"</span>
@@ -247,9 +242,9 @@
 </div>
 </div>
 
-<div id="outline-container-org6ac3383" class="outline-3">
-<h3 id="org6ac3383">Docker</h3>
-<div class="outline-text-3" id="text-org6ac3383">
+<div id="outline-container-org15d5a59" class="outline-3">
+<h3 id="org15d5a59">Docker</h3>
+<div class="outline-text-3" id="text-org15d5a59">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">dockup</span>=<span class="org-string">"docker-compose up -d"</span>
 <span class="org-builtin">alias</span> <span class="org-variable-name">dockdown</span>=<span class="org-string">"docker-compose down"</span>
@@ -259,9 +254,25 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org3aa944e" class="outline-3">
-<h3 id="org3aa944e">Random git stuff</h3>
-<div class="outline-text-3" id="text-org3aa944e">
+<div id="outline-container-org71d708e" class="outline-3">
+<h3 id="org71d708e">Python</h3>
+<div class="outline-text-3" id="text-org71d708e">
+<p>
+Pylint fix a whole directory/project:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-keyword">function</span> <span class="org-function-name">lintit</span> {
+autopep8  --in-place -r $<span class="org-variable-name">1</span>
+
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org012a553" class="outline-3">
+<h3 id="org012a553">Random git stuff</h3>
+<div class="outline-text-3" id="text-org012a553">
 <p>
 Most of things require <a href="https://github.com/geelen/git-smart">git-smart</a>. And has been replaced by Magit, but once in a while I still use them
 </p>
@@ -278,9 +289,9 @@ Most of things require <a href="https://github.com/geelen/git-smart">git-smart</
 </div>
 </div>
 
-<div id="outline-container-orgb05e4b8" class="outline-3">
-<h3 id="orgb05e4b8">Grails stuff</h3>
-<div class="outline-text-3" id="text-orgb05e4b8">
+<div id="outline-container-org654c179" class="outline-3">
+<h3 id="org654c179">Grails stuff</h3>
+<div class="outline-text-3" id="text-org654c179">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">gclean</span>=<span class="org-string">"grails clean"</span>
 <span class="org-builtin">alias</span> <span class="org-variable-name">gapp</span>=<span class="org-string">"grails clean &amp;&amp; grails run-app"</span>
@@ -293,9 +304,9 @@ Most of things require <a href="https://github.com/geelen/git-smart">git-smart</
 </div>
 </div>
 
-<div id="outline-container-orgc910e56" class="outline-3">
-<h3 id="orgc910e56">Misc Fun</h3>
-<div class="outline-text-3" id="text-orgc910e56">
+<div id="outline-container-org409e639" class="outline-3">
+<h3 id="org409e639">Misc Fun</h3>
+<div class="outline-text-3" id="text-org409e639">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">weather</span>=<span class="org-string">"curl wttr.in"</span>
 
@@ -304,9 +315,9 @@ Most of things require <a href="https://github.com/geelen/git-smart">git-smart</
 </div>
 </div>
 </section>
-<section id="outline-container-orgee3678d" class="outline-2">
-<h2 id="orgee3678d">Functions</h2>
-<div class="outline-text-2" id="text-orgee3678d">
+<section id="outline-container-orgcbc9ef7" class="outline-2">
+<h2 id="orgcbc9ef7">Functions</h2>
+<div class="outline-text-2" id="text-orgcbc9ef7">
 <p>
 I found it difficult to add parameters to my aliases but found in zsh anyway (and probably bash) that I could use functions. This was also handy for multi-line aliases. Instead of a bunch of little scripts around, I keep them in here as shell functions.
 </p>
@@ -431,9 +442,9 @@ funtion empty() {
 </div>
 </div>
 
-<div id="outline-container-org12c929b" class="outline-4">
-<h4 id="org12c929b">client-specific</h4>
-<div class="outline-text-4" id="text-org12c929b">
+<div id="outline-container-orgb8fd1c0" class="outline-4">
+<h4 id="orgb8fd1c0">client-specific</h4>
+<div class="outline-text-4" id="text-orgb8fd1c0">
 <div class="org-src-container">
 <pre class="src src-sh">
 <span class="org-builtin">source</span> ~/.private-aliases
