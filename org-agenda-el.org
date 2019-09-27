@@ -62,14 +62,16 @@ It seems that Mr Rollins dived into the orgmode docs and found something good:
 %i
 %a
 :END:" :prepend t)
-    ("j" "Journal" entry (file+datetree "~/org/journal.org")
+    ("j" "Journal" entry (file+datetree "~/pdrive/org/journal.org")
          "* %?
 :PROPERTIES:
 :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
 %i
 %a
 :END:" :prepend t)
-  
+      ("b" "Bookmark" entry (file+headline "~/pdrive/org/tasks/links.org" "Bookmarks")
+            "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)
+         
     ("r" "Recur" entry (file+datetree "~/pdrive/org/tasks/task.org")
          "* RECUR %?\nEntered on %U\n  :SCHEDULED:  %U \n%i\n  %a\n")
   )
@@ -178,7 +180,7 @@ Got this from [[https://orgmode.org/worg/org-tutorials/org-custom-agenda-command
 
 (setq org-agenda-custom-commands 
       '(
-      ("w" "Well Tasks" tags-todo "well" 1
+      ("w" "Well Tasks" tags-todo "well" 
          ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org")) 
           (org-agenda-sorting-strategy '(priority-up effort-down))) 
          ("~/org/wellco.html")) 
@@ -195,6 +197,6 @@ Got this from [[https://orgmode.org/worg/org-tutorials/org-custom-agenda-command
 #+end_src
 
 #+RESULTS:
-| w | Well Tasks       | tags-todo | well       | 1                                                                                                                                 | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/wellco.html) |
-| p | Powerhouse       | tags-todo | powerhouse | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/powerhouse.html)                                                                                                           |                     |
-| v | VoterInformation | tags-todo | vip        | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/voterinformation.html)                                                                                                     |                     |
+| w | Well Tasks       | tags-todo | well       | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/wellco.html)           |
+| p | Powerhouse       | tags-todo | powerhouse | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/powerhouse.html)       |
+| v | VoterInformation | tags-todo | vip        | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/voterinformation.html) |
