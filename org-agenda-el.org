@@ -111,13 +111,14 @@ Basically I made my own labels (well, jwigley did).
 )
 
 (setq org-todo-keywords
-   '((sequence "TODO" "EPIC" "STORY" "RECUR" "APPT" "NOTE" "STARTED" "WAITING" "DELEGATED" "DEFERRED" "SOMEDAY" "PROJECT" "DONE" "TO-READ" "READ"))
+   '((sequence "TODO" "TO-READ" "|" "DONE"  "READ"))
 )
+
 
 #+end_src
 
 #+RESULTS:
-| sequence | TODO | EPIC | STORY | RECUR | APPT | NOTE | STARTED | WAITING | DELEGATED | DEFERRED | SOMEDAY | PROJECT | DONE | TO-READ | READ |
+| sequence | TODO | TO-READ |   |   | DONE | READ |
 * super agenda
 
 Using keywords from above, we can use [[https://github.com/alphapapa/org-super-agenda][org-super-agenda]] to make this really fancy
