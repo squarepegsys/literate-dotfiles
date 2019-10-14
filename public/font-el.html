@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-09-05 -->
+<!-- 2019-09-26 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Emacs Font Config</title>
@@ -299,10 +299,10 @@ Sometimes in writing, I may want to use a Sans-Serif font&#x2026; this function 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">mikeh-buffer-face-mode-sans</span> ()
+<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">mikeh-buffer-face-mode-sans</span> ()
   <span class="org-doc">"Sets a sans-serif font in current buffer"</span>
-  (interactive)
-  (setq buffer-face-mode-face '(<span class="org-builtin">:family</span> <span class="org-string">"IBM Plex Arabic"</span> <span class="org-builtin">:height</span> 135 <span class="org-builtin">:weight</span> 'normal))
+  (<span class="org-keyword">interactive</span>)
+  (<span class="org-keyword">setq</span> buffer-face-mode-face '(<span class="org-builtin">:family</span> <span class="org-string">"IBM Plex Arabic"</span> <span class="org-builtin">:height</span> 135 <span class="org-builtin">:weight</span> 'normal))
   (buffer-face-mode))
 
 </pre>
@@ -310,6 +310,8 @@ Sometimes in writing, I may want to use a Sans-Serif font&#x2026; this function 
 </div>
 </div>
 </section>
+
+
 <section id="outline-container-orge008a13" class="outline-2">
 <h2 id="orge008a13">Lastly&#x2026; more Unicode</h2>
 <div class="outline-text-2" id="text-orge008a13">

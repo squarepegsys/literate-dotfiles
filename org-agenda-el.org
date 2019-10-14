@@ -8,7 +8,7 @@
 #+OPTIONS: toc:2
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
-* Prologue
+* Prologue1
 
 I'm starting to do more with org-agenda.
 
@@ -62,7 +62,7 @@ It seems that Mr Rollins dived into the orgmode docs and found something good:
 %i
 %a
 :END:" :prepend t)
-    ("j" "Journal" entry (file+datetree "~/pdrive/org/task/journal.org")
+    ("j" "Journal" entry (file+datetree "~/pdrive/org/tasks/journal.org")
          "* %?
 :PROPERTIES:
 :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
@@ -71,9 +71,6 @@ It seems that Mr Rollins dived into the orgmode docs and found something good:
 :END:" :prepend t)
       ("b" "Bookmark" entry (file+headline "~/pdrive/org/tasks/links.org" "Bookmarks")
             "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)
-
-    ("r" "Recur" entry (file+datetree "~/pdrive/org/tasks/task.org")
-         "* RECUR %?\nEntered on %U\n  :SCHEDULED:  %U \n%i\n  %a\n")
   )
 )
 

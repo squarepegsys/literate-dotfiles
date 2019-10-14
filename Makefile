@@ -10,7 +10,7 @@ publish_el := elisp/publish.el
 tangle_el := elisp/tangle.el
 
 ^el = $(filter %.el,$^)
-EMACS.funcall = emacs --batch --no-init-file $(addprefix --load ,$(^el)) --funcall
+EMACS.funcall = ~/bin/emacs --batch --no-init-file $(addprefix --load ,$(^el)) --funcall
 
 all: publish tangle
 
