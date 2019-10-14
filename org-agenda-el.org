@@ -8,7 +8,7 @@
 #+OPTIONS: toc:2
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
-* Prologue1
+* Prologue
 
 I'm starting to do more with org-agenda.
 

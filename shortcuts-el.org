@@ -7,14 +7,14 @@
 #+PROPERTY:   header-args+ :mkdirp yes
 #+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/shortcuts.el"
 #+bind: org-html-htmlize-output-type csspuA
-#+OPTIONS: toc:2  
+#+OPTIONS: toc:2
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
 * Prologue
 
 I have a few keybindings here and there all over my Emacs config. This file is where I started to simply put things by default. This will get [[file:~/.emacs.d/personal/shortcuts.el][file:~/.emacs.d/personal/shortcuts.el]]
 
-* Kdb macros 
+* Kdb macros
 ** make terraform variable
 This was made while dealing with Terraform and generating a variable from a resource name. With this, be on a line where a resource is defined and run the macro... you will then have the variable in the kill-ring
 
@@ -38,7 +38,7 @@ This was made while dealing with Terraform and generating a variable from a reso
 
 I adopted ~C-c C-'~ as my own custom prefix, which I admit is a little awkward, but it's out of the way. Maybe I will change it sometime.
 
-The [[https://emacs-helm.github.io/helm/][~helm~]] items are the newest and I haven't quite incorporated it into my workflow yet. However, [[https://emacs.stackexchange.com/questions/7595/how-do-i-refactor-across-a-project-in-emacs-change-method-name-everywhere/13719#13719][you can do some magic]] with ~helm-ag~. 
+The [[https://emacs-helm.github.io/helm/][~helm~]] items are the newest and I haven't quite incorporated it into my workflow yet. However, [[https://emacs.stackexchange.com/questions/7595/how-do-i-refactor-across-a-project-in-emacs-change-method-name-everywhere/13719#13719][you can do some magic]] with ~helm-ag~.
 
 Also added [[https://github.com/tuhdo/org-recipes][org-recipes]] to handle snippets in my org-files
 
@@ -85,7 +85,7 @@ This Smartparens config isn't absolutely necessary for me, because in most of th
 
 * Helm Stuff
 
-The more I use Helm, the more I like it. Most of these are substituting the normal Emacs version to the Helm equivalent., 
+The more I use Helm, the more I like it. Most of these are substituting the normal Emacs version to the Helm equivalent.,
 
 #+begin_src elisp
 
