@@ -1,3 +1,17 @@
+#+TITLE: LSP Configuration
+#+AUTHOR: Mike Hostetler
+#+PROPERTY:   header-args+ :comments both
+
+#+PROPERTY:   header-args+ :mkdirp yes
+#+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/lsp.el"
+#+bind: org-html-htmlize-output-type csspuA
+#+OPTIONS: toc:2
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+* LSP Config
+
+
+#+begin_src elisp
 
 (use-package lsp-mode
   :hook (python-mode . lsp)
@@ -50,3 +64,7 @@
   '(progn
      (define-key company-mode-map (kbd "C-;") 'helm-company)
      (define-key company-active-map (kbd "C-;") 'helm-company)))
+#+end_src
+
+#+RESULTS:
+: helm-company

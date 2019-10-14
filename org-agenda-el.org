@@ -62,7 +62,7 @@ It seems that Mr Rollins dived into the orgmode docs and found something good:
 %i
 %a
 :END:" :prepend t)
-    ("j" "Journal" entry (file+datetree "~/org/journal.org")
+    ("j" "Journal" entry (file+datetree "~/pDrive/org/tasks/journal.org")
          "* %?
 :PROPERTIES:
 :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
