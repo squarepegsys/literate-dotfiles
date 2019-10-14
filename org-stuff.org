@@ -343,3 +343,20 @@ Should look at https://github.com/Kungsgeten/yankpad since it's supported and in
 
 #+RESULTS:
 : org-recipes
+
+* Misc nice things
+#+begin_src elisp
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+(define-key global-map "\C-cc" 'org-capture)
+
+(use-package org-bullets)
+
+
+
+;; Drag-and-drop to `dired`
+(add-hook 'dired-mode-hook 'org-download-enable)
+#+end_src
+
+#+RESULTS:
+| org-download-enable | diff-hl-dired-mode | dired-extra-startup |
