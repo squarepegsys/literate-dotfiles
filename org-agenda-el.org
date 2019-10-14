@@ -5,12 +5,12 @@
 #+PROPERTY:   header-args+ :mkdirp yes
 #+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/org-agenda.el"
 #+bind: org-html-htmlize-output-type csspuA
-#+OPTIONS: toc:2  
+#+OPTIONS: toc:2
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
 * Prologue
 
-I'm starting to do more with org-agenda. 
+I'm starting to do more with org-agenda.
 
 First, and most importantly -- make my Agenda files under ~~/org~. My knowledge base is under ~~/org-kb~ -- I have found having fewer files to search for agenda items is much faster
 
@@ -24,7 +24,7 @@ First, and most importantly -- make my Agenda files under ~~/org~. My knowledge 
 
 * Menu Items
 
-The idea behind the menu items come from 
+The idea behind the menu items come from
 https://joshrollinswrites.com/help-desk-head-desk/sub-menus-in-org/
 
 It seems that Mr Rollins dived into the orgmode docs and found something good:
@@ -62,14 +62,16 @@ It seems that Mr Rollins dived into the orgmode docs and found something good:
 %i
 %a
 :END:" :prepend t)
-    ("j" "Journal" entry (file+datetree "~/pDrive/org/tasks/journal.org")
+    ("j" "Journal" entry (file+datetree "~/pdrive/org/task/journal.org")
          "* %?
 :PROPERTIES:
 :ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
 %i
 %a
 :END:" :prepend t)
-  
+      ("b" "Bookmark" entry (file+headline "~/pdrive/org/tasks/links.org" "Bookmarks")
+            "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)
+
     ("r" "Recur" entry (file+datetree "~/pdrive/org/tasks/task.org")
          "* RECUR %?\nEntered on %U\n  :SCHEDULED:  %U \n%i\n  %a\n")
   )
@@ -177,25 +179,25 @@ Got this from [[https://orgmode.org/worg/org-tutorials/org-custom-agenda-command
 
 #+begin_src elisp
 
-(setq org-agenda-custom-commands 
+(setq org-agenda-custom-commands
       '(
-      ("w" "Well Tasks" tags-todo "well" 1
-         ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org")) 
-          (org-agenda-sorting-strategy '(priority-up effort-down))) 
-         ("~/org/wellco.html")) 
-        ("p" "Powerhouse" tags-todo "powerhouse" 
-         ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org")) 
-          (org-agenda-sorting-strategy '(priority-up effort-down))) 
-         ("~/org/powerhouse.html")) 
-        ("v" "VoterInformation" tags-todo "vip" 
-         ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org")) 
-          (org-agenda-sorting-strategy '(priority-up effort-down))) 
+      ("w" "Well Tasks" tags-todo "well"
+         ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org"))
+          (org-agenda-sorting-strategy '(priority-up effort-down)))
+         ("~/org/wellco.html"))
+        ("p" "Powerhouse" tags-todo "powerhouse"
+         ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org"))
+          (org-agenda-sorting-strategy '(priority-up effort-down)))
+         ("~/org/powerhouse.html"))
+        ("v" "VoterInformation" tags-todo "vip"
+         ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org"))
+          (org-agenda-sorting-strategy '(priority-up effort-down)))
          ("~/org/voterinformation.html"))
 
         ))
 #+end_src
 
 #+RESULTS:
-| w | Well Tasks       | tags-todo | well       | 1                                                                                                                                 | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/wellco.html) |
-| p | Powerhouse       | tags-todo | powerhouse | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/powerhouse.html)                                                                                                           |                     |
-| v | VoterInformation | tags-todo | vip        | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/voterinformation.html)                                                                                                     |                     |
+| w | Well Tasks       | tags-todo | well       | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/wellco.html)           |
+| p | Powerhouse       | tags-todo | powerhouse | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/powerhouse.html)       |
+| v | VoterInformation | tags-todo | vip        | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/voterinformation.html) |

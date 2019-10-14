@@ -27,7 +27,7 @@ This config needs:
 #+end_src
 
 #+RESULTS:
-| (lambda nil (add-hook (quote xref-backend-functions) (function xref-js2-xref-backend) nil t)) | js2-refactor-mode | js2-imenu-extras-mode | (lambda nil (run-hooks (quote prelude-js-mode-hook))) | er/add-js2-mode-expansions | er/add-js-mode-expansions |
+| js2-imenu-extras-mode | (lambda nil (run-hooks (quote prelude-js-mode-hook))) | er/add-js2-mode-expansions | er/add-js-mode-expansions |
 
 
 The following comes from https://github.com/flycheck/flycheck/issues/579 and a couple other sources
@@ -70,6 +70,3 @@ now continue on...
 
 (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
 #+end_src
-
-#+RESULTS:
-: js2r-kill
