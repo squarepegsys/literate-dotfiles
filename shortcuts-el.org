@@ -97,16 +97,20 @@ The more I use Helm, the more I like it. Most of these are substituting the norm
 ; use helm to find functions
 (global-set-key (kbd "M-x") 'helm-M-x)
 
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
+;(global-set-key (kbd "C-c h") 'helm-command-prefix)
 
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
-(global-set-key (kbd "C-c h o") 'helm-occur)
+;(global-set-key (kbd "C-c h o") 'helm-occur)
 
+(global-set-key (kbd "C-x r l") 'helm-bookmarks)
 
 #+end_src
+
+#+RESULTS:
+: helm-bookmarks
 
 
 * Misc
