@@ -10,11 +10,15 @@
 
 * LSP Config
 
+For python, need to install ~pip install "python-language-server[all]"~
+For JS -- ~npm i -g typescript-language-server; npm i -g typescript~
+
 
 #+begin_src elisp
 
 (use-package lsp-mode
   :hook (python-mode . lsp)
+  :hook (javascript-mode . lsp)
   :commands lsp)
 
 ;; optionally
@@ -44,10 +48,8 @@
 (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 ;(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 
-(use-package dap-mode)
-(use-package dap-python); to load the dap adapter for your language
 
-(setq lsp-python-executable-cmd "~/.pyenv/shims/python")
+(setq lsp-python-executable-cmd (expand-file-name "~/.pyenv/shims/python"))
 
 (company-mode)
 
