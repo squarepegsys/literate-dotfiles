@@ -1,0 +1,28 @@
+#+TITLE: Spaceship prompt
+#+AUTHOR: Mike Hostetler
+#+PROPERTY:   header-args+ :comments both
+
+#+PROPERTY:   header-args+ :mkdirp yes
+#+PROPERTY:   header-args+ :tangle "~/.spaceship"
+#+bind: org-html-htmlize-output-type csspuA
+#+OPTIONS: toc:2
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+* Spaceship configuration
+
+This is for configuration of the [[https://github.com/denysdovhan/spaceship-prompt][Spaceship prompt]] zsh.
+
+make sure you have ~~source ~/.spaceship~ in your [[~/.zshrc][zshrc file]] to use this before oh-my-zsh is loaded up.
+
+I manually want to keep track of my changes and tweaks here.
+
+#+begin_src shell
+ZSH_THEME="spaceship"
+
+SPACESHIP_GIT_SHOW="true"
+SPACESHIP_GIT_STATUS_SHOW="false"
+SPACESHIP_PACKAGE_SHOW="false"
+SPACESHIP_NODE_SHOW="false"
+SPACESHIP_PYENV_SHOW="false"
+
+#+end_src
