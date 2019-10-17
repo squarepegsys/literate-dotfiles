@@ -1,0 +1,24 @@
+#+TITLE: Helm Stt
+#+AUTHOR: Mike Hostetler
+#+PROPERTY:   header-args+ :comments both
+
+#+PROPERTY:   header-args+ :mkdirp yes
+#+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/helm-stuff.el"
+#+bind: org-html-htmlize-output-type csspuA
+#+OPTIONS: toc:2
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+* Config
+
+Seems that I have timing issue with how Helm is loaded -- this should fix that
+
+#+begin_src elisp
+(require 'helm-mode)
+(require 'helm-config)
+
+(with-eval-after-load "helm.el"
+  (define-key helm-map (kbd "C-c p") 'ignore))
+
+#+end_src
+
+#+RESULTS:
