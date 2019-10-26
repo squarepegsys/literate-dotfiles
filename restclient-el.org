@@ -18,7 +18,10 @@ Herein is probably the final nail of Postman's coffin. For me at least.
 
 #+begin_src elisp
 (use-package restclient)
-(use-package company-restclient)
+(use-package company-restclient
+    :ensure t
+    :config
+    )
 (add-to-list 'company-backends 'company-restclient)
 (use-package ob-restclient)
 
