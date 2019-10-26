@@ -66,6 +66,20 @@ Also added [[https://github.com/tuhdo/org-recipes][org-recipes]] to handle snipp
    )
 #+END_SRC
 
+* Easy Kill
+Found this on a blog post and have found it invaluable
+#+begin_src elisp
+;; http://emacsredux.com/blog/2018/11/09/an-easy-kill/
+
+(use-package easy-kill
+  :ensure t
+  :config
+  (global-set-key [remap kill-ring-save] #'easy-kill)
+  (global-set-key [remap mark-sexp] #'easy-mark))
+#+end_src
+
+#+RESULTS:
+: t
 
 * Parens
 
