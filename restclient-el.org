@@ -1,0 +1,27 @@
+#+TITLE: RestClient for Emails
+#+AUTHOR: Mike Hostetler
+#+OPTIONS: toc:nil
+#+options: num:0
+#+OPTIONS: ^:nil
+#+PROPERTY:   header-args+ :comments both
+#+PROPERTY:   header-args+ :mkdirp yes
+#+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/mh-restclient.el"
+#+bind: org-html-htmlize-output-type csspuA
+#+OPTIONS: toc:2
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+* Prologue
+
+Herein is probably the final nail of Postman's coffin. For me at least.
+
+* Configure
+
+#+begin_src elisp
+(use-package restclient)
+(use-package company-restclient)
+(add-to-list 'company-backends 'company-restclient)
+(use-package ob-restclient)
+
+#+end_src
+
+#+RESULTS:
