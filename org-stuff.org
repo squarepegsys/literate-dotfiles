@@ -12,6 +12,18 @@
 
 Just something different than [[file:org-agenda-el.org::*Prologue][org-agenda]] for files
 
+* Enable babel
+
+#+begin_src elisp
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)))
+#+end_src
+
+#+RESULTS:
+
 * org-wiki
 
 #+begin_src elisp

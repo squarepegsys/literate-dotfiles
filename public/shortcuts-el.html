@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-10-26 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Some Random Emacs Shortcuts</title>
@@ -215,11 +214,11 @@
 <li><a href="#orga12a47d">get issue number from feature branch</a></li>
 </ul>
 </li>
-<li><a href="#org38c5db4">Custom prefix</a></li>
-<li><a href="#org9910d38">Easy Kill</a></li>
-<li><a href="#org60a7e26">Parens</a></li>
-<li><a href="#org3f9a2ae">Helm Stuff</a></li>
-<li><a href="#orgd9e7606">Misc</a></li>
+<li><a href="#orge1eef1c">Custom prefix</a></li>
+<li><a href="#orgaaa3799">Easy Kill</a></li>
+<li><a href="#orgbc13148">Parens</a></li>
+<li><a href="#org5c9c93e">Helm Stuff</a></li>
+<li><a href="#orge755d5d">Misc</a></li>
 </ul>
 </div>
 </nav>
@@ -310,9 +309,9 @@ Also added <a href="https://github.com/tuhdo/org-recipes">org-recipes</a> to han
 </div>
 </section>
 
-<section id="outline-container-org9910d38" class="outline-2">
-<h2 id="org9910d38">Easy Kill</h2>
-<div class="outline-text-2" id="text-org9910d38">
+<section id="outline-container-orgaaa3799" class="outline-2">
+<h2 id="orgaaa3799">Easy Kill</h2>
+<div class="outline-text-2" id="text-orgaaa3799">
 <p>
 Found this on a blog post and have found it invaluable
 </p>
@@ -403,11 +402,10 @@ These are just some shortcuts that just live here.
 
 (windmove-default-keybindings)
 
-(global-set-key (kbd <span class="org-string">"C-;"</span>) 'company-+END_SRC)
 
-<span class="org-comment-delimiter">; </span><span class="org-comment">doesn't belong here but spices dired up</span>
-(custom-set-variables '(dired-listing-switches <span class="org-string">"-al --time-style=long-iso --block-size='1"</span>))
+(global-set-key (kbd <span class="org-string">"C-;"</span>) 'company-complete)
 
+(global-set-key (kbd <span class="org-string">"&lt;F2&gt;"</span>) 'call-last-kbd-macro)
 </pre>
 </div>
 

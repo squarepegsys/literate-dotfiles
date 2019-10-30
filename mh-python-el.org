@@ -1,0 +1,200 @@
+#+TITLE: Python Configs for Emacs
+#+AUTHOR: Mike Hostetler
+#+PROPERTY:   header-args+ :comments both
+
+#+PROPERTY:   header-args+ :mkdirp yes
+#+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/mh-python.el"
+#+bind: org-html-htmlize-output-type csspuA
+#+OPTIONS: toc:2
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+* Prologue
+
+A few python configs for Emacs. Most things are covered with[[file:lsp.org::*LSP%20Config][ my LSP Config]].
+
+* Blacken
+
+[[https://pypi.org/project/black/][Black]] seems like a good Python formatter. Glad there is an Emacs hook!
+
+import this from https://github.com/pythonic-emacs/blacken
+
+
+#+BEGIN_SRC elisp
+;;; blacken.el --- Reformat python buffers using the "black" formatter
+
+;; Copyright (C) 2018-2019 Artem Malyshev
+
+;; Author: Artem Malyshev <proofit404@gmail.com>
+;; Homepage: https://github.com/proofit404/blacken
+;; Version: 0.0.1
+;; Package-Requires: ((emacs "25.2"))
+
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published
+;; by the Free Software Foundation; either version 3, or (at your
+;; option) any later version.
+;;
+;; This file is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; For a full copy of the GNU General Public License
+;; see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+;;
+;; Blacken uses black to format a Python buffer.  It can be called
+;; explicitly on a certain buffer, but more conveniently, a minor-mode
+;; 'blacken-mode' is provided that turns on automatically running
+;; black on a buffer before saving.
+;;
+;; Installation:
+;;
+;; Add blacken.el to your load-path.
+;;
+;; To automatically format all Python buffers before saving, add the
+;; function blacken-mode to python-mode-hook:
+;;
+;; (add-hook 'python-mode-hook 'blacken-mode)
+;;
+;;; Code:
+
+(require 'cl-lib)
+
+(defgroup blacken nil
+  "Reformat Python code with \"black\"."
+  :group 'python)
+
+(defcustom blacken-executable "black"
+  "Name of the executable to run."
+  :type 'string)
+
+(defcustom blacken-line-length nil
+  "Line length to enforce.
+
+It must be an integer, nil or `fill'.
+If `fill', the `fill-column' variable value is used."
+  :type '(choice :tag "Line Length Limit"
+           (const :tag "Use default" nil)
+           (const :tag "Use fill-column" fill)
+           (integer :tag "Line Length"))
+  :safe 'integerp)
+
+(defcustom blacken-allow-py36 nil
+  "Allow using Python 3.6-only syntax on all input files."
+  :type 'boolean
+  :safe 'booleanp)
+
+(defcustom blacken-skip-string-normalization nil
+  "Don't normalize string quotes or prefixes."
+  :type 'boolean
+  :safe 'booleanp)
+
+(defcustom blacken-fast-unsafe nil
+  "Skips temporary sanity checks."
+  :type 'boolean
+  :safe 'booleanp)
+
+(defcustom blacken-only-if-project-is-blackened nil
+  "Only blacken if project has a pyproject.toml with a [tool.black] section."
+  :type 'boolean
+  :safe 'booleanp)
+
+(defun blacken-call-bin (input-buffer output-buffer error-buffer)
+  "Call process black.
+
+Send INPUT-BUFFER content to the process stdin.  Saving the
+output to OUTPUT-BUFFER.  Saving process stderr to ERROR-BUFFER.
+Return black process the exit code."
+  (with-current-buffer input-buffer
+    (let ((process (make-process :name "blacken"
+                                 :command `(,blacken-executable ,@(blacken-call-args))
+                                 :buffer output-buffer
+                                 :stderr error-buffer
+                                 :noquery t
+                                 :sentinel (lambda (process event)))))
+      (set-process-query-on-exit-flag (get-buffer-process error-buffer) nil)
+      (set-process-sentinel (get-buffer-process error-buffer) (lambda (process event)))
+      (save-restriction
+        (widen)
+        (process-send-region process (point-min) (point-max)))
+      (process-send-eof process)
+      (accept-process-output process nil nil t)
+      (while (process-live-p process)
+        (accept-process-output process nil nil t))
+      (process-exit-status process))))
+
+(defun blacken-call-args ()
+  "Build black process call arguments."
+  (append
+   (when blacken-line-length
+     (list "--line-length"
+           (number-to-string (cl-case blacken-line-length
+                               ('fill fill-column)
+                               (t blacken-line-length)))))
+   (when blacken-allow-py36
+     (list "--py36"))
+   (when blacken-fast-unsafe
+     (list "--fast"))
+   (when blacken-skip-string-normalization
+     (list "--skip-string-normalization"))
+   (when (and (buffer-file-name (current-buffer))
+              (string-match "\.pyi$" (buffer-file-name (current-buffer))))
+     (list "--pyi"))
+   '("-")))
+
+(defun blacken-project-is-blackened (&optional display)
+  "Whether the project has a pyproject.toml with [tool.black] in it."
+  (when-let ((parent (locate-dominating-file default-directory "pyproject.toml")))
+    (with-temp-buffer
+      (insert-file-contents (concat parent "pyproject.toml"))
+      (re-search-forward "^\\[tool.black\\]$" nil t 1))))
+
+;;;###autoload
+(defun blacken-buffer (&optional display)
+  "Try to blacken the current buffer.
+
+Show black output, if black exit abnormally and DISPLAY is t."
+  (interactive (list t))
+  (let* ((original-buffer (current-buffer))
+         (original-point (point))
+         (original-window-pos (window-start))
+         (tmpbuf (get-buffer-create "*blacken*"))
+         (errbuf (get-buffer-create "*blacken-error*")))
+    ;; This buffer can be left after previous black invocation.  It
+    ;; can contain error message of the previous run.
+    (dolist (buf (list tmpbuf errbuf))
+      (with-current-buffer buf
+        (erase-buffer)))
+    (condition-case err
+        (if (not (zerop (blacken-call-bin original-buffer tmpbuf errbuf)))
+            (error "Black failed, see %s buffer for details" (buffer-name errbuf))
+          (unless (eq (compare-buffer-substrings tmpbuf nil nil original-buffer nil nil) 0)
+            (with-current-buffer tmpbuf
+              (copy-to-buffer original-buffer (point-min) (point-max)))
+            (goto-char original-point)
+            (set-window-start (selected-window) original-window-pos))
+          (mapc 'kill-buffer (list tmpbuf errbuf)))
+      (error (message "%s" (error-message-string err))
+             (when display
+               (pop-to-buffer errbuf))))))
+
+;;;###autoload
+(define-minor-mode blacken-mode
+  "Automatically run black before saving."
+  :lighter " Black"
+  (if blacken-mode
+      (when (or (not blacken-only-if-project-is-blackened)
+                (blacken-project-is-blackened))
+        (add-hook 'before-save-hook 'blacken-buffer nil t))
+    (remove-hook 'before-save-hook 'blacken-buffer t)))
+
+(provide 'blacken)
+
+;;; blacken.el ends here
+
+#+END_SRC
+
+#+RESULTS:
+: ((\.py\' . blacken-mode) (\.zsh\' . shell-script-mode) (Dockerfile\' lambda nil (unless (package-installed-p (quote dockerfile-mode)) (package-install (quote dockerfile-mode))) (dockerfile-mode)) (\.thrift\' lambda nil (unless (package-installed-p (quote thrift)) (package-install (quote thrift))) (thrift-mode)) (\.textile\' lambda nil (unless (package-installed-p (quote textile-mode)) (package-install (quote textile-mode))) (textile-mode)) (\.swift\' lambda nil (unless (package-installed-p (quote swift-mode)) (package-install (quote swift-mode))) (swift-mode)) (\.styl\' lambda nil (unless (package-installed-p (quote stylus-mode)) (package-install (quote stylus-mode))) (stylus-mode)) (\.slim\' lambda nil (unless (package-installed-p (quote slim-mode)) (package-install (quote slim-mode))) (slim-mode)) (\.scss\' lambda nil (unless (package-installed-p (quote scss-mode)) (package-install (quote scss-mode))) (scss-mode)) (\.scala\' lambda nil (unless (package-installed-p (quote scala-mode)) (package-install (quote scala-mode))) (scala-mode)) (\.sass\' lambda nil (unless (package-installed-p (quote sass-mode)) (package-install (quote sass-mode))) (sass-mode)) (\.rs\' lambda nil (unless (package-installed-p (quote rust-mode)) (package-install (quote rust-mode))) (rust-mode)) (PKGBUILD\' lambda nil (unless (package-installed-p (quote pkgbuild-mode)) (package-install (quote pkgbuild-mode))) (pkgbuild-mode)) (\.pyx\' lambda nil (unless (package-installed-p (quote cython-mode)) (package-install (quote cython-mode))) (cython-mode)) (\.pyi\' lambda nil (unless (package-installed-p (quote cython-mode)) (package-install (quote cython-mode))) (cython-mode)) (\.pyd\' lambda nil (unless (package-installed-p (quote cython-mode)) (package-install (quote cython-mode))) (cython-mode)) (\.proto\' lambda nil (unless (package-installed-p (quote protobuf-mode)) (package-install (quote protobuf-mode))) (protobuf-mode)) (\.php\' lambda nil (unless (package-installed-p (quote php-mode)) (package-install (quote php-mode))) (php-mode)) (\.pp\' lambda nil (unless (package-installed-p (quote puppet-mode)) (package-install (quote puppet-mode))) (puppet-mode)) (\.ml\' lambda nil (unless (package-installed-p (quote tuareg)) (package-install (quote tuareg))) (tuareg-mode)) (\.lua\' lambda nil (unless (package-installed-p (quote lua-mode)) (package-install (quote lua-mode))) (lua-mode)) (\.latex\' lambda nil (unless (package-installed-p (quote auctex)) (package-install (quote auctex))) (LaTeX-mode)) (\.kv\' lambda nil (unless (package-installed-p (quote kivy-mode)) (package-install (quote kivy-mode))) (kivy-mode)) (\.kt\' lambda nil (unless (package-installed-p (quote kotlin-mode)) (package-install (quote kotlin-mode))) (kotlin-mode)) (\.hs\' lambda nil (unless (package-installed-p (quote haskell-mode)) (package-install (quote haskell-mode))) (haskell-mode)) (\.haml\' lambda nil (unless (package-installed-p (quote haml-mode)) (package-install (quote haml-mode))) (haml-mode)) (\.groovy\' lambda nil (unless (package-installed-p (quote groovy-mode)) (package-install (quote groovy-mode))) (groovy-mode)) (\.graphql\' lambda nil (unless (package-installed-p (quote graphql-mode)) (package-install (quote graphql-mode))) (graphql-mode)) (\.go\' lambda nil (unless (package-installed-p (quote go-mode)) (package-install (quote go-mode))) (go-mode)) (\.feature\' lambda nil (unless (package-installed-p (quote feature-mode)) (package-install (quote feature-mode))) (feature-mode)) (\.erl\' lambda nil (unless (package-installed-p (quote erlang)) (package-install (quote erlang))) (erlang-mode)) (\.elixir\' lambda nil (unless (package-installed-p (quote elixir-mode)) (package-install (quote elixir-mode))) (elixir-mode)) (\.exs\' lambda nil (unless (package-installed-p (quote elixir-mode)) (package-install (quote elixir-mode))) (elixir-mode)) (\.ex\' lambda nil (unless (package-installed-p (quote elixir-mode)) (package-install (quote elixir-mode))) (elixir-mode)) (\.elm\' lambda nil (unless (package-installed-p (quote elm-mode)) (package-install (quote elm-mode))) (elm-mode)) (\.dart\' lambda nil (unless (package-installed-p (quote dart-mode)) (package-install (quote dart-mode))) (dart-mode)) (\.d\' lambda nil (unless (package-installed-p (quote d-mode)) (package-install (quote d-mode))) (d-mode)) (Cask lambda nil (unless (package-installed-p (quote cask-mode)) (package-install (quote cask-mode))) (cask-mode)) (\.csv\' lambda nil (unless (package-installed-p (quote csv-mode)) (package-install (quote csv-mode))) (csv-mode)) (\.coffee\' lambda nil (unless (package-installed-p (quote coffee-mode)) (package-install (quote coffee-mode))) (coffee-mode)) (CMakeLists\.txt\' lambda nil (unless (package-installed-p (quote cmake-mode)) (package-install (quote cmake-mode))) (cmake-mode)) (\.cmake\' lambda nil (unless (package-installed-p (quote cmake-mode)) (package-install (quote cmake-mode))) (cmake-mode)) (\.clj\' lambda nil (unless (package-installed-p (quote clojure-mode)) (package-install (quote clojure-mode))) (clojure-mode)) (\.md\' . gfm-mode) (\.markdown\' . gfm-mode) (\.envrc\' . direnv-envrc-mode) (\.editorconfig\' . editorconfig-conf-mode) (/etc/gitconfig\' . gitconfig-mode) (/\.gitmodules\' . gitconfig-mode) (/git/config\' . gitconfig-mode) (/modules/.*/config\' . gitconfig-mode) (/\.git/config\' . gitconfig-mode) (/\.gitconfig\' . gitconfig-mode) (/git/ignore\' . gitignore-mode) (/info/exclude\' . gitignore-mode) (/\.gitignore\' . gitignore-mode) (\(?:\(?:\(?:\.\(?:b\(?:\(?:abel\|ower\)rc\)\|json\(?:ld\)?\)\|composer\.lock\)\)\'\) . json-mode) (/git-rebase-todo\' . git-rebase-mode) (\.md\' . markdown-mode) (\.markdown\' . markdown-mode) (\.tf\(vars\)?\' . terraform-mode) (\.nomad\' . hcl-mode) (\.hcl\' . hcl-mode) (\.\(e?ya?\|ra\)ml\' . yaml-mode) (\.gpg\(~\|\.~[0-9]+~\)?\' nil epa-file) (\.elc\' . elisp-byte-code-mode) (\.zst\' nil jka-compr) (\.dz\' nil jka-compr) (\.xz\' nil jka-compr) (\.lzma\' nil jka-compr) (\.lz\' nil jka-compr) (\.g?z\' nil jka-compr) (\.bz2\' nil jka-compr) (\.Z\' nil jka-compr) (\.vr[hi]?\' . vera-mode) (\(?:\.\(?:rbw?\|ru\|rake\|thor\|jbuilder\|rabl\|gemspec\|podspec\)\|/\(?:Gem\|Rake\|Cap\|Thor\|Puppet\|Berks\|Vagrant\|Guard\|Pod\)file\)\' . ruby-mode) (\.re?st\' . rst-mode) (\.py[iw]?\' . python-mode) (\.less\' . less-css-mode) (\.scss\' . scss-mode) (\.awk\' . awk-mode) (\.\(u?lpc\|pike\|pmod\(\.in\)?\)\' . pike-mode) (\.idl\' . idl-mode) (\.java\' . java-mode) (\.m\' . objc-mode) (\.ii\' . c++-mode) (\.i\' . c-mode) (\.lex\' . c-mode) (\.y\(acc\)?\' . c-mode) (\.h\' . c-or-c++-mode) (\.c\' . c-mode) (\.\(CC?\|HH?\)\' . c++-mode) (\.[ch]\(pp\|xx\|\+\+\)\' . c++-mode) (\.\(cc\|hh\)\' . c++-mode) (\.\(bat\|cmd\)\' . bat-mode) (\.[sx]?html?\(\.[a-zA-Z_]+\)?\' . mhtml-mode) (\.svgz?\' . image-mode) (\.svgz?\' . xml-mode) (\.x[bp]m\' . image-mode) (\.x[bp]m\' . c-mode) (\.p[bpgn]m\' . image-mode) (\.tiff?\' . image-mode) (\.gif\' . image-mode) (\.png\' . image-mode) (\.jpe?g\' . image-mode) (\.te?xt\' . text-mode) (\.[tT]e[xX]\' . tex-mode) (\.ins\' . tex-mode) (\.ltx\' . latex-mode) (\.dtx\' . doctex-mode) (\.org\' . org-mode) (\.el\' . emacs-lisp-mode) (Project\.ede\' . emacs-lisp-mode) (\.\(scm\|stk\|ss\|sch\)\' . scheme-mode) (\.l\' . lisp-mode) (\.li?sp\' . lisp-mode) (\.[fF]\' . fortran-mode) (\.for\' . fortran-mode) (\.p\' . pascal-mode) (\.pas\' . pascal-mode) (\.\(dpr\|DPR\)\' . delphi-mode) (\.ad[abs]\' . ada-mode) (\.ad[bs].dg\' . ada-mode) (\.\([pP]\([Llm]\|erl\|od\)\|al\)\' . perl-mode) (Imakefile\' . makefile-imake-mode) (Makeppfile\(?:\.mk\)?\' . makefile-makepp-mode) (\.makepp\' . makefile-makepp-mode) (\.mk\' . makefile-bsdmake-mode) (\.make\' . makefile-bsdmake-mode) (GNUmakefile\' . makefile-gmake-mode) ([Mm]akefile\' . makefile-bsdmake-mode) (\.am\' . makefile-automake-mode) (\.texinfo\' . texinfo-mode) (\.te?xi\' . texinfo-mode) (\.[sS]\' . asm-mode) (\.asm\' . asm-mode) (\.css\' . css-mode) (\.mixal\' . mixal-mode) (\.gcov\' . compilation-mode) (/\.[a-z0-9-]*gdbinit . gdb-script-mode) (-gdb\.gdb . gdb-script-mode) ([cC]hange\.?[lL]og?\' . change-log-mode) ([cC]hange[lL]og[-.][0-9]+\' . change-log-mode) (\$CHANGE_LOG\$\.TXT . change-log-mode) (\.scm\.[0-9]*\' . scheme-mode) (\.[ckz]?sh\'\|\.shar\'\|/\.z?profile\' . sh-mode) (\.bash\' . sh-mode) (\(/\|\`\)\.\(bash_\(profile\|history\|log\(in\|out\)\)\|z?log\(in\|out\)\)\' . sh-mode) (\(/\|\`\)\.\(shrc\|zshrc\|m?kshrc\|bashrc\|t?cshrc\|esrc\)\' . sh-mode) (\(/\|\`\)\.\([kz]shenv\|xinitrc\|startxrc\|xsession\)\' . sh-mode) (\.m?spec\' . sh-mode) (\.m[mes]\' . nroff-mode) (\.man\' . nroff-mode) (\.sty\' . latex-mode) (\.cl[so]\' . latex-mode) (\.bbl\' . latex-mode) (\.bib\' . bibtex-mode) (\.bst\' . bibtex-style-mode) (\.sql\' . sql-mode) (\.m[4c]\' . m4-mode) (\.mf\' . metafont-mode) (\.mp\' . metapost-mode) (\.vhdl?\' . vhdl-mode) (\.article\' . text-mode) (\.letter\' . text-mode) (\.i?tcl\' . tcl-mode) (\.exp\' . tcl-mode) (\.itk\' . tcl-mode) (\.icn\' . icon-mode) (\.sim\' . simula-mode) (\.mss\' . scribe-mode) (\.f9[05]\' . f90-mode) (\.f0[38]\' . f90-mode) (\.indent\.pro\' . fundamental-mode) (\.\(pro\|PRO\)\' . idlwave-mode) (\.srt\' . srecode-template-mode) (\.prolog\' . prolog-mode) (\.tar\' . tar-mode) (\.\(arc\|zip\|lzh\|lha\|zoo\|[jew]ar\|xpi\|rar\|cbr\|7z\|ARC\|ZIP\|LZH\|LHA\|ZOO\|[JEW]AR\|XPI\|RAR\|CBR\|7Z\)\' . archive-mode) (\.oxt\' . archive-mode) (\.\(deb\|[oi]pk\)\' . archive-mode) (\`/tmp/Re . text-mode) (/Message[0-9]*\' . text-mode) (\`/tmp/fol/ . text-mode) (\.oak\' . scheme-mode) (\.sgml?\' . sgml-mode) (\.x[ms]l\' . xml-mode) (\.dbk\' . xml-mode) (\.dtd\' . sgml-mode) (\.ds\(ss\)?l\' . dsssl-mode) (\.jsm?\' . javascript-mode) (\.json\' . javascript-mode) (\.jsx\' . js-jsx-mode) (\.[ds]?vh?\' . verilog-mode) (\.by\' . bovine-grammar-mode) (\.wy\' . wisent-grammar-mode) ([:/\]\..*\(emacs\|gnus\|viper\)\' . emacs-lisp-mode) (\`\..*emacs\' . emacs-lisp-mode) ([:/]_emacs\' . emacs-lisp-mode) (/crontab\.X*[0-9]+\' . shell-script-mode) (\.ml\' . lisp-mode) (\.ld[si]?\' . ld-script-mode) (ld\.?script\' . ld-script-mode) (\.xs\' . c-mode) (\.x[abdsru]?[cnw]?\' . ld-script-mode) (\.zone\' . dns-mode) (\.soa\' . dns-mode) (\.asd\' . lisp-mode) (\.\(asn\|mib\|smi\)\' . snmp-mode) (\.\(as\|mi\|sm\)2\' . snmpv2-mode) (\.\(diffs?\|patch\|rej\)\' . diff-mode) (\.\(dif\|pat\)\' . diff-mode) (\.[eE]?[pP][sS]\' . ps-mode) (\.\(?:PDF\|DVI\|OD[FGPST]\|DOCX?\|XLSX?\|PPTX?\|pdf\|djvu\|dvi\|od[fgpst]\|docx?\|xlsx?\|pptx?\)\' . doc-view-mode-maybe) (configure\.\(ac\|in\)\' . autoconf-mode) (\.s\(v\|iv\|ieve\)\' . sieve-mode) (BROWSE\' . ebrowse-tree-mode) (\.ebrowse\' . ebrowse-tree-mode) (#\*mail\* . mail-mode) (\.g\' . antlr-mode) (\.mod\' . m2-mode) (\.ses\' . ses-mode) (\.docbook\' . sgml-mode) (\.com\' . dcl-mode) (/config\.\(?:bat\|log\)\' . fundamental-mode) (\.\(?:[iI][nN][iI]\|[lL][sS][tT]\|[rR][eE][gG]\|[sS][yY][sS]\)\' . conf-mode) (\.la\' . conf-unix-mode) (\.ppd\' . conf-ppd-mode) (java.+\.conf\' . conf-javaprop-mode) (\.properties\(?:\.[a-zA-Z0-9._-]+\)?\' . conf-javaprop-mode) (\.toml\' . conf-toml-mode) (\.desktop\' . conf-desktop-mode) (\`/etc/\(?:DIR_COLORS\|ethers\|.?fstab\|.*hosts\|lesskey\|login\.?de\(?:fs\|vperm\)\|magic\|mtab\|pam\.d/.*\|permissions\(?:\.d/.+\)?\|protocols\|rpc\|services\)\' . conf-space-mode) (\`/etc/\(?:acpid?/.+\|aliases\(?:\.d/.+\)?\|default/.+\|group-?\|hosts\..+\|inittab\|ksysguarddrc\|opera6rc\|passwd-?\|shadow-?\|sysconfig/.+\)\' . conf-mode) ([cC]hange[lL]og[-.][-0-9a-z]+\' . change-log-mode) (/\.?\(?:gitconfig\|gnokiirc\|hgrc\|kde.*rc\|mime\.types\|wgetrc\)\' . conf-mode) (/\.\(?:enigma\|gltron\|gtk\|hxplayer\|net\|neverball\|qt/.+\|realplayer\|scummvm\|sversion\|sylpheed/.+\|xmp\)rc\' . conf-mode) (/\.\(?:gdbtkinit\|grip\|orbital/.+txt\|rhosts\|tuxracer/options\)\' . conf-mode) (/\.?X\(?:default\|resource\|re\)s\> . conf-xdefaults-mode) (/X11.+app-defaults/\|\.ad\' . conf-xdefaults-mode) (/X11.+locale/.+/Compose\' . conf-colon-mode) (/X11.+locale/compose\.dir\' . conf-javaprop-mode) (\.~?[0-9]+\.[0-9][-.0-9]*~?\' nil t) (\.\(?:orig\|in\|[bB][aA][kK]\)\' nil t) ([/.]c\(?:on\)?f\(?:i?g\)?\(?:\.[a-zA-Z0-9._-]+\)?\' . conf-mode-maybe) (\.[1-9]\' . nroff-mode) (\.tgz\' . tar-mode) (\.tbz2?\' . tar-mode) (\.txz\' . tar-mode) (\.tzst\' . tar-mode))
