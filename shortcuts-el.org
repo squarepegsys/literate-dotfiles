@@ -121,10 +121,11 @@ The more I use Helm, the more I like it. Most of these are substituting the norm
 
 (global-set-key (kbd "C-x r l") 'helm-bookmarks)
 
+(global-set-key (kbd "s-p f") 'helm-projectile-find-file)
 #+end_src
 
 #+RESULTS:
-: helm-bookmarks
+: helm-projectile-find-file
 
 
 * Misc
