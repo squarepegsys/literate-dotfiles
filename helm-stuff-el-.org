@@ -21,4 +21,13 @@ Seems that I have timing issue with how Helm is loaded -- this should fix that
 
 #+end_src
 
+*** dired-sort
+
+use helm to sort dired folders!
+
+#+begin_src elisp
+(require 'dired-quick-sort)
+(dired-quick-sort-setup)
+#+end_src
 #+RESULTS:
+| dired-quick-sort | org-download-enable | diff-hl-dired-mode | dired-extra-startup |
