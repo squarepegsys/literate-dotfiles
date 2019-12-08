@@ -363,6 +363,7 @@ Should look at https://github.com/Kungsgeten/yankpad since it's supported and in
 
 #+begin_src elisp
 (define-key global-map "\C-cc" 'org-capture)
+(define-key global-map "\C-ca" 'org-agenda)
 
 (setq org-hide-emphasis-markers t)
 
@@ -373,3 +374,4 @@ Should look at https://github.com/Kungsgeten/yankpad since it's supported and in
 #+end_src
 
 #+RESULTS:
+| org-download-enable | diff-hl-dired-mode | dired-extra-startup |
