@@ -205,18 +205,16 @@ Got this from [[https://orgmode.org/worg/org-tutorials/org-custom-agenda-command
          ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org"))
           (org-agenda-sorting-strategy '(priority-up effort-down)))
          ("~/org/voterinformation.html"))
-        ("s" "Shift" tags-todo "Shift Worship"
+        ("s" "Shift" tags-todo "shift"
          ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org"))
           (org-agenda-sorting-strategy '(priority-up effort-down)))
-        ("p" "Powerhouse" tags-todo "Powerhouse"
-         ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org"))
-          (org-agenda-sorting-strategy '(priority-up effort-down)))
+         ("~/org/shiftworship.html"))
 
         ))
 #+end_src
 
 #+RESULTS:
-| w | Well Tasks       | tags-todo | well          | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/wellco.html)           |
-| p | Powerhouse       | tags-todo | powerhouse    | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/powerhouse.html)       |
-| v | VoterInformation | tags-todo | vip           | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/voterinformation.html) |
-| s | Shift            | tags-todo | Shift Worship | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/powerhouse.html)       |
+| w | Well Tasks       | tags-todo | well       | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/wellco.html)           |
+| p | Powerhouse       | tags-todo | powerhouse | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/powerhouse.html)       |
+| v | VoterInformation | tags-todo | vip        | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/voterinformation.html) |
+| s | Shift            | tags-todo | shift      | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/shiftworship.html)     |

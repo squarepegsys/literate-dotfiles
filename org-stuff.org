@@ -374,4 +374,4 @@ Should look at https://github.com/Kungsgeten/yankpad since it's supported and in
 #+end_src
 
 #+RESULTS:
-| org-download-enable | diff-hl-dired-mode | dired-extra-startup |
+| org-download-enable | dired-quick-sort | diff-hl-dired-mode | dired-extra-startup |
