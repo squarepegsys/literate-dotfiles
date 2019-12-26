@@ -37,6 +37,9 @@ Just something different than [[file:org-agenda-el.org::*Prologue][org-agenda]] 
 (setq org-wiki-location (car org-wiki-location-list))
 #+end_src
 
+#+RESULTS:
+: ~/org-kb
+
 * org-recipes
 
 against my better judgement..
@@ -373,18 +376,18 @@ Should look at https://github.com/Kungsgeten/yankpad since it's supported and in
 :  >
 
 * Misc nice things
-#+begin_src elisp
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
+#+begin_src elisp
 (define-key global-map "\C-cc" 'org-capture)
+(define-key global-map "\C-ca" 'org-agenda)
+
+(setq org-hide-emphasis-markers t)
 
 (use-package org-bullets)
-
-
-
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 ;; Drag-and-drop to `dired`
 (add-hook 'dired-mode-hook 'org-download-enable)
 #+end_src
 
 #+RESULTS:
-| org-download-enable | diff-hl-dired-mode | dired-extra-startup |
+| org-download-enable | dired-quick-sort | diff-hl-dired-mode | dired-extra-startup |

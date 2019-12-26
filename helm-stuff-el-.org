@@ -22,3 +22,170 @@ Seems that I have timing issue with how Helm is loaded -- this should fix that
 #+end_src
 
 #+RESULTS:
+
+*** dired-sort
+
+use helm to sort dired folders!
+
+#+begin_src elisp
+(require 'dired-quick-sort)
+(dired-quick-sort-setup)
+#+end_src
+#+RESULTS:
+| dired-quick-sort | diff-hl-dired-mode | dired-extra-startup |
+* helm-swoop
+
+Let's supercharge our search with [[https://github.com/emacsorphanage/helm-swoop][helm-swoop]].
+
+#+begin_src elisp
+(use-package helm-swoop)
+
+;; Change the keybinds to whatever you like :)
+(global-set-key (kbd "M-i") 'helm-swoop)
+(global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
+(global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
+(global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
+
+;; When doing isearch, hand the word over to helm-swoop
+(define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
+;; From helm-swoop to helm-multi-swoop-all
+(define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
+;; When doing evil-search, hand the word over to helm-swoop
+;; (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
+
+;; Instead of helm-multi-swoop-all, you can also use helm-multi-swoop-current-mode
+(define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)
+
+;; Move up and down like isearch
+(define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
+(define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
+(define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
+(define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
+
+;; Save buffer when helm-multi-swoop-edit complete
+(setq helm-multi-swoop-edit-save t)
+
+;; If this value is t, split window inside the current window
+(setq helm-swoop-split-with-multiple-windows nil)
+
+;; Split direcion. 'split-window-vertically or 'split-window-horizontally
+(setq helm-swoop-split-direction 'split-window-vertically)
+
+;; If nil, you can slightly boost invoke speed in exchange for text color
+(setq helm-swoop-speed-or-color nil)
+
+;; ;; Go to the opposite side of line from the end or beginning of line
+(setq helm-swoop-move-to-line-cycle t)
+
+;; Optional face for line numbers
+;; Face name is `helm-swoop-line-number-face`
+(setq helm-swoop-use-line-number-face t)
+
+;; If you prefer fuzzy matching
+(setq helm-swoop-use-fuzzy-match t)
+#+end_src
+
+#+RESULTS:
+: t
+* helm-fasd
+
+This was recommended to me by someone on reddit. I kinda like it. I have it in my [[file:shortcuts-el.org::*Custom%20prefix][Custom prefix]] section. It does require the fasd tool
+
+#+begin_src elisp
+
+;;; helm-fasd.el --- Helm source for fasd
+
+;; Author: Antti Salminen <antti.salminen@gmail.com>
+;; URL: https://github.com/ajsalminen/helm-fasd
+;; Package-Requires: ((helm "2.0"))
+
+;;; Commentary:
+
+;;; Code:
+(require 'helm)
+(require 'helm-types)
+(defvar helm-fasd-command nil)
+
+(defface helm-fasd-finish
+  '((t (:foreground "Green")))
+  "Face used in mode line when fasd process returns."
+  :group 'helm-fasd)
+
+(defun helm-fasd-set-command ()
+  "Return the used fasd command."
+  (require 'helm-for-files)
+  (setq helm-fasd-command "fasd -R -l -a"))
+
+(defun helm-fasd-init ()
+  "Initialize async locate process for `helm-source-fasd'."
+  (let ((cmd (concat "fasd -R -l -a " (shell-quote-argument helm-pattern))
+             ))
+    (helm-log "Starting helm-fasd process")
+    (helm-log "Command line used was:\n\n%s"
+              (concat ">>> " (propertize cmd 'face 'font-lock-comment-face) "\n\n"))
+    (prog1
+        (start-process-shell-command
+         "fasd-process" helm-buffer
+         cmd)
+      (set-process-sentinel
+       (get-buffer-process helm-buffer)
+       #'(lambda (_process event)
+           (if (string= event "finished\n")
+               (with-helm-window
+                 (setq mode-line-format
+                       '(" " mode-line-buffer-identification " "
+                         (:eval (format "L%s" (helm-candidate-number-at-point))) " "
+                         (:eval (propertize
+                                 (format "[fasd process finished - (%s results)]"
+                                         (max (1- (count-lines
+                                                   (point-min) (point-max)))
+                                              0))
+                                 'face 'helm-fasd-finish))))
+                 (force-mode-line-update))
+             (helm-log "Error: Fasd %s"
+                       (replace-regexp-in-string "\n" "" event))))))))
+
+
+(defclass helm-fasd-source (helm-source-async helm-type-file)
+  ((init :initform 'helm-fasd-set-command)
+   (candidates-process :initform 'helm-fasd-init)
+   (history :initform 'helm-file-name-history)
+   (keymap :initform helm-generic-files-map)
+   (help-message :initform helm-generic-file-help-message)
+   (candidate-number-limit :initform 9999)
+   (mode-line :initform helm-read-file-name-mode-line-string)))
+
+(defvar helm-source-fasd
+  (helm-make-source "fasd" 'helm-fasd-source
+    ))
+
+;;;###autoload
+(defun helm-fasd ()
+  "Helm source for fasd."
+  (interactive)
+  (require 'helm-mode)
+  (let ((helm-ff-transformer-show-only-basename nil))
+    (helm :sources 'helm-source-fasd
+          :buffer "*helm fasd*"
+          )))
+
+
+;;;###autoload
+(defun helm-find-fasd-add-file ()
+  "Add file to fasd database."
+  (unless (executable-find "fasd") (error "Helm-search-fasd: cannot find the fasd executable"))
+  (let ((file (if (string= major-mode "dired-mode") dired-directory (buffer-file-name))))
+    (start-process "*fasd*" nil "fasd" "--add" file)))
+
+;;;###autoload
+(add-hook 'find-file-hook 'helm-find-fasd-add-file)
+;;;###autoload
+(add-hook 'dired-mode-hook 'helm-find-fasd-add-file)
+
+(provide 'helm-fasd)
+;;; helm-fasd.el ends here
+
+#+end_src
+
+#+RESULTS:
+: helm-fasd

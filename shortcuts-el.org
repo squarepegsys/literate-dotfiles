@@ -58,13 +58,17 @@ Also added [[https://github.com/tuhdo/org-recipes][org-recipes]] to handle snipp
    ("c" . quick-calc)
    ("i" . org-recipes)
    ("t" . make-terraform-variable)
-   ("f" . feature-number)
+   ;("f" . feature-number)
+   ("f" . helm-fasd)
    ("b" . helm-bookmarks)
    ("j" . helm-all-mark-rings)
    ("l" . org-wiki-helm)
 
    )
 #+END_SRC
+
+#+RESULTS:
+: org-wiki-helm
 
 * Easy Kill
 Found this on a blog post and have found it invaluable
@@ -121,17 +125,18 @@ The more I use Helm, the more I like it. Most of these are substituting the norm
 
 (global-set-key (kbd "C-x r l") 'helm-bookmarks)
 
+(global-set-key (kbd "s-p f") 'helm-projectile-find-file)
 #+end_src
 
 #+RESULTS:
-: helm-bookmarks
+: helm-projectile-find-file
 
 
 * Misc
 
 These are just some shortcuts that just live here.
 
-#+BEGIN_SRC elisp
+#+begin_src elisp
 
 (global-set-key (kbd "C-k") 'crux-smart-kill-line)
 ; I would like to use avy more

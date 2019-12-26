@@ -55,6 +55,21 @@ It seems that Mr Rollins dived into the orgmode docs and found something good:
 %i
 %a
 :END:" :prepend t)
+
+      ("ts" "Shift Worship"  entry (file+headline "~/org/ShiftTasks.org" "Shit Tasks")
+         "** TODO %?
+:PROPERTIES:
+:ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+%i
+%a
+:END:" :prepend t)
+      ("tp" "Powerhouse"  entry (file+headline "~/org/Powerhouse.org" "Powerhouse Tasks")
+         "** TODO %?
+:PROPERTIES:
+:ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U
+%i
+%a
+:END:" :prepend t)
       ("tt" "Misc" entry (file+headline "~/pdrive/org/tasks/task.org" "Tasks")
          "** TODO %?
 :PROPERTIES:
@@ -91,20 +106,20 @@ Basically I made my own labels (well, jwigley did).
 (setq org-todo-keyword-faces
    '((
     "TODO" :foreground "dark orange" :weight bold)
-     ("EPIC" :foreground "deep sky blue" :weight bold)
-     ("STORY" :foreground "royal blue" :weight bold)
-     ("RECUR" :foreground "cornflowerblue" :weight bold)
-     ("APPT" :foreground "light blue" :weight bold)
-     ("NOTE" :foreground "brown" :weight bold)
-     ("STARTED" :foreground "dark orange" :weight bold)
-     ("WAITING" :foreground "red" :weight bold)
-     ("DELEGATED" :foreground "dark violet" :weight bold)
-     ("DEFERRED" :foreground "dark violet" :weight bold)
-     ("SOMEDAY" :foreground "brown" :weight bold)
-     ("PROJECT" :foreground "#088e8e" :weight bold)
+  ;   ("EPIC" :foreground "deep sky blue" :weight bold)
+;     ("STORY" :foreground "royal blue" :weight bold)
+     ;("RECUR" :foreground "cornflowerblue" :weight bold)
+     ;("APPT" :foreground "light blue" :weight bold)
+     ;("NOTE" :foreground "brown" :weight bold)
+     ;("STARTED" :foreground "dark orange" :weight bold)
+     ;("WAITING" :foreground "red" :weight bold)
+     ;("DELEGATED" :foreground "dark violet" :weight bold)
+     ;("DEFERRED" :foreground "dark violet" :weight bold)
+     ;("SOMEDAY" :foreground "brown" :weight bold)
+     ;("PROJECT" :foreground "#088e8e" :weight bold)
      ("DONE" :foreground "#088e8e" :weight bold)
-    ("TO-READ" :foreground "dark orange" :weight bold)
-    ("FINISHED" :foreground "royal blue" :weight bold)
+    ;("TO-READ" :foreground "dark orange" :weight bold)
+    ;("FINISHED" :foreground "royal blue" :weight bold)
 )
 
 )
@@ -190,6 +205,10 @@ Got this from [[https://orgmode.org/worg/org-tutorials/org-custom-agenda-command
          ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org"))
           (org-agenda-sorting-strategy '(priority-up effort-down)))
          ("~/org/voterinformation.html"))
+        ("s" "Shift" tags-todo "shift"
+         ((org-agenda-files '("~/org/" "~/pDrive/org/tasks/task.org"))
+          (org-agenda-sorting-strategy '(priority-up effort-down)))
+         ("~/org/shiftworship.html"))
 
         ))
 #+end_src
@@ -198,3 +217,4 @@ Got this from [[https://orgmode.org/worg/org-tutorials/org-custom-agenda-command
 | w | Well Tasks       | tags-todo | well       | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/wellco.html)           |
 | p | Powerhouse       | tags-todo | powerhouse | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/powerhouse.html)       |
 | v | VoterInformation | tags-todo | vip        | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/voterinformation.html) |
+| s | Shift            | tags-todo | shift      | ((org-agenda-files (quote (~/org/ ~/pDrive/org/tasks/task.org))) (org-agenda-sorting-strategy (quote (priority-up effort-down)))) | (~/org/shiftworship.html)     |
