@@ -70,3 +70,13 @@ For JS -- ~npm i -g typescript-language-server; npm i -g typescript~
 
 #+RESULTS:
 : helm-company
+* Other file stuff
+
+lint our json
+
+#+begin_src elisp
+(add-hook 'json-mode-hook 'flymake-json-load)
+#+end_src
+
+#+RESULTS:
+| flymake-json-load |

@@ -196,5 +196,8 @@ Show black output, if black exit abnormally and DISPLAY is t."
 
 #+END_SRC
 
-#+RESULTS:
-: blacken
+Now make sure Blacken is run with python-mode:
+
+#+begin_src elisp
+(add-hook 'python-mode-hook 'blacken-mode)
+#+end_src

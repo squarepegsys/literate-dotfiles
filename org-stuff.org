@@ -359,6 +359,22 @@ Should look at https://github.com/Kungsgeten/yankpad since it's supported and in
 #+RESULTS:
 : org-recipes
 
+* Org headers
+
+#+begin_src elisp
+(use-package org-sticky-header
+  :ensure t
+  :hook (org-mode . org-sticky-header-mode))
+
+;; Show full path in header
+(setq org-sticky-header-full-path 'full)
+;; Use > instead of / as separator
+(setq org-sticky-header-outline-path-separator " > ")
+#+end_src
+
+#+RESULTS:
+:  >
+
 * Misc nice things
 
 #+begin_src elisp

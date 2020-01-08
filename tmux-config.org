@@ -7,7 +7,7 @@
 #+PROPERTY:   header-args+ :mkdirp yes
 #+PROPERTY:   header-args+ :tangle "~/.tmux.conf"
 #+bind: org-html-htmlize-output-type csspuA
-#+OPTIONS: toc:2  
+#+OPTIONS: toc:2
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
 
@@ -23,7 +23,7 @@ bind C-\ send-prefix
 set -g mouse on
 #+END_SRC
 
-* Tmux Plugins 
+* Tmux Plugins
 This requires [[https://github.com/tmux-plugins/tpm][the Tmux plugin manager]], which can make a lot of things better. The important one is [[https://github.com/tmux-plugins/tmux-yank][tmux-yank]], which makes the tmux clipboard work in MacOS -- just select while holding Option. And [[https://github.com/tmux-plugins/tmux-resurrect][tmux-resurrect]] is pretty amazing. Basically re-starts the session from the places where you last saved
 
 #+BEGIN_SRC shell
@@ -42,4 +42,6 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
 
+
+new-session -s main
 #+END_SRC
