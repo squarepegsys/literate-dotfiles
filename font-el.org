@@ -7,10 +7,11 @@
 #+PROPERTY:   header-args+ :mkdirp yes
 #+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/font.el"
 #+bind: org-html-htmlize-output-type csspuA
-#+OPTIONS: toc:2  
+#+OPTIONS: toc:2
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
 * Prologue
+
 
 Generally fonts on the web or in applications aren't a big deal, but some reason I spend a lot of time finding an tweaking fonts in my editor. This is a story of how I set that up.
 
@@ -33,7 +34,7 @@ Basically this little snippet will look if that font name exists and, if so, wil
 [[https://dejavu-fonts.github.io/][DejaVu Sans Mono]]
 
 
-#+begin_src lisp
+#+begin_src elisp
 (when (member "DejaVu Sans Mono" (font-family-list))
   (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 140 :weight 'normal))
 
@@ -41,7 +42,7 @@ Basically this little snippet will look if that font name exists and, if so, wil
 
 [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] -- I used this the longest. One of it's problems is that it doesn't have all the unicode characters in it (see below of that fix). Another is that it's hard to read sometimes, and making it bigger can make it worse. I like it at 125 and really no other size
 
-#+begin_src lisp
+#+begin_src elisp
 (when (member "Source Code Pro" (font-family-list))
   (set-face-attribute 'default nil :font "Source Code Pro" :height 125 :weight 'normal))
 
@@ -49,11 +50,13 @@ Basically this little snippet will look if that font name exists and, if so, wil
 
 [[https://github.com/IBM/plex][IBM Plex]] -- wait? IBM has a font?!? Yes it does. Lots of them, actually, under the Plex name. It's certainly very corporate looking, but apparently they use this corporate wide. Not only does it look nice and scale well, it seems to be complete as far as weight, italic, etc. Anyway this is my latest font try and so far so good.
 
-#+begin_src lisp
+#+begin_src elisp
 (when (member "IBM Plex Mono" (font-family-list))
   (set-face-attribute 'default nil :font "IBM Plex Mono" :height 135 :weight 'normal))
 
 #+end_src
+
+#+RESULTS:
 
 ** Let's get complicated
 

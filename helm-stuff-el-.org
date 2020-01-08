@@ -1,4 +1,4 @@
-#+TITLE: Helm Stt
+#+TITLE: Helm Stuff
 #+AUTHOR: Mike Hostetler
 #+PROPERTY:   header-args+ :comments both
 
@@ -41,9 +41,9 @@ Let's supercharge our search with [[https://github.com/emacsorphanage/helm-swoop
 (use-package helm-swoop)
 
 ;; Change the keybinds to whatever you like :)
-(global-set-key (kbd "M-i") 'helm-swoop)
-(global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
-(global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
+(global-set-key (kbd "s-'") 'helm-swoop)
+(global-set-key (kbd "M-s-'") 'helm-swoop-back-to-last-point)
+(global-set-key (kbd "C-c s-'") 'helm-multi-swoop)
 (global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
 
 ;; When doing isearch, hand the word over to helm-swoop

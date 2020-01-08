@@ -7,10 +7,10 @@
 #+PROPERTY:   header-args+ :mkdirp yes
 #+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/mikeh-dumb-jump.el"
 #+bind: org-html-htmlize-output-type csspuA
-#+OPTIONS: toc:2  
+#+OPTIONS: toc:2
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
-* Prologue 
+* Prologue
 
 Let's try out dumb-jump... maybe it will be more accurate than xref or ggtags
 
@@ -26,3 +26,20 @@ Let's try out dumb-jump... maybe it will be more accurate than xref or ggtags
   :config (setq dumb-jump-selector 'helm))
 
 #+end_src
+* smart-parens
+
+I've missed this
+
+#+begin_src elisp
+(use-package smartparens
+   :ensure t)
+
+(require 'smartparens-config)
+(add-hook 'javascript-mode-hook #'smartparens-mode)
+(add-hook 'python-mode-hook #'smartparens-mode)
+
+(smartparens-strict-mode)
+#+end_src
+
+#+RESULTS:
+: t

@@ -27,7 +27,7 @@ Just something different than [[file:org-agenda-el.org::*Prologue][org-agenda]] 
 * org-wiki
 
 #+begin_src elisp
-
+(require 'org-wiki)
 (setq org-wiki-location-list
       '(
         "~/org-kb"    ;; First wiki (root directory) is the default.
