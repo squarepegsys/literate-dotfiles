@@ -80,3 +80,18 @@ lint our json
 
 #+RESULTS:
 | flymake-json-load |
+
+Lint our yaml
+
+#+begin_src elisp
+(use-package flycheck-yamllint
+  :ensure t
+  :defer t
+  :init
+  (progn
+    (eval-after-load 'flycheck
+      '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
+#+end_src
+
+#+RESULTS:
+| flycheck-yamllint-setup | flycheck-mode-set-explicitly |
