@@ -50,11 +50,21 @@ Basically this little snippet will look if that font name exists and, if so, wil
 
 #+end_src
 
+#+RESULTS:
+
 [[https://github.com/IBM/plex][IBM Plex]] -- wait? IBM has a font?!? Yes it does. Lots of them, actually, under the Plex name. It's certainly very corporate looking, but apparently they use this corporate wide. Not only does it look nice and scale well, it seems to be complete as far as weight, italic, etc. Anyway this is my latest font try and so far so good.
 
 #+begin_src elisp
 (when (member "IBM Plex Mono" (font-family-list))
   (set-face-attribute 'default nil :font "IBM Plex Mono" :height 140 :weight 'normal))
+
+#+end_src
+
+#+RESULTS:
+
+#+begin_src elisp
+(when (member "JetBrains Mono" (font-family-list))
+  (set-face-attribute 'default nil :font "JetBrains Mono" :height 140 :weight 'regular))
 
 #+end_src
 
