@@ -65,6 +65,7 @@ Also added [[https://github.com/tuhdo/org-recipes][org-recipes]] to handle snipp
    ("l" . org-wiki-helm)
 
    )
+
 #+END_SRC
 
 #+RESULTS:
@@ -126,10 +127,13 @@ The more I use Helm, the more I like it. Most of these are substituting the norm
 (global-set-key (kbd "C-x r l") 'helm-bookmarks)
 
 (global-set-key (kbd "S-p f") 'helm-projectile-find-file)
+
+(global-set-key (kbd "C-c ;") 'helm-yas-complete)
+
 #+end_src
 
 #+RESULTS:
-: helm-projectile-find-file
+: helm-yas-complete
 
 
 * Misc
