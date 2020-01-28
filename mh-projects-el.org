@@ -1,0 +1,20 @@
+#+TITLE: Some projectile tweaks
+#+AUTHOR: Mike Hostetler
+#+OPTIONS: toc:nil
+#+options: num:0
+#+OPTIONS: ^:nil
+#+PROPERTY:   header-args+ :comments both
+#+PROPERTY:   header-args+ :mkdirp yes
+#+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/mh-projectile.el"
+#+bind: org-html-htmlize-output-type csspuA
+#+OPTIONS: toc:2
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+#+begin_src elisp
+
+; where all my projects are  ~~S-p p~ to list them
+(setq projectile-project-search-path '("~/Projects/"))
+#+end_src
+
+#+RESULTS:
+| ~/Projects/ |

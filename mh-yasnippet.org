@@ -9,29 +9,29 @@
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
 #+begin_src elisp
-; from https://www.reddit.com/r/emacs/comments/9bvawd/use_yasnippet_via_usepackage/e59vh0w?utm_source=share&utm_medium=web2x
+  ; from https://www.reddit.com/r/emacs/comments/9bvawd/use_yasnippet_via_usepackage/e59vh0w?utm_source=share&utm_medium=web2x
 
-(use-package yasnippet
-  :ensure t
-  :config
-  (use-package yasnippet-snippets
-    :ensure t)
-   (use-package helm-c-yasnippet
-    :ensure t)
-    (setq helm-yas-space-match-any-greedy t)
-    (global-set-key (kbd "C-c ;") 'helm-yas-complete)
-    (yas-global-mode t)
-  ;(define-key yas-minor-mode-map (kbd "<tab>") #'yas-expand)
-  ;(define-key yas-minor-mode-map (kbd "C-'") #'yas-expand)
-  (add-to-list #'yas-snippet-dirs "~/.emacs.d/snippets")
-  (yas-reload-all)
-  (setq yas-prompt-functions '(yas-ido-prompt))
-  (defun help/yas-after-exit-snippet-hook-fn ()
-    (prettify-symbols-mode)
-    (prettify-symbols-mode))
-(add-hook 'yas-after-exit-snippet-hook #'help/yas-after-exit-snippet-hook-fn)
-  :diminish yas-minor-mode)
-(global-set-key (kbd "C-c y") 'helm-yas-complete)
+  (use-package yasnippet
+    :ensure t
+    :config
+    (use-package yasnippet-snippets
+      :ensure t)
+     (use-package helm-c-yasnippet
+      :ensure t)
+      (setq helm-yas-space-match-any-greedy t)
+      (global-set-key (kbd "C-c ;") 'helm-yas-complete)
+      (yas-global-mode t)
+    ;(define-key yas-minor-mode-map (kbd "<tab>") #'yas-expand)
+    ;(define-key yas-minor-mode-map (kbd "C-'") #'yas-expand)
+    (add-to-list #'yas-snippet-dirs "~/.emacs.d/snippets")
+    (yas-reload-all)
+    (setq yas-prompt-functions '(yas-ido-prompt))
+    (defun help/yas-after-exit-snippet-hook-fn ()
+      (prettify-symbols-mode)
+      (prettify-symbols-mode))
+  (add-hook 'yas-after-exit-snippet-hook #'help/yas-after-exit-snippet-hook-fn)
+    :diminish yas-minor-mode)
+  (global-set-key (kbd "C-c y") 'helm-yas-complete)
 
 
 

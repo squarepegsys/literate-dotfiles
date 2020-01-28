@@ -19,6 +19,7 @@ For JS -- ~npm i -g typescript-language-server; npm i -g typescript~
 (use-package lsp-mode
   :hook (python-mode . lsp)
   :hook (javascript-mode . lsp)
+  :hook (java-mode . lsp)
   :commands lsp)
 
 ;; optionally
@@ -73,10 +74,23 @@ For JS -- ~npm i -g typescript-language-server; npm i -g typescript~
   '(progn
      ;(define-key company-mode-map (kbd "C-;") 'helm-company)
      (define-key company-active-map (kbd "C-;") 'helm-company)))
-#+end_src
 
+(use-package lsp-java
+  :init
+  (defun jmi/java-mode-config ()
+
+    (setq-local tab-width 4
+                c-basic-offset 4)
+    (toggle-truncate-lines 1)
+    (setq-local tab-width 4)
+    (setq-local c-basic-offset 4)
+    (lsp))
+
+ :demand t
+  :after (lsp lsp-mode )) ; dap-mode jmi-init-platform-paths))
+
+#+end_src
 #+RESULTS:
-: helm-company
 * Other file stuff
 
 lint our json
