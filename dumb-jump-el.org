@@ -18,14 +18,18 @@ Let's try out dumb-jump... maybe it will be more accurate than xref or ggtags
 (use-package dumb-jump
   :ensure t
   :bind (("M-g o" . dumb-jump-go-other-window)
-         ("M-." . dumb-jump-go)
-         ("M-," . dumb-jump-back)
+        ("M-." . dumb-jump-go)
+        ("M-," . dumb-jump-back)
          ("M-g q" . dumb-jump-quick-look)
          ("M-g x" . dumb-jump-go-prefer-external)
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
   :config (setq dumb-jump-selector 'helm))
 
 #+end_src
+
+#+RESULTS:
+: dumb-jump-go-prefer-external-other-window
+
 * smart-parens
 
 I've missed this
@@ -37,6 +41,8 @@ I've missed this
 (require 'smartparens-config)
 (add-hook 'javascript-mode-hook #'smartparens-mode)
 (add-hook 'python-mode-hook #'smartparens-mode)
+(add-hook 'groovy-mode-hook #'smartparens-mode)
+
 
 (smartparens-strict-mode)
 #+end_src

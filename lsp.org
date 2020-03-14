@@ -12,14 +12,16 @@
 
 For python, need to install ~pip install "python-language-server[all]"~
 For JS -- ~npm i -g typescript-language-server; npm i -g typescript~
-
+For Java .... it's complicated
 
 #+begin_src elisp
+
 
 (use-package lsp-mode
   :hook (python-mode . lsp)
   :hook (javascript-mode . lsp)
   :hook (java-mode . lsp)
+  ;:hook (groovy-mode .lsp)
   :commands lsp)
 
 ;; optionally
@@ -91,9 +93,23 @@ For JS -- ~npm i -g typescript-language-server; npm i -g typescript~
 
 #+end_src
 #+RESULTS:
+
+* Groovy
+
+Didn't have good luck with lsp-groovy (seemed.... weird) so I'm trying https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes
+
+#+begin_src elisp
+(use-package grails-mode)
+(use-package groovy-mode)
+
+#+end_src
+
+#+RESULTS:
+
 * Other file stuff
 
-lint our json
+** Linting
+*** lint our json
 
 #+begin_src elisp
 (add-hook 'json-mode-hook 'flymake-json-load)
@@ -102,7 +118,7 @@ lint our json
 #+RESULTS:
 | flymake-json-load |
 
-Lint our yaml
+*** Lint our yaml
 
 #+begin_src elisp
 (use-package flycheck-yamllint
@@ -113,6 +129,3 @@ Lint our yaml
     (eval-after-load 'flycheck
       '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
 #+end_src
-
-#+RESULTS:
-| flycheck-yamllint-setup | flycheck-mode-set-explicitly |

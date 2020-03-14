@@ -374,6 +374,25 @@ Should look at https://github.com/Kungsgeten/yankpad since it's supported and in
 
 #+RESULTS:
 :  >
+* Deft
+
+In my continuing use of my knowledge base in OrgMode, Deft seems to be the quickiest way to access it
+#+begin_src elisp
+
+(use-package deft
+  :ensure t
+  :bind ("<f8>" . deft)
+  :commands (deft)
+  :config (setq deft-directory "~/org-kb"
+                deft-extensions '("md" "org")
+                deft-use-filter-string-for-filename t
+                deft-default-extension "org"
+                deft-text-mode 'org-mode
+))
+#+end_src
+
+#+RESULTS:
+: deft
 
 * Misc nice things
 

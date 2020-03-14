@@ -1,0 +1,61 @@
+#+TITLE: Misc
+#+AUTHOR: Mike Hostetler
+#+PROPERTY:   header-args+ :comments both
+
+#+PROPERTY:   header-args+ :mkdirp yes
+#+PROPERTY:   header-args+ :tangle "~/.emacs.d/personal/mh-misc.el"
+#+bind: org-html-htmlize-output-type csspuA
+#+OPTIONS: toc:2
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
+* Misc Things
+
+Here are some Misc things I don't know where to put anything else.
+
+This is basically stolen from https://github.com/sethmdoty/emacs.d/blob/master/emacs.org
+
+#+begin_src elisp
+
+(global-hl-line-mode 1)
+
+#+end_src
+
+** customize the titlebar
+
+#+begin_src elisp
+(defun frame-title-format ()
+  "Return frame title with current project name, where applicable."
+  (concat
+   "emacs - "
+   (when (and (bound-and-true-p projectile-mode)
+              (projectile-project-p))
+     (format "[%s] - " (projectile-project-name)))
+   (let ((file buffer-file-name))
+     (if file
+          (abbreviate-file-name file)
+       "%b"))))
+
+(setq-default frame-title-format '((:eval (frame-title-format))))
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
+#+end_src
+
+** Colorize buffer
+
+#+begin_src elisp
+;; load package
+(require 'ansi-color)
+
+;; function for colorizing
+(defun colorize-buffer ()
+  (interactive)
+  (toggle-read-only)
+  (ansi-color-apply-on-region (point-min) (point-max))
+  (toggle-read-only))
+
+;; add hook to apply the function when magit mode is enabled
+(add-hook 'magit-mode-hook 'colorize-buffer)
+#+end_src
+
+#+RESULTS:
+| colorize-buffer |
