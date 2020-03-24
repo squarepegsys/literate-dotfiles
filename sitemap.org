@@ -9,3 +9,4 @@
 - [[file:shortcuts-el.org][Some Random Emacs Shortcuts]]
 - [[file:tmux-config.org][Tmux.conf]]
 - [[file:ReadMe.org][Mike Hostetler's Literate Dotfiles]]
+- [[file:org-stuff.org][Lots of org-mode tweaks]]
