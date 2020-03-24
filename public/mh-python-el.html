@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2020-01-26 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Configs for Emacs</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Mike Hostetler">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<main id="content">
+<header>
+<h1 class="title">Python Configs for Emacs</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org48844c6">Prologue</a></li>
+<li><a href="#org5178878">Blacken</a></li>
+</ul>
+</div>
+</nav>
+
+<section id="outline-container-org48844c6" class="outline-2">
+<h2 id="org48844c6">Prologue</h2>
+<div class="outline-text-2" id="text-org48844c6">
+<p>
+A few python configs for Emacs. Most things are covered with<a href="lsp.html#org81f2f17"> my LSP Config</a>.
+</p>
+</div>
+</section>
+
+<section id="outline-container-org5178878" class="outline-2">
+<h2 id="org5178878">Blacken</h2>
+<div class="outline-text-2" id="text-org5178878">
+<p>
+<a href="https://pypi.org/project/black/">Black</a> seems like a good Python formatter. Glad there is an Emacs hook!
+</p>
+
+<p>
+import this from <a href="https://github.com/pythonic-emacs/blacken">https://github.com/pythonic-emacs/blacken</a>
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span class="org-comment-delimiter">;;; </span><span class="org-comment">blacken.el --- Reformat python buffers using the "black" formatter</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Copyright (C) 2018-2019 Artem Malyshev</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Author: Artem Malyshev <a href="mailto:proofit404%40gmail.com">&lt;proofit404@gmail.com&gt;</a></span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Homepage: https://github.com/proofit404/blacken</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Version: 0.0.1</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Package-Requires: ((emacs "25.2"))</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">This file is free software; you can redistribute it and/or modify</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">it under the terms of the GNU General Public License as published</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">by the Free Software Foundation; either version 3, or (at your</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">option) any later version.</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">This file is distributed in the hope that it will be useful,</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">GNU General Public License for more details.</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">For a full copy of the GNU General Public License</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">see <a href="http://www.gnu.org/licenses/">&lt;http://www.gnu.org/licenses/&gt;</a>.</span>
+
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Commentary:</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Blacken uses black to format a Python buffer.  It can be called</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">explicitly on a certain buffer, but more conveniently, a minor-mode</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">'blacken-mode' is provided that turns on automatically running</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">black on a buffer before saving.</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Installation:</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Add blacken.el to your load-path.</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">To automatically format all Python buffers before saving, add the</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">function blacken-mode to python-mode-hook:</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">(add-hook 'python-mode-hook 'blacken-mode)</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Code:</span>
+
+(<span class="org-keyword">require</span> '<span class="org-constant">cl-lib</span>)
+
+(<span class="org-keyword">defgroup</span> <span class="org-type">blacken</span> nil
+  <span class="org-doc">"Reformat Python code with \"black\"."</span>
+  <span class="org-builtin">:group</span> 'python)
+
+(<span class="org-keyword">defcustom</span> <span class="org-variable-name">blacken-executable</span> <span class="org-string">"black"</span>
+  <span class="org-doc">"Name of the executable to run."</span>
+  <span class="org-builtin">:type</span> 'string)
+
+(<span class="org-keyword">defcustom</span> <span class="org-variable-name">blacken-line-length</span> nil
+  <span class="org-doc">"Line length to enforce.</span>
+
+<span class="org-doc">It must be an integer, nil or `</span><span class="org-doc"><span class="org-constant">fill</span></span><span class="org-doc">'.</span>
+<span class="org-doc">If `</span><span class="org-doc"><span class="org-constant">fill</span></span><span class="org-doc">', the `</span><span class="org-doc"><span class="org-constant">fill-column</span></span><span class="org-doc">' variable value is used."</span>
+  <span class="org-builtin">:type</span> '(choice <span class="org-builtin">:tag</span> <span class="org-string">"Line Length Limit"</span>
+           (const <span class="org-builtin">:tag</span> <span class="org-string">"Use default"</span> nil)
+           (const <span class="org-builtin">:tag</span> <span class="org-string">"Use fill-column"</span> fill)
+           (integer <span class="org-builtin">:tag</span> <span class="org-string">"Line Length"</span>))
+  <span class="org-builtin">:safe</span> 'integerp)
+
+(<span class="org-keyword">defcustom</span> <span class="org-variable-name">blacken-allow-py36</span> nil
+  <span class="org-doc">"Allow using Python 3.6-only syntax on all input files."</span>
+  <span class="org-builtin">:type</span> 'boolean
+  <span class="org-builtin">:safe</span> 'booleanp)
+
+(<span class="org-keyword">defcustom</span> <span class="org-variable-name">blacken-skip-string-normalization</span> nil
+  <span class="org-doc">"Don't normalize string quotes or prefixes."</span>
+  <span class="org-builtin">:type</span> 'boolean
+  <span class="org-builtin">:safe</span> 'booleanp)
+
+(<span class="org-keyword">defcustom</span> <span class="org-variable-name">blacken-fast-unsafe</span> nil
+  <span class="org-doc">"Skips temporary sanity checks."</span>
+  <span class="org-builtin">:type</span> 'boolean
+  <span class="org-builtin">:safe</span> 'booleanp)
+
+(<span class="org-keyword">defcustom</span> <span class="org-variable-name">blacken-only-if-project-is-blackened</span> nil
+  <span class="org-doc">"Only blacken if project has a pyproject.toml with a [tool.black] section."</span>
+  <span class="org-builtin">:type</span> 'boolean
+  <span class="org-builtin">:safe</span> 'booleanp)
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">blacken-call-bin</span> (input-buffer output-buffer error-buffer)
+  <span class="org-doc">"Call process black.</span>
+
+<span class="org-doc">Send INPUT-BUFFER content to the process stdin.  Saving the</span>
+<span class="org-doc">output to OUTPUT-BUFFER.  Saving process stderr to ERROR-BUFFER.</span>
+<span class="org-doc">Return black process the exit code."</span>
+  (<span class="org-keyword">with-current-buffer</span> input-buffer
+    (<span class="org-keyword">let</span> ((process (make-process <span class="org-builtin">:name</span> <span class="org-string">"blacken"</span>
+                                 <span class="org-builtin">:command</span> `(,blacken-executable ,@(blacken-call-args))
+                                 <span class="org-builtin">:buffer</span> output-buffer
+                                 <span class="org-builtin">:stderr</span> error-buffer
+                                 <span class="org-builtin">:noquery</span> t
+                                 <span class="org-builtin">:sentinel</span> (<span class="org-keyword">lambda</span> (process event)))))
+      (set-process-query-on-exit-flag (get-buffer-process error-buffer) nil)
+      (set-process-sentinel (get-buffer-process error-buffer) (<span class="org-keyword">lambda</span> (process event)))
+      (<span class="org-keyword">save-restriction</span>
+        (widen)
+        (process-send-region process (point-min) (point-max)))
+      (process-send-eof process)
+      (accept-process-output process nil nil t)
+      (<span class="org-keyword">while</span> (process-live-p process)
+        (accept-process-output process nil nil t))
+      (process-exit-status process))))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">blacken-call-args</span> ()
+  <span class="org-doc">"Build black process call arguments."</span>
+  (append
+   (<span class="org-keyword">when</span> blacken-line-length
+     (list <span class="org-string">"--line-length"</span>
+           (number-to-string (<span class="org-keyword">cl-case</span> blacken-line-length
+                               ('fill fill-column)
+                               (t blacken-line-length)))))
+   (<span class="org-keyword">when</span> blacken-allow-py36
+     (list <span class="org-string">"--py36"</span>))
+   (<span class="org-keyword">when</span> blacken-fast-unsafe
+     (list <span class="org-string">"--fast"</span>))
+   (<span class="org-keyword">when</span> blacken-skip-string-normalization
+     (list <span class="org-string">"--skip-string-normalization"</span>))
+   (<span class="org-keyword">when</span> (<span class="org-keyword">and</span> (buffer-file-name (current-buffer))
+              (string-match <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">.pyi$"</span> (buffer-file-name (current-buffer))))
+     (list <span class="org-string">"--pyi"</span>))
+   '(<span class="org-string">"-"</span>)))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">blacken-project-is-blackened</span> (<span class="org-type">&amp;optional</span> display)
+  <span class="org-doc">"Whether the project has a pyproject.toml with [tool.black] in it."</span>
+  (when-let ((parent (locate-dominating-file default-directory <span class="org-string">"pyproject.toml"</span>)))
+    (<span class="org-keyword">with-temp-buffer</span>
+      (insert-file-contents (concat parent <span class="org-string">"pyproject.toml"</span>))
+      (re-search-forward <span class="org-string">"^\\[</span><span class="org-string"><span class="org-constant">tool.black\\</span></span><span class="org-string">]$"</span> nil t 1))))
+
+<span class="org-comment-delimiter">;;;</span><span class="org-comment">###</span><span class="org-comment"><span class="org-warning">autoload</span></span>
+(<span class="org-keyword">defun</span> <span class="org-function-name">blacken-buffer</span> (<span class="org-type">&amp;optional</span> display)
+  <span class="org-doc">"Try to blacken the current buffer.</span>
+
+<span class="org-doc">Show black output, if black exit abnormally and DISPLAY is t."</span>
+  (<span class="org-keyword">interactive</span> (list t))
+  (<span class="org-keyword">let*</span> ((original-buffer (current-buffer))
+         (original-point (point))
+         (original-window-pos (window-start))
+         (tmpbuf (get-buffer-create <span class="org-string">"*blacken*"</span>))
+         (errbuf (get-buffer-create <span class="org-string">"*blacken-error*"</span>)))
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">This buffer can be left after previous black invocation.  It</span>
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">can contain error message of the previous run.</span>
+    (<span class="org-keyword">dolist</span> (buf (list tmpbuf errbuf))
+      (<span class="org-keyword">with-current-buffer</span> buf
+        (erase-buffer)))
+    (<span class="org-keyword">condition-case</span> err
+        (<span class="org-keyword">if</span> (not (zerop (blacken-call-bin original-buffer tmpbuf errbuf)))
+            (<span class="org-warning">error</span> <span class="org-string">"Black failed, see %s buffer for details"</span> (buffer-name errbuf))
+          (<span class="org-keyword">unless</span> (eq (compare-buffer-substrings tmpbuf nil nil original-buffer nil nil) 0)
+            (<span class="org-keyword">with-current-buffer</span> tmpbuf
+              (copy-to-buffer original-buffer (point-min) (point-max)))
+            (goto-char original-point)
+            (set-window-start (selected-window) original-window-pos))
+          (mapc 'kill-buffer (list tmpbuf errbuf)))
+      (<span class="org-warning">error</span> (message <span class="org-string">"%s"</span> (error-message-string err))
+             (when display
+               (pop-to-buffer errbuf))))))
+
+<span class="org-comment-delimiter">;;;</span><span class="org-comment">###</span><span class="org-comment"><span class="org-warning">autoload</span></span>
+(<span class="org-keyword">define-minor-mode</span> <span class="org-function-name">blacken-mode</span>
+  <span class="org-doc">"Automatically run black before saving."</span>
+  <span class="org-builtin">:lighter</span> <span class="org-string">" Black"</span>
+  (<span class="org-keyword">if</span> blacken-mode
+      (<span class="org-keyword">when</span> (<span class="org-keyword">or</span> (not blacken-only-if-project-is-blackened)
+                (blacken-project-is-blackened))
+        (add-hook 'before-save-hook 'blacken-buffer nil t))
+    (remove-hook 'before-save-hook 'blacken-buffer t)))
+
+(<span class="org-keyword">provide</span> '<span class="org-constant">blacken</span>)
+
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">blacken.el ends here</span>
+
+</pre>
+</div>
+
+<p>
+Now make sure Blacken is run with python-mode:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(add-hook 'python-mode-hook 'blacken-mode)
+</pre>
+</div>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<hr>
+<p>
+<p class="Source">Source: <a href="https://github.com/squarepegsys/literate-dotfiles/blob/master/mh-python-el.org">mh-python-el.org</a></p><p>Return to <a href="index.html">index</a>.</p>
+</footer>
+</body>
+</html>

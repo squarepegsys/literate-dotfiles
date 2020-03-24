@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-10-16 -->
+<!-- 2020-03-24 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Org Configs</title>
@@ -209,12 +209,16 @@
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#org0153ae9">Prologue</a></li>
+<li><a href="#org036fdc4">Enable babel</a></li>
 <li><a href="#org587ada6">org-wiki</a></li>
 <li><a href="#org60ca710">org-recipes</a></li>
+<li><a href="#org4338f82">Org headers</a></li>
+<li><a href="#org9561845">Deft</a></li>
 <li><a href="#org8855d6e">Misc nice things</a></li>
 </ul>
 </div>
 </nav>
+
 
 <section id="outline-container-org0153ae9" class="outline-2">
 <h2 id="org0153ae9">Prologue</h2>
@@ -225,11 +229,29 @@ Just something different than <a href="org-agenda-el.html#org2f616f9">org-agenda
 </div>
 </section>
 
+<section id="outline-container-org036fdc4" class="outline-2">
+<h2 id="org036fdc4">Enable babel</h2>
+<div class="outline-text-2" id="text-org036fdc4">
+<div class="org-src-container">
+<pre class="src src-elisp">
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)
+   (sql . t)
+
+)
+)
+</pre>
+</div>
+</div>
+</section>
+
 <section id="outline-container-org587ada6" class="outline-2">
 <h2 id="org587ada6">org-wiki</h2>
 <div class="outline-text-2" id="text-org587ada6">
 <div class="org-src-container">
-<pre class="src src-elisp">
+<pre class="src src-elisp">(<span class="org-keyword">require</span> '<span class="org-constant">org-wiki</span>)
 (<span class="org-keyword">setq</span> org-wiki-location-list
       '(
         <span class="org-string">"~/org-kb"</span>    <span class="org-comment-delimiter">;; </span><span class="org-comment">First wiki (root directory) is the default.</span>
@@ -566,21 +588,159 @@ Should look at <a href="https://github.com/Kungsgeten/yankpad">https://github.co
 </div>
 </section>
 
+<section id="outline-container-org4338f82" class="outline-2">
+<h2 id="org4338f82">Org headers</h2>
+<div class="outline-text-2" id="text-org4338f82">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> org-sticky-header
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:hook</span> (org-mode . org-sticky-header-mode))
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Show full path in header</span>
+(<span class="org-keyword">setq</span> org-sticky-header-full-path 'full)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Use &gt; instead of / as separator</span>
+(<span class="org-keyword">setq</span> org-sticky-header-outline-path-separator <span class="org-string">" &gt; "</span>)
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org9561845" class="outline-2">
+<h2 id="org9561845">Deft</h2>
+<div class="outline-text-2" id="text-org9561845">
+<p>
+In my continuing use of my knowledge base in OrgMode, Deft seems to be the quickiest way to access it
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">use-package</span> deft
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:bind</span> (<span class="org-string">"&lt;f8&gt;"</span> . deft)
+  <span class="org-builtin">:commands</span> (deft)
+  <span class="org-builtin">:config</span> (<span class="org-keyword">setq</span> deft-directory <span class="org-string">"~/org-kb"</span>
+                deft-extensions '(<span class="org-string">"md"</span> <span class="org-string">"org"</span>)
+                deft-use-filter-string-for-filename t
+                deft-default-extension <span class="org-string">"org"</span>
+                deft-text-mode 'org-mode
+))
+</pre>
+</div>
+</div>
+</section>
+
 <section id="outline-container-org8855d6e" class="outline-2">
 <h2 id="org8855d6e">Misc nice things</h2>
 <div class="outline-text-2" id="text-org8855d6e">
 <div class="org-src-container">
-<pre class="src src-elisp">(add-hook 'org-mode-hook (<span class="org-keyword">lambda</span> () (org-bullets-mode 1)))
+<pre class="src src-elisp">(define-key global-map <span class="org-string">"\C-cc"</span> 'org-capture)
+(define-key global-map <span class="org-string">"\C-ca"</span> 'org-agenda)
 
-(define-key global-map <span class="org-string">"\C-cc"</span> 'org-capture)
+(<span class="org-keyword">setq</span> org-hide-emphasis-markers t)
 
 (<span class="org-keyword">use-package</span> org-bullets)
-
-
-
+(add-hook 'org-mode-hook (<span class="org-keyword">lambda</span> () (org-bullets-mode 1)))
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Drag-and-drop to `dired`</span>
 (add-hook 'dired-mode-hook 'org-download-enable)
 </pre>
+</div>
+</div>
+
+<div id="outline-container-org79b6e48" class="outline-4">
+<h4 id="org79b6e48">make things fancy&#xa0;&#xa0;&#xa0;<span class="tag"><span class="fonts">fonts</span></span></h4>
+<div class="outline-text-4" id="text-org79b6e48">
+<p>
+Ideas from
+<a href="https://zzamboni.org/post/beautifying-org-mode-in-emacs/">https://zzamboni.org/post/beautifying-org-mode-in-emacs/</a>
+</p>
+
+<p>
+Makes the bulleted list have bullets
+</p>
+
+<p>
+This kinda supercedes <a href="font-el.html#org632a7e0">my Font selection</a> but this is all for org-mode, so I put it here
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(font-lock-add-keywords 'org-mode
+    '((<span class="org-string">"^ *</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">[-]</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string"> "</span>
+    (0 (<span class="org-keyword">prog1</span> () (compose-region (match-beginning 1) (match-end 1) <span class="org-string">"&#8226;"</span>))))))
+
+</pre>
+</div>
+
+
+<p>
+Add proportional font for the headlines
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">let*</span> ((variable-tuple
+        (<span class="org-keyword">cond</span> ((x-list-fonts <span class="org-string">"IBM Plex Sans"</span>) '(<span class="org-builtin">:font</span> <span class="org-string">"IBM Plex Sans"</span>))
+              ((x-list-fonts <span class="org-string">"Lucida Grande"</span>)   '(<span class="org-builtin">:font</span> <span class="org-string">"Lucida Grande"</span>))
+              ((x-list-fonts <span class="org-string">"Verdana"</span>)         '(<span class="org-builtin">:font</span> <span class="org-string">"Verdana"</span>))
+              ((x-family-fonts <span class="org-string">"Sans Serif"</span>)    '(<span class="org-builtin">:family</span> <span class="org-string">"Sans Serif"</span>))
+              (nil (<span class="org-warning">warn</span> <span class="org-string">"Cannot find a Sans Serif Font.  Install Source Sans Pro."</span>))))
+       (base-font-color     (face-foreground 'default nil 'default))
+       (headline           `(<span class="org-builtin">:inherit</span> default <span class="org-builtin">:weight</span> bold <span class="org-builtin">:foreground</span> ,base-font-color)))
+
+  (custom-theme-set-faces
+   'user
+   `(org-level-8 ((t (,@headline ,@variable-tuple))))
+   `(org-level-7 ((t (,@headline ,@variable-tuple))))
+   `(org-level-6 ((t (,@headline ,@variable-tuple))))
+   `(org-level-5 ((t (,@headline ,@variable-tuple))))
+   `(org-level-4 ((t (,@headline ,@variable-tuple <span class="org-builtin">:height</span> 1.0))))
+   `(org-level-3 ((t (,@headline ,@variable-tuple <span class="org-builtin">:height</span> 1.0))))
+   `(org-level-2 ((t (,@headline ,@variable-tuple <span class="org-builtin">:height</span> 1.0))))
+   `(org-level-1 ((t (,@headline ,@variable-tuple <span class="org-builtin">:height</span> 1.25))))
+   `(org-document-title ((t (,@headline ,@variable-tuple <span class="org-builtin">:height</span> 1.5 <span class="org-builtin">:underline</span> nil))))))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(custom-theme-set-faces
+ 'user
+'(variable-pitch ((t ( <span class="org-builtin">:family</span> <span class="org-string">"IBM Plex Arabic"</span> <span class="org-builtin">:height</span> 160 <span class="org-builtin">:weight</span> light))))
+'(fixed-pitch ((t ( <span class="org-builtin">:family</span> <span class="org-string">"JetBrains Mono"</span> <span class="org-builtin">:height</span> 140 <span class="org-builtin">:slant</span> normal <span class="org-builtin">:weight</span> light  <span class="org-builtin">:width</span> normal))))
+)
+
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+
+(add-hook 'org-mode-hook 'visual-line-mode)
+
+(custom-theme-set-faces
+ 'user
+ '(org-block ((t (<span class="org-builtin">:inherit</span> fixed-pitch))))
+ '(org-code ((t (<span class="org-builtin">:inherit</span> (shadow fixed-pitch)))))
+ '(org-document-info ((t (<span class="org-builtin">:foreground</span> <span class="org-string">"dark orange"</span>))))
+ '(org-document-info-keyword ((t (<span class="org-builtin">:inherit</span> (shadow fixed-pitch)))))
+ '(org-indent ((t (<span class="org-builtin">:inherit</span> (org-hide fixed-pitch)))))
+ '(org-link ((t (<span class="org-builtin">:foreground</span> <span class="org-string">"dark orange"</span> <span class="org-builtin">:underline</span> t))))
+ '(org-meta-line ((t (<span class="org-builtin">:inherit</span> (font-lock-comment-face fixed-pitch)))))
+ '(org-property-value ((t (<span class="org-builtin">:inherit</span> fixed-pitch))) t)
+ '(org-special-keyword ((t (<span class="org-builtin">:inherit</span> (font-lock-comment-face fixed-pitch)))))
+ '(org-table ((t (<span class="org-builtin">:inherit</span> fixed-pitch <span class="org-builtin">:foreground</span> <span class="org-string">"#83a598"</span>))))
+ '(org-tag ((t (<span class="org-builtin">:inherit</span> (shadow fixed-pitch) <span class="org-builtin">:weight</span> bold <span class="org-builtin">:height</span> 1.0))))
+ '(org-verbatim ((t (<span class="org-builtin">:inherit</span> (shadow fixed-pitch))))))
+
+
+</pre>
+</div>
+
+<p>
+This may belong somewhere else but I put it here because it&rsquo;s really annoying in this new fancy orgmode.
+</p>
+
+<p>
+Anyway, turn off Prelude&rsquo;s marking of text over 80 chars, i.e. &ldquo;the pink text&rdquo;
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">setq</span> prelude-whitespace nil)
+
+
+</pre>
+</div>
 </div>
 </div>
 </section>

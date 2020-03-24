@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-08-25 -->
+<!-- 2020-01-26 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tmux.conf</title>
@@ -208,16 +208,16 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org99f960f">The Basics</a></li>
-<li><a href="#org7e76f36">Tmux Plugins</a></li>
+<li><a href="#org92b249d">The Basics</a></li>
+<li><a href="#org25852fe">Tmux Plugins</a></li>
 </ul>
 </div>
 </nav>
 
 
-<section id="outline-container-org99f960f" class="outline-2">
-<h2 id="org99f960f">The Basics</h2>
-<div class="outline-text-2" id="text-org99f960f">
+<section id="outline-container-org92b249d" class="outline-2">
+<h2 id="org92b249d">The Basics</h2>
+<div class="outline-text-2" id="text-org92b249d">
 <p>
 See wiki:Tmux for some of my help
 </p>
@@ -236,9 +236,9 @@ I find it annoying that <code>C-b</code> is the default prefix for Tmux. I assig
 </div>
 </section>
 
-<section id="outline-container-org7e76f36" class="outline-2">
-<h2 id="org7e76f36">Tmux Plugins</h2>
-<div class="outline-text-2" id="text-org7e76f36">
+<section id="outline-container-org25852fe" class="outline-2">
+<h2 id="org25852fe">Tmux Plugins</h2>
+<div class="outline-text-2" id="text-org25852fe">
 <p>
 This requires <a href="https://github.com/tmux-plugins/tpm">the Tmux plugin manager</a>, which can make a lot of things better. The important one is <a href="https://github.com/tmux-plugins/tmux-yank">tmux-yank</a>, which makes the tmux clipboard work in MacOS &#x2013; just select while holding Option. And <a href="https://github.com/tmux-plugins/tmux-resurrect">tmux-resurrect</a> is pretty amazing. Basically re-starts the session from the places where you last saved
 </p>
@@ -259,6 +259,8 @@ This requires <a href="https://github.com/tmux-plugins/tpm">the Tmux plugin mana
 <span class="org-comment-delimiter"># </span><span class="org-comment">Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)</span>
 run <span class="org-string">'~/.tmux/plugins/tpm/tpm'</span>
 
+
+new-session -s main
 </pre>
 </div>
 </div>

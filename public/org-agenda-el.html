@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-10-16 -->
+<!-- 2019-12-24 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Org Agenda Templates</title>
@@ -274,6 +274,21 @@ It seems that Mr Rollins dived into the orgmode docs and found something good:
 <span class="org-string">%i</span>
 <span class="org-string">%a</span>
 <span class="org-string">:END:"</span> <span class="org-builtin">:prepend</span> t)
+
+      (<span class="org-string">"ts"</span> <span class="org-string">"Shift Worship"</span>  entry (file+headline <span class="org-string">"~/org/ShiftTasks.org"</span> <span class="org-string">"Shit Tasks"</span>)
+         <span class="org-string">"** TODO %?</span>
+<span class="org-string">:PROPERTIES:</span>
+<span class="org-string">:ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U</span>
+<span class="org-string">%i</span>
+<span class="org-string">%a</span>
+<span class="org-string">:END:"</span> <span class="org-builtin">:prepend</span> t)
+      (<span class="org-string">"tp"</span> <span class="org-string">"Powerhouse"</span>  entry (file+headline <span class="org-string">"~/org/Powerhouse.org"</span> <span class="org-string">"Powerhouse Tasks"</span>)
+         <span class="org-string">"** TODO %?</span>
+<span class="org-string">:PROPERTIES:</span>
+<span class="org-string">:ID:       %(shell-command-to-string \"uuidgen\"):CREATED:  %U</span>
+<span class="org-string">%i</span>
+<span class="org-string">%a</span>
+<span class="org-string">:END:"</span> <span class="org-builtin">:prepend</span> t)
       (<span class="org-string">"tt"</span> <span class="org-string">"Misc"</span> entry (file+headline <span class="org-string">"~/pdrive/org/tasks/task.org"</span> <span class="org-string">"Tasks"</span>)
          <span class="org-string">"** TODO %?</span>
 <span class="org-string">:PROPERTIES:</span>
@@ -313,20 +328,20 @@ Basically I made my own labels (well, jwigley did).
 (<span class="org-keyword">setq</span> org-todo-keyword-faces
    '((
     <span class="org-string">"TODO"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"dark orange"</span> <span class="org-builtin">:weight</span> bold)
-     (<span class="org-string">"EPIC"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"deep sky blue"</span> <span class="org-builtin">:weight</span> bold)
-     (<span class="org-string">"STORY"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"royal blue"</span> <span class="org-builtin">:weight</span> bold)
-     (<span class="org-string">"RECUR"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"cornflowerblue"</span> <span class="org-builtin">:weight</span> bold)
-     (<span class="org-string">"APPT"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"light blue"</span> <span class="org-builtin">:weight</span> bold)
-     (<span class="org-string">"NOTE"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"brown"</span> <span class="org-builtin">:weight</span> bold)
-     (<span class="org-string">"STARTED"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"dark orange"</span> <span class="org-builtin">:weight</span> bold)
-     (<span class="org-string">"WAITING"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"red"</span> <span class="org-builtin">:weight</span> bold)
-     (<span class="org-string">"DELEGATED"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"dark violet"</span> <span class="org-builtin">:weight</span> bold)
-     (<span class="org-string">"DEFERRED"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"dark violet"</span> <span class="org-builtin">:weight</span> bold)
-     (<span class="org-string">"SOMEDAY"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"brown"</span> <span class="org-builtin">:weight</span> bold)
-     (<span class="org-string">"PROJECT"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"#088e8e"</span> <span class="org-builtin">:weight</span> bold)
+  <span class="org-comment-delimiter">;   </span><span class="org-comment">("EPIC" :foreground "deep sky blue" :weight bold)</span>
+<span class="org-comment-delimiter">;     </span><span class="org-comment">("STORY" :foreground "royal blue" :weight bold)</span>
+     <span class="org-comment-delimiter">;</span><span class="org-comment">("RECUR" :foreground "cornflowerblue" :weight bold)</span>
+     <span class="org-comment-delimiter">;</span><span class="org-comment">("APPT" :foreground "light blue" :weight bold)</span>
+     <span class="org-comment-delimiter">;</span><span class="org-comment">("NOTE" :foreground "brown" :weight bold)</span>
+     <span class="org-comment-delimiter">;</span><span class="org-comment">("STARTED" :foreground "dark orange" :weight bold)</span>
+     <span class="org-comment-delimiter">;</span><span class="org-comment">("WAITING" :foreground "red" :weight bold)</span>
+     <span class="org-comment-delimiter">;</span><span class="org-comment">("DELEGATED" :foreground "dark violet" :weight bold)</span>
+     <span class="org-comment-delimiter">;</span><span class="org-comment">("DEFERRED" :foreground "dark violet" :weight bold)</span>
+     <span class="org-comment-delimiter">;</span><span class="org-comment">("SOMEDAY" :foreground "brown" :weight bold)</span>
+     <span class="org-comment-delimiter">;</span><span class="org-comment">("PROJECT" :foreground "#088e8e" :weight bold)</span>
      (<span class="org-string">"DONE"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"#088e8e"</span> <span class="org-builtin">:weight</span> bold)
-    (<span class="org-string">"TO-READ"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"dark orange"</span> <span class="org-builtin">:weight</span> bold)
-    (<span class="org-string">"FINISHED"</span> <span class="org-builtin">:foreground</span> <span class="org-string">"royal blue"</span> <span class="org-builtin">:weight</span> bold)
+    <span class="org-comment-delimiter">;</span><span class="org-comment">("TO-READ" :foreground "dark orange" :weight bold)</span>
+    <span class="org-comment-delimiter">;</span><span class="org-comment">("FINISHED" :foreground "royal blue" :weight bold)</span>
 )
 
 )
@@ -419,6 +434,10 @@ Got this from <a href="https://orgmode.org/worg/org-tutorials/org-custom-agenda-
          ((org-agenda-files '(<span class="org-string">"~/org/"</span> <span class="org-string">"~/pDrive/org/tasks/task.org"</span>))
           (org-agenda-sorting-strategy '(priority-up effort-down)))
          (<span class="org-string">"~/org/voterinformation.html"</span>))
+        (<span class="org-string">"s"</span> <span class="org-string">"Shift"</span> tags-todo <span class="org-string">"shift"</span>
+         ((org-agenda-files '(<span class="org-string">"~/org/"</span> <span class="org-string">"~/pDrive/org/tasks/task.org"</span>))
+          (org-agenda-sorting-strategy '(priority-up effort-down)))
+         (<span class="org-string">"~/org/shiftworship.html"</span>))
 
         ))
 </pre>

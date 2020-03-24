@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2020-03-24 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Some Random Emacs Shortcuts</title>
@@ -214,11 +215,11 @@
 <li><a href="#orga12a47d">get issue number from feature branch</a></li>
 </ul>
 </li>
-<li><a href="#orge1eef1c">Custom prefix</a></li>
-<li><a href="#orgaaa3799">Easy Kill</a></li>
-<li><a href="#orgbc13148">Parens</a></li>
-<li><a href="#org5c9c93e">Helm Stuff</a></li>
-<li><a href="#orge755d5d">Misc</a></li>
+<li><a href="#org38c5db4">Custom prefix</a></li>
+<li><a href="#org9910d38">Easy Kill</a></li>
+<li><a href="#org60a7e26">Parens</a></li>
+<li><a href="#org3f9a2ae">Helm Stuff</a></li>
+<li><a href="#orgd9e7606">Misc</a></li>
 </ul>
 </div>
 </nav>
@@ -298,20 +299,22 @@ Also added <a href="https://github.com/tuhdo/org-recipes">org-recipes</a> to han
  (<span class="org-string">"c"</span> . quick-calc)
  (<span class="org-string">"i"</span> . org-recipes)
  (<span class="org-string">"t"</span> . make-terraform-variable)
- (<span class="org-string">"f"</span> . feature-number)
+ <span class="org-comment-delimiter">;</span><span class="org-comment">("f" . feature-number)</span>
+ (<span class="org-string">"f"</span> . helm-fasd)
  (<span class="org-string">"b"</span> . helm-bookmarks)
  (<span class="org-string">"j"</span> . helm-all-mark-rings)
  (<span class="org-string">"l"</span> . org-wiki-helm)
 
  )
+
 </pre>
 </div>
 </div>
 </section>
 
-<section id="outline-container-orgaaa3799" class="outline-2">
-<h2 id="orgaaa3799">Easy Kill</h2>
-<div class="outline-text-2" id="text-orgaaa3799">
+<section id="outline-container-org9910d38" class="outline-2">
+<h2 id="org9910d38">Easy Kill</h2>
+<div class="outline-text-2" id="text-org9910d38">
 <p>
 Found this on a blog post and have found it invaluable
 </p>
@@ -377,6 +380,10 @@ The more I use Helm, the more I like it. Most of these are substituting the norm
 
 (global-set-key (kbd <span class="org-string">"C-x r l"</span>) 'helm-bookmarks)
 
+(global-set-key (kbd <span class="org-string">"S-p f"</span>) 'helm-projectile-find-file)
+
+(global-set-key (kbd <span class="org-string">"C-c ;"</span>) 'helm-yas-complete)
+
 </pre>
 </div>
 </div>
@@ -402,19 +409,18 @@ These are just some shortcuts that just live here.
 
 (windmove-default-keybindings)
 
-
 (global-set-key (kbd <span class="org-string">"C-;"</span>) 'company-complete)
 
 (global-set-key (kbd <span class="org-string">"&lt;F2&gt;"</span>) 'call-last-kbd-macro)
+
+(global-set-key (kbd <span class="org-string">"C-c l"</span>) 'org-store-link)
+<span class="org-comment-delimiter">;</span><span class="org-comment">(global-set-key (kbd "M-.") 'xref-find-definitions)</span>
+
+<span class="org-comment-delimiter">;</span><span class="org-comment">(global-set-key (kbd "M-,") 'xref-pop-marker-stack)</span>
+
+
 </pre>
 </div>
-
-<p>
-#company:
-</p>
-<pre class="example">
-complete-complete
-</pre>
 </div>
 </section>
 </main>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-10-26 -->
+<!-- 2020-03-24 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LSP Configuration</title>
@@ -209,6 +209,14 @@
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#org81f2f17">LSP Config</a></li>
+<li><a href="#org65ec277">Groovy</a></li>
+<li><a href="#orgb6320b9">Other file stuff</a>
+<ul>
+<li><a href="#org4860d57">Linting</a></li>
+<li><a href="#orgee2b80c">Web stuff</a></li>
+<li><a href="#org6a02001">ejc-sql</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
@@ -219,14 +227,17 @@
 <p>
 For python, need to install <code>pip install "python-language-server[all]"</code>
 For JS &#x2013; <code>npm i -g typescript-language-server; npm i -g typescript</code>
+For Java &#x2026;. it&rsquo;s complicated
 </p>
-
 
 <div class="org-src-container">
 <pre class="src src-elisp">
+
 (<span class="org-keyword">use-package</span> lsp-mode
   <span class="org-builtin">:hook</span> (python-mode . lsp)
   <span class="org-builtin">:hook</span> (javascript-mode . lsp)
+  <span class="org-builtin">:hook</span> (java-mode . lsp)
+  <span class="org-comment-delimiter">;</span><span class="org-comment">:hook (groovy-mode .lsp)</span>
   <span class="org-builtin">:commands</span> lsp)
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">optionally</span>
@@ -252,7 +263,23 @@ For JS &#x2013; <code>npm i -g typescript-language-server; npm i -g typescript</
   (lsp-ui-sideline-show-code-actions nil)
   )
 
-(<span class="org-keyword">use-package</span> company-lsp <span class="org-builtin">:commands</span> company-lsp)
+(<span class="org-keyword">use-package</span> company-lsp
+   <span class="org-builtin">:commands</span> company-lsp
+   <span class="org-builtin">:config</span>
+   (<span class="org-keyword">push</span> 'company-lsp company-backends)
+   <span class="org-builtin">:custom</span>
+   (company-lsp-enable-snippet t)
+   (company-lsp-cache-candidates t)
+)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">ok, not LSP-related but certainly company related</span>
+
+(<span class="org-keyword">use-package</span> company-quickhelp
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:after</span> (company)
+  <span class="org-builtin">:config</span>
+  (company-quickhelp-mode))
+
 (<span class="org-keyword">use-package</span> helm-lsp <span class="org-builtin">:commands</span> helm-lsp-workspace-symbol)
 <span class="org-comment-delimiter">;</span><span class="org-comment">(use-package lsp-treemacs :commands lsp-treemacs-errors-list)</span>
 
@@ -272,9 +299,192 @@ For JS &#x2013; <code>npm i -g typescript-language-server; npm i -g typescript</
 (autoload 'helm-company <span class="org-string">"helm-company"</span>) <span class="org-comment-delimiter">;; </span><span class="org-comment">Not necessary if using ELPA package</span>
 (eval-after-load 'company
   '(<span class="org-keyword">progn</span>
-     (define-key company-mode-map (kbd <span class="org-string">"C-;"</span>) 'helm-company)
+     <span class="org-comment-delimiter">;</span><span class="org-comment">(define-key company-mode-map (kbd "C-;") 'helm-company)</span>
      (define-key company-active-map (kbd <span class="org-string">"C-;"</span>) 'helm-company)))
+
+(<span class="org-keyword">use-package</span> lsp-java
+  <span class="org-builtin">:init</span>
+  (<span class="org-keyword">defun</span> <span class="org-function-name">jmi/java-mode-config</span> ()
+
+    (<span class="org-keyword">setq-local</span> tab-width 4
+                c-basic-offset 4)
+    (toggle-truncate-lines 1)
+    (<span class="org-keyword">setq-local</span> tab-width 4)
+    (<span class="org-keyword">setq-local</span> c-basic-offset 4)
+    (lsp))
+
+ <span class="org-builtin">:demand</span> t
+  <span class="org-builtin">:after</span> (lsp lsp-mode )) <span class="org-comment-delimiter">; </span><span class="org-comment">dap-mode jmi-init-platform-paths))</span>
+
 </pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org65ec277" class="outline-2">
+<h2 id="org65ec277">Groovy</h2>
+<div class="outline-text-2" id="text-org65ec277">
+<p>
+Didn&rsquo;t have good luck with lsp-groovy (seemed&#x2026;. weird) so I&rsquo;m trying <a href="https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes">https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> grails-mode)
+(<span class="org-keyword">use-package</span> groovy-mode)
+
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgb6320b9" class="outline-2">
+<h2 id="orgb6320b9">Other file stuff</h2>
+<div class="outline-text-2" id="text-orgb6320b9">
+</div>
+<div id="outline-container-org4860d57" class="outline-3">
+<h3 id="org4860d57">Linting</h3>
+<div class="outline-text-3" id="text-org4860d57">
+</div>
+<div id="outline-container-org98a0be1" class="outline-4">
+<h4 id="org98a0be1">lint our json</h4>
+<div class="outline-text-4" id="text-org98a0be1">
+<div class="org-src-container">
+<pre class="src src-elisp">(add-hook 'json-mode-hook 'flymake-json-load)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3c2fc7d" class="outline-4">
+<h4 id="org3c2fc7d">Lint our yaml</h4>
+<div class="outline-text-4" id="text-org3c2fc7d">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> flycheck-yamllint
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:defer</span> t
+  <span class="org-builtin">:init</span>
+  (<span class="org-keyword">progn</span>
+    (eval-after-load 'flycheck
+      '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgee2b80c" class="outline-3">
+<h3 id="orgee2b80c">Web stuff</h3>
+<div class="outline-text-3" id="text-orgee2b80c">
+</div>
+<div id="outline-container-org7afaf51" class="outline-4">
+<h4 id="org7afaf51">web-mode and emmet</h4>
+<div class="outline-text-4" id="text-org7afaf51">
+<p>
+Shamelessly stolen from <a href="https://github.com/sethmdoty/emacs.d/blob/master/emacs.org#web">https://github.com/sethmdoty/emacs.d/blob/master/emacs.org#web</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> web-mode
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:mode</span> ((<span class="org-string">"\\.phtml\\'"</span> . web-mode)
+   (<span class="org-string">"\\.tpl\\.php\\'"</span> . web-mode)
+   (<span class="org-string">"\\.blade\\.php\\'"</span> . web-mode)
+   (<span class="org-string">"\\.jsp\\'"</span> . web-mode)
+   (<span class="org-string">"\\.as[cp]x\\'"</span> . web-mode)
+   (<span class="org-string">"\\.erb\\'"</span> . web-mode)
+   (<span class="org-string">"\\.html?\\'"</span> . web-mode)
+   (<span class="org-string">"\\.ejs\\'"</span> . web-mode)
+   (<span class="org-string">"\\.php\\'"</span> . web-mode)
+   (<span class="org-string">"\\.mustache\\'"</span> . web-mode)
+   (<span class="org-string">"/</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">views</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">html</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">theme</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">templates</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string">/.*\\.php\\'"</span> . web-mode))
+  <span class="org-builtin">:init</span>
+  (<span class="org-keyword">setq</span> web-mode-markup-indent-offset 2)
+  (<span class="org-keyword">setq</span> web-mode-attr-indent-offset 2)
+  (<span class="org-keyword">setq</span> web-mode-attr-value-indent-offset 2)
+  (<span class="org-keyword">setq</span> web-mode-code-indent-offset 2)
+  (<span class="org-keyword">setq</span> web-mode-css-indent-offset 2)
+  (<span class="org-keyword">setq</span> web-mode-code-indent-offset 2)
+  (<span class="org-keyword">setq</span> web-mode-enable-auto-closing t)
+  (<span class="org-keyword">setq</span> web-mode-enable-auto-pairing t)
+  (<span class="org-keyword">setq</span> web-mode-enable-comment-keywords t)
+  (<span class="org-keyword">setq</span> web-mode-enable-current-element-highlight t))
+
+(<span class="org-keyword">use-package</span> company-web
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:hook</span> (web-mode . (<span class="org-keyword">lambda</span> ()
+    (add-to-list 'company-backends 'company-web-html)
+    (add-to-list 'company-backends 'company-web-jade)
+    (add-to-list 'company-backends 'company-web-slim))))
+
+(<span class="org-keyword">use-package</span> emmet-mode
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:hook</span> (web-mode sgml-mode html-mode css-mode))
+
+(<span class="org-keyword">use-package</span> rainbow-mode
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:pin</span> gnu
+  <span class="org-builtin">:hook</span> css-mode)
+
+(<span class="org-keyword">use-package</span> simple-httpd
+  <span class="org-builtin">:ensure</span> t)
+
+(<span class="org-keyword">use-package</span> impatient-mode
+  <span class="org-builtin">:ensure</span> t)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org768c61f" class="outline-4">
+<h4 id="org768c61f">smart-tabs</h4>
+<div class="outline-text-4" id="text-org768c61f">
+<p>
+maybe it should be somewhere else, but I really got it for emment (see above)
+</p>
+
+<p>
+from <a href="https://emacs.stackexchange.com/a/10674/881">https://emacs.stackexchange.com/a/10674/881</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">use-package</span> smart-tab
+   <span class="org-builtin">:ensure</span> 1
+  <span class="org-builtin">:config</span> (
+  global-smart-tab-mode 1
+)
+)
+
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">add-emmet-expand-to-smart-tab-completions</span> ()
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Add an entry for current major mode in</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">`</span><span class="org-comment"><span class="org-constant">smart-tab-completion-functions-alist</span></span><span class="org-comment">' to use</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">`</span><span class="org-comment"><span class="org-constant">emmet-expand-line</span></span><span class="org-comment">'.</span>
+  (add-to-list 'smart-tab-completion-functions-alist
+               (cons major-mode #'emmet-expand-line)))
+
+(add-hook 'web-mode-hook 'add-emmet-expand-to-smart-tab-completions)
+(add-hook 'web-mode-hook 'add-emmet-expand-to-smart-tab-completions)
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org6a02001" class="outline-3">
+<h3 id="org6a02001">ejc-sql</h3>
+<div class="outline-text-3" id="text-org6a02001">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> ejc-sql
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:config</span> (add-hook 'ejc-sql-minor-mode-hook
+          (<span class="org-keyword">lambda</span> ()
+            (auto-complete-mode t)
+            (ejc-ac-setup)))
+
+)
+
+</pre>
+</div>
 </div>
 </div>
 </section>

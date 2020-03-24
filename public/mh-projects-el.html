@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-03-24 -->
+<!-- 2020-01-28 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Emacs Font Config</title>
+<title>Some projectile tweaks</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="Mike Hostetler">
 <style type="text/css">
@@ -203,132 +203,18 @@
 <body>
 <main id="content">
 <header>
-<h1 class="title">Emacs Font Config</h1>
-</header><nav id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#orgcfab712">Prologue</a></li>
-<li><a href="#org8ba25d5">Unicode</a></li>
-<li><a href="#org632a7e0">Font selection&#xa0;&#xa0;&#xa0;<span class="tag"><span class="fonts">fonts</span></span></a></li>
-<li><a href="#org7ae65a6">Lastly&#x2026; more Unicode</a></li>
-</ul>
-</div>
-</nav>
-
-<section id="outline-container-orgcfab712" class="outline-2">
-<h2 id="orgcfab712">Prologue</h2>
-<div class="outline-text-2" id="text-orgcfab712">
-<p>
-Generally fonts on the web or in applications aren&rsquo;t a big deal, but some reason I spend a lot of time finding an tweaking fonts in my editor. This is a story of how I set that up.
-</p>
-</div>
-</section>
-
-<section id="outline-container-org8ba25d5" class="outline-2">
-<h2 id="org8ba25d5">Unicode</h2>
-<div class="outline-text-2" id="text-org8ba25d5">
-<p>
-First and really the most important &#x2013; set UTF-8 everywhere
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp">(set-language-environment <span class="org-string">"UTF-8"</span>)
-(set-default-coding-systems 'utf-8-unix)
-
+<h1 class="title">Some projectile tweaks</h1>
+</header><div class="org-src-container">
+<pre class="src src-elisp">
+<span class="org-comment-delimiter">; </span><span class="org-comment">where all my projects are  ~~S-p p~ to list them</span>
+(<span class="org-keyword">setq</span> projectile-project-search-path '(<span class="org-string">"~/Projects/"</span>))
 </pre>
 </div>
-</div>
-</section>
-
-<section id="outline-container-org632a7e0" class="outline-2">
-<h2 id="org632a7e0">Font selection&#xa0;&#xa0;&#xa0;<span class="tag"><span class="fonts">fonts</span></span></h2>
-<div class="outline-text-2" id="text-org632a7e0">
-<p>
-<a href="org-stuff.html#org79b6e48">See also my fancy orgmode setup</a>
-</p>
-
-<p>
-I got back and forth of what I want for a default font. And once in a while I have to move this config to other machines and they may not have all my configs. So below you can see what I have tried&#x2026; none of these are bad, but I&rsquo;ve moved for some reason.
-</p>
-
-<p>
-Basically this little snippet will look if that font name exists and, if so, will set it as the default. Note that I do this over and over again, replacing the default font until it gets to the end.
-</p>
-
-<p>
-<a href="https://dejavu-fonts.github.io/">DejaVu Sans Mono</a>
-</p>
-
-
-<div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">when</span> (member <span class="org-string">"DejaVu Sans Mono"</span> (font-family-list))
-  (set-face-attribute 'default nil <span class="org-builtin">:font</span> <span class="org-string">"DejaVu Sans Mono"</span> <span class="org-builtin">:height</span> 140 <span class="org-builtin">:weight</span> 'normal))
-
-</pre>
-</div>
-
-<p>
-<a href="https://github.com/adobe-fonts/source-code-pro">Source Code Pro</a> &#x2013; I used this the longest. One of it&rsquo;s problems is that it doesn&rsquo;t have all the unicode characters in it (see below of that fix). Another is that it&rsquo;s hard to read sometimes, and making it bigger can make it worse. I like it at 125 and really no other size
-</p>
-
-<div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">when</span> (member <span class="org-string">"Source Code Pro"</span> (font-family-list))
-  (set-face-attribute 'default nil <span class="org-builtin">:font</span> <span class="org-string">"Source Code Pro"</span> <span class="org-builtin">:height</span> 125 <span class="org-builtin">:weight</span> 'normal))
-
-</pre>
-</div>
-
-<p>
-<a href="https://github.com/IBM/plex">IBM Plex</a> &#x2013; wait? IBM has a font?!? Yes it does. Lots of them, actually, under the Plex name. It&rsquo;s certainly very corporate looking, but apparently they use this corporate wide. Not only does it look nice and scale well, it seems to be complete as far as weight, italic, etc. 
-</p>
-
-<div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">when</span> (member <span class="org-string">"IBM Plex Mono"</span> (font-family-list))
-  (set-face-attribute 'default nil <span class="org-builtin">:font</span> <span class="org-string">"IBM Plex Mono"</span> <span class="org-builtin">:height</span> 140 <span class="org-builtin">:weight</span> 'normal))
-
-</pre>
-</div>
-
-<p>
-My latest &#x2013; <a href="https://www.jetbrains.com/lp/mono/#license">JetBrains Mono</a>. I mainly like it over IBM Plex Mono because it&rsquo;s a bit less bold,  but bold enough for me to see and I don&rsquo; t need the font quite as big.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">when</span> (member <span class="org-string">"JetBrains Mono"</span> (font-family-list))
-  (set-face-attribute 'default nil <span class="org-builtin">:font</span> <span class="org-string">"JetBrains Mono"</span> <span class="org-builtin">:height</span> 140 <span class="org-builtin">:weight</span> 'regular))
-
-</pre>
-</div>
-</div>
-</section>
-
-
-
-<section id="outline-container-org7ae65a6" class="outline-2">
-<h2 id="org7ae65a6">Lastly&#x2026; more Unicode</h2>
-<div class="outline-text-2" id="text-org7ae65a6">
-<p>
-Seems familiar? Just like <a href="#org8ba25d5">in Unicode</a> but different &#x2013; that was about what we use, not what we display it. Symbola is pretty ugly but (as the name states) it has a complete UTF-8 state. Prepending this allows us to view all characters.
-</p>
-
-<p>
-I should note that I don&rsquo;t deal with multiple languages and symbols often, but it&rsquo;s best to prepare yourself when before you find yourself in that world
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">when</span> (member <span class="org-string">"Symbola"</span> (font-family-list))
-  (set-fontset-font t 'unicode <span class="org-string">"Symbola"</span> nil 'prepend))
-
-</pre>
-</div>
-</div>
-</section>
 </main>
 <footer id="postamble" class="status">
 <hr>
 <p>
-<p class="Source">Source: <a href="https://github.com/squarepegsys/literate-dotfiles/blob/master/font-el.org">font-el.org</a></p><p>Return to <a href="index.html">index</a>.</p>
+<p class="Source">Source: <a href="https://github.com/squarepegsys/literate-dotfiles/blob/master/mh-projects-el.org">mh-projects-el.org</a></p><p>Return to <a href="index.html">index</a>.</p>
 </footer>
 </body>
 </html>
