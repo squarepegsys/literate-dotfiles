@@ -25,7 +25,9 @@ First and really the most important -- set UTF-8 everywhere
 
 #+end_src
 
-* Font selection
+* Font selection :fonts:
+ 
+ [[file:org-stuff.org::*make%20things%20fancy][See also my fancy orgmode setup]]
 
 I got back and forth of what I want for a default font. And once in a while I have to move this config to other machines and they may not have all my configs. So below you can see what I have tried... none of these are bad, but I've moved for some reason.
 
@@ -52,7 +54,7 @@ Basically this little snippet will look if that font name exists and, if so, wil
 
 #+RESULTS:
 
-[[https://github.com/IBM/plex][IBM Plex]] -- wait? IBM has a font?!? Yes it does. Lots of them, actually, under the Plex name. It's certainly very corporate looking, but apparently they use this corporate wide. Not only does it look nice and scale well, it seems to be complete as far as weight, italic, etc. Anyway this is my latest font try and so far so good.
+[[https://github.com/IBM/plex][IBM Plex]] -- wait? IBM has a font?!? Yes it does. Lots of them, actually, under the Plex name. It's certainly very corporate looking, but apparently they use this corporate wide. Not only does it look nice and scale well, it seems to be complete as far as weight, italic, etc. 
 
 #+begin_src elisp
 (when (member "IBM Plex Mono" (font-family-list))
@@ -62,6 +64,8 @@ Basically this little snippet will look if that font name exists and, if so, wil
 
 #+RESULTS:
 
+My latest -- [[https://www.jetbrains.com/lp/mono/#license][JetBrains Mono]]. I mainly like it over IBM Plex Mono because it's a bit less bold,  but bold enough for me to see and I don' t need the font quite as big.
+
 #+begin_src elisp
 (when (member "JetBrains Mono" (font-family-list))
   (set-face-attribute 'default nil :font "JetBrains Mono" :height 140 :weight 'regular))
@@ -70,18 +74,6 @@ Basically this little snippet will look if that font name exists and, if so, wil
 
 #+RESULTS:
 
-** Let's get complicated
-
-Sometimes in writing, I may want to use a Sans-Serif font... this function will let me do that
-
-#+begin_src elisp
-(defun mikeh-buffer-face-mode-sans ()
-  "Sets a sans-serif font in current buffer"
-  (interactive)
-  (setq buffer-face-mode-face '(:family "IBM Plex Arabic" :height 135 :weight 'normal))
-  (buffer-face-mode))
-
-#+end_src
 
 
 * Lastly... more Unicode

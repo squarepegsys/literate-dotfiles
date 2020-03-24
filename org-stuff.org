@@ -8,6 +8,7 @@
 #+OPTIONS: toc:2
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 
+
 * Prologue
 
 Just something different than [[file:org-agenda-el.org::*Prologue][org-agenda]] for files
@@ -19,7 +20,11 @@ Just something different than [[file:org-agenda-el.org::*Prologue][org-agenda]] 
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
-   (python . t)))
+   (python . t)
+   (sql . t)
+
+)
+)
 #+end_src
 
 #+RESULTS:
@@ -374,6 +379,7 @@ Should look at https://github.com/Kungsgeten/yankpad since it's supported and in
 
 #+RESULTS:
 :  >
+
 * Deft
 
 In my continuing use of my knowledge base in OrgMode, Deft seems to be the quickiest way to access it
@@ -395,7 +401,6 @@ In my continuing use of my knowledge base in OrgMode, Deft seems to be the quick
 : deft
 
 * Misc nice things
-
 #+begin_src elisp
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-ca" 'org-agenda)
@@ -409,4 +414,91 @@ In my continuing use of my knowledge base in OrgMode, Deft seems to be the quick
 #+end_src
 
 #+RESULTS:
-| org-download-enable | dired-quick-sort | diff-hl-dired-mode | dired-extra-startup |
+| org-download-enable | helm-find-fasd-add-file | dired-quick-sort | diff-hl-dired-mode | dired-extra-startup |
+
+*** make things fancy :fonts:
+
+Ideas from
+https://zzamboni.org/post/beautifying-org-mode-in-emacs/
+
+Makes the bulleted list have bullets
+
+This kinda supercedes [[file:font-el.org::*Font%20selection][my Font selection]] but this is all for org-mode, so I put it here
+
+#+begin_src elisp
+(font-lock-add-keywords 'org-mode
+    '(("^ *\\([-]\\) "
+    (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+#+end_src
+
+#+RESULTS:
+
+
+Add proportional font for the headlines
+#+begin_src elisp
+(let* ((variable-tuple
+        (cond ((x-list-fonts "IBM Plex Sans") '(:font "IBM Plex Sans"))
+              ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
+              ((x-list-fonts "Verdana")         '(:font "Verdana"))
+              ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
+              (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
+       (base-font-color     (face-foreground 'default nil 'default))
+       (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
+
+  (custom-theme-set-faces
+   'user
+   `(org-level-8 ((t (,@headline ,@variable-tuple))))
+   `(org-level-7 ((t (,@headline ,@variable-tuple))))
+   `(org-level-6 ((t (,@headline ,@variable-tuple))))
+   `(org-level-5 ((t (,@headline ,@variable-tuple))))
+   `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.0))))
+   `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.0))))
+   `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.0))))
+   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.25))))
+   `(org-document-title ((t (,@headline ,@variable-tuple :height 1.5 :underline nil))))))
+#+end_src
+
+#+RESULTS:
+
+#+begin_src elisp
+(custom-theme-set-faces
+ 'user
+'(variable-pitch ((t ( :family "IBM Plex Arabic" :height 160 :weight light))))
+'(fixed-pitch ((t ( :family "JetBrains Mono" :height 140 :slant normal :weight light  :width normal))))
+)
+
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+
+(add-hook 'org-mode-hook 'visual-line-mode)
+
+(custom-theme-set-faces
+ 'user
+ '(org-block ((t (:inherit fixed-pitch))))
+ '(org-code ((t (:inherit (shadow fixed-pitch)))))
+ '(org-document-info ((t (:foreground "dark orange"))))
+ '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
+ '(org-indent ((t (:inherit (org-hide fixed-pitch)))))
+ '(org-link ((t (:foreground "dark orange" :underline t))))
+ '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-property-value ((t (:inherit fixed-pitch))) t)
+ '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+ '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+ '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 1.0))))
+ '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
+
+
+#+end_src
+
+#+RESULTS:
+
+This may belong somewhere else but I put it here because it's really annoying in this new fancy orgmode.
+
+Anyway, turn off Prelude's marking of text over 80 chars, i.e. "the pink text"
+#+begin_src elisp
+
+(setq prelude-whitespace nil)
+
+
+#+end_src
+#+RESULTS:

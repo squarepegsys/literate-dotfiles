@@ -155,7 +155,14 @@ These are just some shortcuts that just live here.
 (global-set-key (kbd "C-;") 'company-complete)
 
 (global-set-key (kbd "<F2>") 'call-last-kbd-macro)
+
+(global-set-key (kbd "C-c l") 'org-store-link)
+;(global-set-key (kbd "M-.") 'xref-find-definitions)
+
+;(global-set-key (kbd "M-,") 'xref-pop-marker-stack)
+
+
 #+END_SRC
 
 #+RESULTS:
-: call-last-kbd-macro
+: org-store-link
