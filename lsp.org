@@ -55,6 +55,15 @@ For Java .... it's complicated
    (company-lsp-enable-snippet t)
    (company-lsp-cache-candidates t)
 )
+
+;; ok, not LSP-related but certainly company related
+
+(use-package company-quickhelp
+  :ensure t
+  :after (company)
+  :config
+  (company-quickhelp-mode))
+
 (use-package helm-lsp :commands helm-lsp-workspace-symbol)
 ;(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 
@@ -129,3 +138,103 @@ Didn't have good luck with lsp-groovy (seemed.... weird) so I'm trying https://g
     (eval-after-load 'flycheck
       '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
 #+end_src
+** Web stuff
+
+*** web-mode and emmet
+Shamelessly stolen from https://github.com/sethmdoty/emacs.d/blob/master/emacs.org#web
+
+#+begin_src elisp
+(use-package web-mode
+  :ensure t
+  :mode (("\\.phtml\\'" . web-mode)
+   ("\\.tpl\\.php\\'" . web-mode)
+   ("\\.blade\\.php\\'" . web-mode)
+   ("\\.jsp\\'" . web-mode)
+   ("\\.as[cp]x\\'" . web-mode)
+   ("\\.erb\\'" . web-mode)
+   ("\\.html?\\'" . web-mode)
+   ("\\.ejs\\'" . web-mode)
+   ("\\.php\\'" . web-mode)
+   ("\\.mustache\\'" . web-mode)
+   ("/\\(views\\|html\\|theme\\|templates\\)/.*\\.php\\'" . web-mode))
+  :init
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-attr-indent-offset 2)
+  (setq web-mode-attr-value-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-enable-auto-closing t)
+  (setq web-mode-enable-auto-pairing t)
+  (setq web-mode-enable-comment-keywords t)
+  (setq web-mode-enable-current-element-highlight t))
+
+(use-package company-web
+  :ensure t
+  :hook (web-mode . (lambda ()
+    (add-to-list 'company-backends 'company-web-html)
+    (add-to-list 'company-backends 'company-web-jade)
+    (add-to-list 'company-backends 'company-web-slim))))
+
+(use-package emmet-mode
+  :ensure t
+  :hook (web-mode sgml-mode html-mode css-mode))
+
+(use-package rainbow-mode
+  :ensure t
+  :pin gnu
+  :hook css-mode)
+
+(use-package simple-httpd
+  :ensure t)
+
+(use-package impatient-mode
+  :ensure t)
+#+end_src
+
+*** smart-tabs
+
+maybe it should be somewhere else, but I really got it for emment (see above)
+
+from https://emacs.stackexchange.com/a/10674/881
+
+#+begin_src elisp
+
+(use-package smart-tab
+   :ensure 1
+  :config (
+  global-smart-tab-mode 1
+)
+)
+
+
+(defun add-emmet-expand-to-smart-tab-completions ()
+  ;; Add an entry for current major mode in
+  ;; `smart-tab-completion-functions-alist' to use
+  ;; `emmet-expand-line'.
+  (add-to-list 'smart-tab-completion-functions-alist
+               (cons major-mode #'emmet-expand-line)))
+
+(add-hook 'web-mode-hook 'add-emmet-expand-to-smart-tab-completions)
+(add-hook 'web-mode-hook 'add-emmet-expand-to-smart-tab-completions)
+
+#+end_src
+
+
+#+RESULTS:
+| add-emmet-expand-to-smart-tab-completions | er/add-web-mode-expansions | emmet-mode | (lambda nil (add-to-list (quote company-backends) (quote company-web-html)) (add-to-list (quote company-backends) (quote company-web-jade)) (add-to-list (quote company-backends) (quote company-web-slim))) |
+** ejc-sql
+ #+begin_src elisp
+(use-package ejc-sql
+  :ensure t
+  :config (add-hook 'ejc-sql-minor-mode-hook
+          (lambda ()
+            (auto-complete-mode t)
+            (ejc-ac-setup)))
+
+)
+
+ #+end_src
+
+ #+RESULTS:
+ : t
