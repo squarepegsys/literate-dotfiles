@@ -35,10 +35,11 @@ If you want to build them, you will need:
 
 * Configs found here
 (I'm bad at manually added these)
-+ [[file:aliases.org][Alias Collection]]
-+ [[file:shortcuts-el.org][Random Emacs Shortcuts]]
-+ [[file:font-el.org][Emacs Font Config]]
-+ [[file:tmux-config.org][Tmux.conf]]
-+ [[file:direnvrc.org][Direnv config]]
-+ [[file:spaceship-prompt-sh.org::*Spaceship%20configuration][Spaceship prompt configuration]]
-+ [[file:org-stuff.org::*Prologue][OrgMode configs]]
+-  [[file:aliases.org][Alias Collection]]
+ -  [[file:shortcuts-el.org][Random Emacs Shortcuts]]
+ -  [[file:font-el.org][Emacs Font Config]]
+ -  [[file:tmux-config.org][Tmux.conf]]
+ -  [[file:direnvrc.org][Direnv config]]
+ -  [[file:spaceship-prompt-sh.org::*Spaceship%20configuration][Spaceship prompt configuration]]
+ -  [[file:org-stuff.org::*Prologue][OrgMode configs]]
+ - [[file:font-el.org::*Prologue][Font work]]
