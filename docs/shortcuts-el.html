@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-08-04 -->
+<!-- 2020-03-24 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Some Random Emacs Shortcuts</title>
@@ -216,6 +216,7 @@
 </ul>
 </li>
 <li><a href="#org38c5db4">Custom prefix</a></li>
+<li><a href="#org9910d38">Easy Kill</a></li>
 <li><a href="#org60a7e26">Parens</a></li>
 <li><a href="#org3f9a2ae">Helm Stuff</a></li>
 <li><a href="#orgd9e7606">Misc</a></li>
@@ -275,7 +276,7 @@ I adopted <code>C-c C-'</code> as my own custom prefix, which I admit is a littl
 </p>
 
 <p>
-The <a href="https://emacs-helm.github.io/helm/"><code>helm</code></a> items are the newest and I haven&rsquo;t quite incorporated it into my workflow yet. However, <a href="https://emacs.stackexchange.com/questions/7595/how-do-i-refactor-across-a-project-in-emacs-change-method-name-everywhere/13719#13719">you can do some magic</a> with <code>helm-ag</code>. 
+The <a href="https://emacs-helm.github.io/helm/"><code>helm</code></a> items are the newest and I haven&rsquo;t quite incorporated it into my workflow yet. However, <a href="https://emacs.stackexchange.com/questions/7595/how-do-i-refactor-across-a-project-in-emacs-change-method-name-everywhere/13719#13719">you can do some magic</a> with <code>helm-ag</code>.
 </p>
 
 <p>
@@ -298,17 +299,37 @@ Also added <a href="https://github.com/tuhdo/org-recipes">org-recipes</a> to han
  (<span class="org-string">"c"</span> . quick-calc)
  (<span class="org-string">"i"</span> . org-recipes)
  (<span class="org-string">"t"</span> . make-terraform-variable)
- (<span class="org-string">"f"</span> . feature-number)
+ <span class="org-comment-delimiter">;</span><span class="org-comment">("f" . feature-number)</span>
+ (<span class="org-string">"f"</span> . helm-fasd)
  (<span class="org-string">"b"</span> . helm-bookmarks)
  (<span class="org-string">"j"</span> . helm-all-mark-rings)
  (<span class="org-string">"l"</span> . org-wiki-helm)
 
  )
+
 </pre>
 </div>
 </div>
 </section>
 
+<section id="outline-container-org9910d38" class="outline-2">
+<h2 id="org9910d38">Easy Kill</h2>
+<div class="outline-text-2" id="text-org9910d38">
+<p>
+Found this on a blog post and have found it invaluable
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">http://emacsredux.com/blog/2018/11/09/an-easy-kill/</span>
+
+(<span class="org-keyword">use-package</span> easy-kill
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:config</span>
+  (global-set-key [remap kill-ring-save] #'easy-kill)
+  (global-set-key [remap mark-sexp] #'easy-mark))
+</pre>
+</div>
+</div>
+</section>
 
 <section id="outline-container-org60a7e26" class="outline-2">
 <h2 id="org60a7e26">Parens</h2>
@@ -336,7 +357,7 @@ This Smartparens config isn&rsquo;t absolutely necessary for me, because in most
 <h2 id="org3f9a2ae">Helm Stuff</h2>
 <div class="outline-text-2" id="text-org3f9a2ae">
 <p>
-The more I use Helm, the more I like it. Most of these are substituting the normal Emacs version to the Helm equivalent., 
+The more I use Helm, the more I like it. Most of these are substituting the normal Emacs version to the Helm equivalent.,
 </p>
 
 <div class="org-src-container">
@@ -349,7 +370,7 @@ The more I use Helm, the more I like it. Most of these are substituting the norm
 <span class="org-comment-delimiter">; </span><span class="org-comment">use helm to find functions</span>
 (global-set-key (kbd <span class="org-string">"M-x"</span>) 'helm-M-x)
 
-(global-set-key (kbd <span class="org-string">"C-c h"</span>) 'helm-command-prefix)
+<span class="org-comment-delimiter">;</span><span class="org-comment">(global-set-key (kbd "C-c h") 'helm-command-prefix)</span>
 
 (global-set-key (kbd <span class="org-string">"C-x b"</span>) 'helm-buffers-list)
 
@@ -357,6 +378,11 @@ The more I use Helm, the more I like it. Most of these are substituting the norm
 
 (global-set-key (kbd <span class="org-string">"C-c h o"</span>) 'helm-occur)
 
+(global-set-key (kbd <span class="org-string">"C-x r l"</span>) 'helm-bookmarks)
+
+(global-set-key (kbd <span class="org-string">"S-p f"</span>) 'helm-projectile-find-file)
+
+(global-set-key (kbd <span class="org-string">"C-c ;"</span>) 'helm-yas-complete)
 
 </pre>
 </div>
@@ -379,6 +405,18 @@ These are just some shortcuts that just live here.
 
 (global-set-key (kbd <span class="org-string">"C-c b"</span>) 'eval-buffer)
 
+(global-set-key (kbd <span class="org-string">"C-,"</span>) 'hydra-projectile/body)
+
+(windmove-default-keybindings)
+
+(global-set-key (kbd <span class="org-string">"C-;"</span>) 'company-complete)
+
+(global-set-key (kbd <span class="org-string">"&lt;F2&gt;"</span>) 'call-last-kbd-macro)
+
+(global-set-key (kbd <span class="org-string">"C-c l"</span>) 'org-store-link)
+<span class="org-comment-delimiter">;</span><span class="org-comment">(global-set-key (kbd "M-.") 'xref-find-definitions)</span>
+
+<span class="org-comment-delimiter">;</span><span class="org-comment">(global-set-key (kbd "M-,") 'xref-pop-marker-stack)</span>
 
 
 </pre>

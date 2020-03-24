@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-08-04 -->
+<!-- 2020-03-24 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mike Hostetler&rsquo;s Literate Dotfiles</title>
@@ -217,23 +217,27 @@
 </div>
 </nav>
 <p>
-These are my config files. There are many like it, and many of those are certainly better, but these are mine. 
+These are my config files. There are many like it, and many of those are certainly better, but these are mine.
 </p>
 
 
 <p>
-This was written as an example of <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a>. The original markup is in the magnificent <a href="https://orgmode.org">OrgMode</a> and then exported to source and HTML via some Emacs magic. I didn&rsquo;t come up with this myself &#x2013; I&rsquo;m using the source from <a href="https://writepermission.com/introducing-literate-dotfiles.html">Toon Claes</a>. 
+This was written as an example of <a href="https://en.wikipedia.org/wiki/Literate_programming">literate programming</a>. The original markup is in the magnificent <a href="https://orgmode.org">OrgMode</a> and then exported to source and HTML via some Emacs magic. I didn&rsquo;t come up with this myself &#x2013; I&rsquo;m using the source from <a href="https://writepermission.com/introducing-literate-dotfiles.html">Toon Claes</a>.
+</p>
+
+<p>
+<a href="https://squarepegsys.github.io/literate-dotfiles/">See the published version</a>.
 </p>
 
 <section id="outline-container-org697b1f2" class="outline-2">
 <h2 id="org697b1f2">The Technical Part</h2>
 <div class="outline-text-2" id="text-org697b1f2">
 <p>
-This really uses the magic of OrgMode to generate. In OrgMode, you can put in <a href="https://orgmode.org/manual/Working-with-source-code.html">code blocks</a> and export them to a file, which is called <a href="https://orgmode.org/manual/tangle.html">tangling</a>. OrgMode also <a href="https://orgmode.org/manual/HTML-export.html">exports to HTML</a>. Now there is a makefile to handle this on the command line but it all uses Emacs.
+This really uses the magic of OrgMode to generate. In OrgMode, you can put in <a href="https://orgmode.org/manual/Working-with-source-code.html">code blocks</a> and export them to a file, which is called <a href="https://orgmode.org/manual/tangle.html">tangling</a>. OrgMode also <a href="https://orgmode.org/manual/HTML-export.html">exports to HTML</a>. Now there is a <a href="Makefile#orgf3d592d">makefile</a> to handle this on the command line but it all uses Emacs.
 </p>
 
 <p>
-The look and feel is <code>ReadTheOrg</code> from <a href="https://github.com/fniessen/org-html-themes">org-html-themes</a>. 
+The look and feel is <code>ReadTheOrg</code> from <a href="https://github.com/fniessen/org-html-themes">org-html-themes</a>.
 </p>
 </div>
 </section>
@@ -242,7 +246,7 @@ The look and feel is <code>ReadTheOrg</code> from <a href="https://github.com/fn
 <h2 id="orgd1dca9b">Soft Part</h2>
 <div class="outline-text-2" id="text-orgd1dca9b">
 <p>
-I&rsquo;m choosy on which I&rsquo;m implementing here. Some are too private or specific to me to publish and others because I don&rsquo;t think it&rsquo;s interesting. 
+I&rsquo;m choosy on which I&rsquo;m implementing here. Some are too private or specific to me to publish and others because I don&rsquo;t think it&rsquo;s interesting.
 </p>
 </div>
 </section>
@@ -265,11 +269,20 @@ If you want to build them, you will need:
 <section id="outline-container-org7c098c1" class="outline-2">
 <h2 id="org7c098c1">Configs found here</h2>
 <div class="outline-text-2" id="text-org7c098c1">
+<p>
+(I&rsquo;m bad at manually added these)
+</p>
 <ul class="org-ul">
-<li><a href="aliases.html">Alias Collection</a></li>
+<li><a href="aliases.html">Alias Collection</a>
+<ul class="org-ul">
 <li><a href="shortcuts-el.html">Random Emacs Shortcuts</a></li>
+<li><a href="font-el.html">Emacs Font Config</a></li>
 <li><a href="tmux-config.html">Tmux.conf</a></li>
 <li><a href="direnvrc.html">Direnv config</a></li>
+<li><a href="spaceship-prompt-sh.html#org39a346a">Spaceship prompt configuration</a></li>
+<li><a href="org-stuff.html#org0153ae9">OrgMode configs</a></li>
+<li><a href="font-el.html#orgcfab712">Font work</a></li>
+</ul></li>
 </ul>
 </div>
 </section>

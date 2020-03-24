@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2020-03-24 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LSP Configuration</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Mike Hostetler">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<main id="content">
+<header>
+<h1 class="title">LSP Configuration</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org81f2f17">LSP Config</a></li>
+<li><a href="#org65ec277">Groovy</a></li>
+<li><a href="#orgb6320b9">Other file stuff</a>
+<ul>
+<li><a href="#org4860d57">Linting</a></li>
+<li><a href="#orgee2b80c">Web stuff</a></li>
+<li><a href="#org6a02001">ejc-sql</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+<section id="outline-container-org81f2f17" class="outline-2">
+<h2 id="org81f2f17">LSP Config</h2>
+<div class="outline-text-2" id="text-org81f2f17">
+<p>
+For python, need to install <code>pip install "python-language-server[all]"</code>
+For JS &#x2013; <code>npm i -g typescript-language-server; npm i -g typescript</code>
+For Java &#x2026;. it&rsquo;s complicated
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+
+(<span class="org-keyword">use-package</span> lsp-mode
+  <span class="org-builtin">:hook</span> (python-mode . lsp)
+  <span class="org-builtin">:hook</span> (javascript-mode . lsp)
+  <span class="org-builtin">:hook</span> (java-mode . lsp)
+  <span class="org-comment-delimiter">;</span><span class="org-comment">:hook (groovy-mode .lsp)</span>
+  <span class="org-builtin">:commands</span> lsp)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">optionally</span>
+(<span class="org-keyword">use-package</span> lsp-ui
+  <span class="org-builtin">:after</span> lsp-mode
+  <span class="org-builtin">:diminish</span>
+  <span class="org-builtin">:commands</span> lsp-ui-mode
+  <span class="org-builtin">:custom-face</span>
+  (lsp-ui-doc-background ((t (<span class="org-builtin">:background</span> nil))))
+  (lsp-ui-doc-header ((t (<span class="org-builtin">:inherit</span> (font-lock-string-face italic)))))
+  <span class="org-builtin">:bind</span> (<span class="org-builtin">:map</span> lsp-ui-mode-map
+              ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+              ([remap xref-find-references] . lsp-ui-peek-find-references)
+              (<span class="org-string">"C-c u"</span> . lsp-ui-imenu))
+  <span class="org-builtin">:custom</span>
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-header t)
+  (lsp-ui-doc-include-signature t)
+  (lsp-ui-doc-position 'top)
+  (lsp-ui-doc-border (face-foreground 'default))
+  (lsp-ui-sideline-enable nil)
+  (lsp-ui-sideline-ignore-duplicate t)
+  (lsp-ui-sideline-show-code-actions nil)
+  )
+
+(<span class="org-keyword">use-package</span> company-lsp
+   <span class="org-builtin">:commands</span> company-lsp
+   <span class="org-builtin">:config</span>
+   (<span class="org-keyword">push</span> 'company-lsp company-backends)
+   <span class="org-builtin">:custom</span>
+   (company-lsp-enable-snippet t)
+   (company-lsp-cache-candidates t)
+)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">ok, not LSP-related but certainly company related</span>
+
+(<span class="org-keyword">use-package</span> company-quickhelp
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:after</span> (company)
+  <span class="org-builtin">:config</span>
+  (company-quickhelp-mode))
+
+(<span class="org-keyword">use-package</span> helm-lsp <span class="org-builtin">:commands</span> helm-lsp-workspace-symbol)
+<span class="org-comment-delimiter">;</span><span class="org-comment">(use-package lsp-treemacs :commands lsp-treemacs-errors-list)</span>
+
+
+(<span class="org-keyword">setq</span> lsp-python-executable-cmd (expand-file-name <span class="org-string">"~/.pyenv/shims/python"</span>))
+
+(company-mode)
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">complete-or-indent</span> ()
+  (<span class="org-keyword">interactive</span>)
+  (<span class="org-keyword">if</span> (company-manual-begin)
+      (company-complete-common)
+    (indent-according-to-mode)))
+
+
+
+(autoload 'helm-company <span class="org-string">"helm-company"</span>) <span class="org-comment-delimiter">;; </span><span class="org-comment">Not necessary if using ELPA package</span>
+(eval-after-load 'company
+  '(<span class="org-keyword">progn</span>
+     <span class="org-comment-delimiter">;</span><span class="org-comment">(define-key company-mode-map (kbd "C-;") 'helm-company)</span>
+     (define-key company-active-map (kbd <span class="org-string">"C-;"</span>) 'helm-company)))
+
+(<span class="org-keyword">use-package</span> lsp-java
+  <span class="org-builtin">:init</span>
+  (<span class="org-keyword">defun</span> <span class="org-function-name">jmi/java-mode-config</span> ()
+
+    (<span class="org-keyword">setq-local</span> tab-width 4
+                c-basic-offset 4)
+    (toggle-truncate-lines 1)
+    (<span class="org-keyword">setq-local</span> tab-width 4)
+    (<span class="org-keyword">setq-local</span> c-basic-offset 4)
+    (lsp))
+
+ <span class="org-builtin">:demand</span> t
+  <span class="org-builtin">:after</span> (lsp lsp-mode )) <span class="org-comment-delimiter">; </span><span class="org-comment">dap-mode jmi-init-platform-paths))</span>
+
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org65ec277" class="outline-2">
+<h2 id="org65ec277">Groovy</h2>
+<div class="outline-text-2" id="text-org65ec277">
+<p>
+Didn&rsquo;t have good luck with lsp-groovy (seemed&#x2026;. weird) so I&rsquo;m trying <a href="https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes">https://github.com/Groovy-Emacs-Modes/groovy-emacs-modes</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> grails-mode)
+(<span class="org-keyword">use-package</span> groovy-mode)
+
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgb6320b9" class="outline-2">
+<h2 id="orgb6320b9">Other file stuff</h2>
+<div class="outline-text-2" id="text-orgb6320b9">
+</div>
+<div id="outline-container-org4860d57" class="outline-3">
+<h3 id="org4860d57">Linting</h3>
+<div class="outline-text-3" id="text-org4860d57">
+</div>
+<div id="outline-container-org98a0be1" class="outline-4">
+<h4 id="org98a0be1">lint our json</h4>
+<div class="outline-text-4" id="text-org98a0be1">
+<div class="org-src-container">
+<pre class="src src-elisp">(add-hook 'json-mode-hook 'flymake-json-load)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3c2fc7d" class="outline-4">
+<h4 id="org3c2fc7d">Lint our yaml</h4>
+<div class="outline-text-4" id="text-org3c2fc7d">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> flycheck-yamllint
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:defer</span> t
+  <span class="org-builtin">:init</span>
+  (<span class="org-keyword">progn</span>
+    (eval-after-load 'flycheck
+      '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgee2b80c" class="outline-3">
+<h3 id="orgee2b80c">Web stuff</h3>
+<div class="outline-text-3" id="text-orgee2b80c">
+</div>
+<div id="outline-container-org7afaf51" class="outline-4">
+<h4 id="org7afaf51">web-mode and emmet</h4>
+<div class="outline-text-4" id="text-org7afaf51">
+<p>
+Shamelessly stolen from <a href="https://github.com/sethmdoty/emacs.d/blob/master/emacs.org#web">https://github.com/sethmdoty/emacs.d/blob/master/emacs.org#web</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> web-mode
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:mode</span> ((<span class="org-string">"\\.phtml\\'"</span> . web-mode)
+   (<span class="org-string">"\\.tpl\\.php\\'"</span> . web-mode)
+   (<span class="org-string">"\\.blade\\.php\\'"</span> . web-mode)
+   (<span class="org-string">"\\.jsp\\'"</span> . web-mode)
+   (<span class="org-string">"\\.as[cp]x\\'"</span> . web-mode)
+   (<span class="org-string">"\\.erb\\'"</span> . web-mode)
+   (<span class="org-string">"\\.html?\\'"</span> . web-mode)
+   (<span class="org-string">"\\.ejs\\'"</span> . web-mode)
+   (<span class="org-string">"\\.php\\'"</span> . web-mode)
+   (<span class="org-string">"\\.mustache\\'"</span> . web-mode)
+   (<span class="org-string">"/</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">views</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">html</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">theme</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">|</span></span><span class="org-string">templates</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string">/.*\\.php\\'"</span> . web-mode))
+  <span class="org-builtin">:init</span>
+  (<span class="org-keyword">setq</span> web-mode-markup-indent-offset 2)
+  (<span class="org-keyword">setq</span> web-mode-attr-indent-offset 2)
+  (<span class="org-keyword">setq</span> web-mode-attr-value-indent-offset 2)
+  (<span class="org-keyword">setq</span> web-mode-code-indent-offset 2)
+  (<span class="org-keyword">setq</span> web-mode-css-indent-offset 2)
+  (<span class="org-keyword">setq</span> web-mode-code-indent-offset 2)
+  (<span class="org-keyword">setq</span> web-mode-enable-auto-closing t)
+  (<span class="org-keyword">setq</span> web-mode-enable-auto-pairing t)
+  (<span class="org-keyword">setq</span> web-mode-enable-comment-keywords t)
+  (<span class="org-keyword">setq</span> web-mode-enable-current-element-highlight t))
+
+(<span class="org-keyword">use-package</span> company-web
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:hook</span> (web-mode . (<span class="org-keyword">lambda</span> ()
+    (add-to-list 'company-backends 'company-web-html)
+    (add-to-list 'company-backends 'company-web-jade)
+    (add-to-list 'company-backends 'company-web-slim))))
+
+(<span class="org-keyword">use-package</span> emmet-mode
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:hook</span> (web-mode sgml-mode html-mode css-mode))
+
+(<span class="org-keyword">use-package</span> rainbow-mode
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:pin</span> gnu
+  <span class="org-builtin">:hook</span> css-mode)
+
+(<span class="org-keyword">use-package</span> simple-httpd
+  <span class="org-builtin">:ensure</span> t)
+
+(<span class="org-keyword">use-package</span> impatient-mode
+  <span class="org-builtin">:ensure</span> t)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org768c61f" class="outline-4">
+<h4 id="org768c61f">smart-tabs</h4>
+<div class="outline-text-4" id="text-org768c61f">
+<p>
+maybe it should be somewhere else, but I really got it for emment (see above)
+</p>
+
+<p>
+from <a href="https://emacs.stackexchange.com/a/10674/881">https://emacs.stackexchange.com/a/10674/881</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">use-package</span> smart-tab
+   <span class="org-builtin">:ensure</span> 1
+  <span class="org-builtin">:config</span> (
+  global-smart-tab-mode 1
+)
+)
+
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">add-emmet-expand-to-smart-tab-completions</span> ()
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Add an entry for current major mode in</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">`</span><span class="org-comment"><span class="org-constant">smart-tab-completion-functions-alist</span></span><span class="org-comment">' to use</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">`</span><span class="org-comment"><span class="org-constant">emmet-expand-line</span></span><span class="org-comment">'.</span>
+  (add-to-list 'smart-tab-completion-functions-alist
+               (cons major-mode #'emmet-expand-line)))
+
+(add-hook 'web-mode-hook 'add-emmet-expand-to-smart-tab-completions)
+(add-hook 'web-mode-hook 'add-emmet-expand-to-smart-tab-completions)
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org6a02001" class="outline-3">
+<h3 id="org6a02001">ejc-sql</h3>
+<div class="outline-text-3" id="text-org6a02001">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> ejc-sql
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:config</span> (add-hook 'ejc-sql-minor-mode-hook
+          (<span class="org-keyword">lambda</span> ()
+            (auto-complete-mode t)
+            (ejc-ac-setup)))
+
+)
+
+</pre>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<hr>
+<p>
+<p class="Source">Source: <a href="https://github.com/squarepegsys/literate-dotfiles/blob/master/lsp.org">lsp.org</a></p><p>Return to <a href="index.html">index</a>.</p>
+</footer>
+</body>
+</html>

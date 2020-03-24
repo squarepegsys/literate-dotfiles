@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2020-03-24 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Org Configs</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Mike Hostetler">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<main id="content">
+<header>
+<h1 class="title">Org Configs</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org0153ae9">Prologue</a></li>
+<li><a href="#org036fdc4">Enable babel</a></li>
+<li><a href="#org587ada6">org-wiki</a></li>
+<li><a href="#org60ca710">org-recipes</a></li>
+<li><a href="#org4338f82">Org headers</a></li>
+<li><a href="#org9561845">Deft</a></li>
+<li><a href="#org8855d6e">Misc nice things</a></li>
+</ul>
+</div>
+</nav>
+
+
+<section id="outline-container-org0153ae9" class="outline-2">
+<h2 id="org0153ae9">Prologue</h2>
+<div class="outline-text-2" id="text-org0153ae9">
+<p>
+Just something different than <a href="org-agenda-el.html#org2f616f9">org-agenda</a> for files
+</p>
+</div>
+</section>
+
+<section id="outline-container-org036fdc4" class="outline-2">
+<h2 id="org036fdc4">Enable babel</h2>
+<div class="outline-text-2" id="text-org036fdc4">
+<div class="org-src-container">
+<pre class="src src-elisp">
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)
+   (sql . t)
+
+)
+)
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org587ada6" class="outline-2">
+<h2 id="org587ada6">org-wiki</h2>
+<div class="outline-text-2" id="text-org587ada6">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">require</span> '<span class="org-constant">org-wiki</span>)
+(<span class="org-keyword">setq</span> org-wiki-location-list
+      '(
+        <span class="org-string">"~/org-kb"</span>    <span class="org-comment-delimiter">;; </span><span class="org-comment">First wiki (root directory) is the default.</span>
+        ))
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Initialize first org-wiki-directory or default org-wiki</span>
+(<span class="org-keyword">setq</span> org-wiki-location (car org-wiki-location-list))
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org60ca710" class="outline-2">
+<h2 id="org60ca710">org-recipes</h2>
+<div class="outline-text-2" id="text-org60ca710">
+<p>
+against my better judgement..
+</p>
+
+<p>
+Should look at <a href="https://github.com/Kungsgeten/yankpad">https://github.com/Kungsgeten/yankpad</a> since it&rsquo;s supported and in melpa
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">org-recipes.el --- A code snippet manager with Org and Helm</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Filename: org-recipes.el</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Description: A code snippet manager with Org and Helm</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Author: Tu, Do Hoang <a href="mailto:tuhdo1710%40gmail.com">&lt;tuhdo1710@gmail.com&gt;</a></span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">URL      : https://github.com/tuhdo/semantic-refactor</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Maintainer: Tu, Do Hoang</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Created: March 11, 2017</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Version: 0.1</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Package-Requires: ((emacs "24.4") helm org)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Keywords: tools</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Compatibility: GNU Emacs: 24.4+</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Commentary:</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">This package collects code snippets under the inner-most Org heading. It</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">provides the following features:</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">- List all Org headings with at least a code snippet. Each entry can be</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">visited for viewing.</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">- Insert a code snippet into the current buffer. The description text is</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">stripped and all code snippets are concantenated into a single snippet and</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">then it is insert into current buffer.</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">This program is free software: you can redistribute it and/or modify</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">it under the terms of the GNU General Public License as published by</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">the Free Software Foundation, either version 3 of the License, or (at</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">your option) any later version.</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">This program is distributed in the hope that it will be useful, but</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">General Public License for more details.</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">You should have received a copy of the GNU General Public License</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">along with GNU Emacs.  If not, see <a href="http://www.gnu.org/licenses/">&lt;http://www.gnu.org/licenses/&gt;</a>.</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="org-comment-delimiter">;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Code:</span>
+(<span class="org-keyword">require</span> '<span class="org-constant">subr-x</span>)
+(<span class="org-keyword">require</span> '<span class="org-constant">thingatpt</span>)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">(defvar org-recipes-cache nil)</span>
+(<span class="org-keyword">defvar</span> <span class="org-variable-name">org-recipes-file-list</span> nil)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">(defun org-recipes-invalidate-cache ()</span>
+<span class="org-comment-delimiter">;;   </span><span class="org-comment">(interactive)</span>
+<span class="org-comment-delimiter">;;   </span><span class="org-comment">(setq org-recipes-cache nil))</span>
+
+(<span class="org-keyword">defmacro</span> <span class="org-function-name">org-recipes--get-heading-face</span> (headline)
+  `(intern-soft (concat <span class="org-string">"org-level-"</span> (number-to-string (org-element-property <span class="org-builtin">:level</span> ,headline)))))
+
+(<span class="org-keyword">defmacro</span> <span class="org-function-name">org-recipes--get-file</span> (c)
+  `(nth 0 ,c))
+
+(<span class="org-keyword">defmacro</span> <span class="org-function-name">org-recipes--get-line</span> (c)
+  `(nth 1 ,c))
+
+(<span class="org-keyword">defmacro</span> <span class="org-function-name">org-recipes--get-src-blocks</span> (c)
+  `(nth 2 ,c))
+
+(<span class="org-keyword">defmacro</span> <span class="org-function-name">org-recipes--get-real</span> (candidate)
+  `(cdr ,candidate))
+
+(<span class="org-keyword">defmacro</span> <span class="org-function-name">org-recipes--src-string</span> (src-block)
+  `(org-element-property <span class="org-builtin">:value</span> ,src-block))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes</span> ()
+  <span class="org-doc">"docstring"</span>
+  (<span class="org-keyword">interactive</span>)
+  (helm <span class="org-builtin">:sources</span> (org-recipes--build-source)
+        <span class="org-builtin">:buffer</span> <span class="org-string">"*helm sync source*"</span>))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--build-source</span> ()
+  <span class="org-doc">"docstring"</span>
+  (<span class="org-keyword">interactive</span> <span class="org-string">"P"</span>)
+  (helm-build-sync-source <span class="org-string">"Org Snippets"</span>
+    <span class="org-builtin">:candidates</span> (org-recipes--get-candidates)
+    <span class="org-builtin">:action</span> '((<span class="org-string">"Jump to snippet"</span> . org-recipes--persistent-view)
+              (<span class="org-string">"Insert code"</span> . org-recipes--insert))
+    <span class="org-builtin">:keymap</span> org-recipes-map
+    <span class="org-builtin">:persistent-action</span> 'org-recipes--persistent-view))
+
+(<span class="org-keyword">setq</span> org-recipes-map
+      (<span class="org-keyword">let</span> ((map (make-sparse-keymap)))
+        (set-keymap-parent map helm-map)
+        (define-key map (kbd <span class="org-string">"C-c C-i"</span>) 'org-recipes-insert)
+        (define-key map (kbd <span class="org-string">"C-c i"</span>) 'org-recipes-insert)
+        (delq nil map)
+        map))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--persistent-view</span> (c)
+  (find-file (org-recipes--get-file c))
+  (goto-line (org-recipes--get-line c))
+  (org-show-subtree))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes-insert</span> ()
+  (<span class="org-keyword">interactive</span>)
+  (with-helm-alive-p
+    (helm-exit-and-execute-action 'org-recipes--insert)))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--insert</span> (c)
+  (maphash (<span class="org-keyword">lambda</span> (file src-str)
+             (<span class="org-keyword">let</span> ((file-empty (string-equal file <span class="org-string">"empty"</span>)))
+               (<span class="org-keyword">with-current-buffer</span> (<span class="org-keyword">if</span> file-empty
+                                        (current-buffer)
+                                      (find-file-noselect file))
+                 (<span class="org-keyword">let</span> ((start (point)))
+                   (insert src-str)
+                   (indent-region start (point))
+                   (<span class="org-keyword">unless</span> file-empty (save-buffer))))))
+           (org-recipes--distribute-src-blocks-strings (org-recipes--get-src-blocks c))))
+
+(<span class="org-keyword">defmacro</span> <span class="org-function-name">org-recipes--src-data-get-file</span> (s)
+  `(car ,s))
+
+(<span class="org-keyword">defmacro</span> <span class="org-function-name">org-recipes--src-data-get-ignore</span> (s)
+  `(cadr ,s))
+
+(<span class="org-keyword">defmacro</span> <span class="org-function-name">org-recipes--src-data-pre-recipe-list</span> (s)
+  `(caddr ,s))
+
+(<span class="org-keyword">defmacro</span> <span class="org-function-name">org-recipes--src-data-post-recipe-list</span> (s)
+  `(cadddr ,s))
+
+(<span class="org-keyword">defmacro</span> <span class="org-function-name">org-recipes--src-data-get-str</span> (s)
+  `(cadddr (cdr ,s)))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--distribute-src-blocks-strings</span> (src-blocks)
+  (<span class="org-keyword">let*</span> ((dist-table (make-hash-table <span class="org-builtin">:test</span> #'equal)))
+    (mapcar (<span class="org-keyword">lambda</span> (s)
+              (<span class="org-keyword">let*</span> ((src-data (org-recipes--process-src-block s))
+                     (pre-recipe-list (org-recipes--src-data-pre-recipe-list src-data))
+                     (post-recipe-list (org-recipes--src-data-post-recipe-list src-data))
+                     (file (org-recipes--src-data-get-file src-data))
+                     (ignore (org-recipes--src-data-get-ignore src-data))
+                     (new-str (org-recipes--src-data-get-str src-data))
+                     (old-str (gethash file dist-table))
+                     (pre-str (<span class="org-keyword">with-temp-buffer</span>
+                                (mapcar (<span class="org-keyword">lambda</span> (r)
+                                          (when-let ((candidates (org-recipes--get-candidates r)))
+                                            (org-recipes--insert-candidates candidates)
+                                            (newline)))
+                                        pre-recipe-list)
+                                (buffer-string)))
+                     (post-str (<span class="org-keyword">with-temp-buffer</span>
+                                 (mapcar (<span class="org-keyword">lambda</span> (r)
+                                           (when-let ((candidates (org-recipes--get-candidates r)))
+                                             (newline)
+                                             (org-recipes--insert-candidates candidates)))
+                                         post-recipe-list)
+                                 (buffer-string))))
+                (<span class="org-keyword">unless</span> ignore
+                  (puthash file
+                           (<span class="org-keyword">if</span> old-str
+                               (concat pre-str old-str new-str post-str)
+                             (concat  pre-str new-str post-str))
+                           dist-table)
+                  )))
+            src-blocks)
+    dist-table))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--process-src-block</span> (s)
+  <span class="org-doc">"docstring"</span>
+  (<span class="org-keyword">let*</span> ((src-parameters (org-recipes--filter-src-parameters
+                          (org-babel-parse-header-arguments (org-element-property <span class="org-builtin">:parameters</span> s))
+                          '(<span class="org-builtin">:file</span> <span class="org-builtin">:pre-recipe</span> <span class="org-builtin">:post-recipe</span> <span class="org-builtin">:ignore</span>)))
+         (file (cdr (assoc <span class="org-builtin">:file</span> src-parameters)))
+         (ignore (cdr (assoc <span class="org-builtin">:ignore</span> src-parameters)))
+         (pre-recipe-list (cdr (assoc <span class="org-builtin">:pre-recipe</span> src-parameters)))
+         (post-recipe-list (cdr (assoc <span class="org-builtin">:post-recipe</span> src-parameters)))
+         (src-string (org-recipes--src-string s)))
+    (list (<span class="org-keyword">or</span> file <span class="org-string">"empty"</span>) ignore pre-recipe-list post-recipe-list src-string)))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--filter-src-parameters</span> (src-params key-list)
+  (delete-if (<span class="org-keyword">lambda</span> (s)
+               (not (member (car s) key-list))) <span class="org-warning">src-params))</span>
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--get-candidates</span> (<span class="org-type">&amp;optional</span> recipe)
+  (-flatten-n
+   1
+   (delq
+    nil
+    (mapcar (<span class="org-keyword">lambda</span> (f)
+              (org-recipes--collect-snippets f recipe))
+            (append org-recipes-file-list
+                    (<span class="org-keyword">when</span> (<span class="org-keyword">featurep</span> '<span class="org-constant">org-wiki</span>)
+                      (mapcar (<span class="org-keyword">lambda</span> (f)
+                                (concat org-wiki-location <span class="org-string">"/"</span> f))
+                              (org-wiki--page-files))))))))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--collect-snippets</span> (f <span class="org-type">&amp;optional</span> recipe)
+  (<span class="org-keyword">let*</span> ((org-buf (find-file-noselect f))
+         (target-major-modes (org-recipes--get-target-major-modes org-buf))
+         (cur-major-mode major-mode)
+         (headline-major-modes))
+    (<span class="org-keyword">when</span> (<span class="org-keyword">or</span> (null target-major-modes)
+              (member cur-major-mode target-major-modes))
+      (<span class="org-keyword">with-current-buffer</span> org-buf
+        (org-element-map (org-element-parse-buffer 'element) 'headline
+          (<span class="org-keyword">lambda</span> (headline)
+            (<span class="org-keyword">setq</span> headline-major-modes (mapcar #'org-recipes--string-to-mode
+                                               (org-recipes--split-mode-list (org-element-property <span class="org-builtin">:LANG</span> headline))))
+            (<span class="org-keyword">unless</span> headline-major-modes (<span class="org-keyword">setq</span> headline-major-modes (list cur-major-mode)))
+            (<span class="org-keyword">when</span> (member cur-major-mode headline-major-modes)
+              (<span class="org-keyword">let*</span> ((src-blocks (delq nil (org-element-map headline 'src-block
+                                             (<span class="org-keyword">lambda</span> (s)
+                                               (<span class="org-keyword">when</span> (<span class="org-keyword">or</span> headline-major-modes
+                                                         (eq cur-major-mode
+                                                             (org-recipes--string-to-mode (org-element-property <span class="org-builtin">:language</span> s))))
+                                                 s)))))
+                     (symbol (org-element-property <span class="org-builtin">:SYMBOL</span> headline))
+                     (src-blocks-parent (org-element-map headline 'headline 'identity))
+                     (linum (line-number-at-pos
+                             (org-element-property <span class="org-builtin">:begin</span> headline))))
+                (<span class="org-keyword">when</span> (<span class="org-keyword">and</span> src-blocks
+                           (eq (length src-blocks-parent) 1)
+                           (<span class="org-keyword">or</span> (null recipe)
+                               (equal symbol (symbol-name recipe))))
+                  (cons (concat (concat (file-relative-name f org-wiki-location) <span class="org-string">":"</span>)
+                                (concat (number-to-string linum) <span class="org-string">":"</span>)
+                                <span class="org-string">" "</span>
+                                (<span class="org-keyword">when</span> symbol (propertize (concat  <span class="org-string">"["</span> symbol <span class="org-string">"]  "</span>) 'face 'font-lock-type-face))
+                                (org-recipes--get-parent-string headline)
+                                (propertize (org-element-property <span class="org-builtin">:title</span> headline) 'face (org-recipes--get-heading-face headline)))
+                        (list f
+                              linum
+                              src-blocks)))))
+            ))
+        ))))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--get-parent-string</span> (headline)
+  (when-let ((parent (org-element-property <span class="org-builtin">:parent</span> headline))
+             (parent-str (org-element-property <span class="org-builtin">:raw-value</span> parent)))
+    (concat (org-recipes--get-parent-string parent)
+            (propertize parent-str 'face (org-recipes--get-heading-face parent))
+            <span class="org-string">" / "</span>)))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes-dwim</span> ()
+  (<span class="org-keyword">interactive</span>)
+  (if-let ((recipe-list (list-at-point)))
+      (org-recipes--process-recipes recipe-list)
+    (when-let ((symbol (symbol-at-point))
+               (candidates (org-recipes--get-candidates symbol)))
+      (org-recipes--delete-thing-at-point symbol)
+      (<span class="org-keyword">let</span> ((start (point)))
+        (org-recipes--insert-candidates candidates)
+        (indent-region start (point))
+        (newline)))))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--process-recipes</span> (recipe-list <span class="org-type">&amp;optional</span> deleted)
+  (<span class="org-keyword">let</span> ((start (point))
+        (deleted deleted))
+    (mapcar (<span class="org-keyword">lambda</span> (r)
+              (when-let ((candidates (org-recipes--get-candidates r)))
+                (<span class="org-keyword">unless</span> deleted
+                  (org-recipes--delete-thing-at-point recipe-list)
+                  (<span class="org-keyword">setq</span> deleted t))
+                (org-recipes--insert-candidates candidates)
+                (newline)))
+            recipe-list)
+    (indent-region start (point))))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--insert-candidates</span> (candidates)
+  (mapcar (<span class="org-keyword">lambda</span> (c)
+            (org-recipes--insert (org-recipes--get-real c)))
+          candidates))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--delete-thing-at-point</span> (thing)
+  (<span class="org-keyword">cond</span> ((listp thing)
+         (<span class="org-keyword">if</span> (looking-at <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">("</span>)
+             (kill-sexp)
+           (backward-up-list)
+           (kill-sexp)))
+        ((symbolp thing)
+         (<span class="org-keyword">condition-case</span> nil
+             (beginning-of-sexp)
+           (<span class="org-warning">error</span> nil))
+         (mark-sexp)
+         (delete-region (region-beginning) (region-end)))))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--get-target-major-modes</span> (buffer)
+  (<span class="org-keyword">with-current-buffer</span> buffer
+    (<span class="org-keyword">save-excursion</span>
+      (beginning-of-buffer)
+      (<span class="org-keyword">when</span> (search-forward <span class="org-string">"#+MODE:"</span> nil t)
+        (when-let ((mode-keyword (org-element-property <span class="org-builtin">:value</span> (org-element-at-point))))
+          (beginning-of-line)
+          (mapcar #'org-recipes--string-to-mode
+                  (org-recipes--split-mode-list (org-element-property <span class="org-builtin">:value</span> (org-element-at-point)))))))))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--split-mode-list</span> (mode-list)
+  (<span class="org-keyword">when</span> mode-list
+    (split-string (replace-regexp-in-string <span class="org-string">"[ ]*"</span> <span class="org-string">""</span> mode-list) <span class="org-string">","</span>)))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">org-recipes--string-to-mode</span> (m)
+  (intern-soft (concat m <span class="org-string">"-mode"</span>)))
+
+(<span class="org-keyword">provide</span> '<span class="org-constant">org-recipes</span>)
+<span class="org-comment-delimiter">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">org-recipes.el ends here</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">End:</span>
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org4338f82" class="outline-2">
+<h2 id="org4338f82">Org headers</h2>
+<div class="outline-text-2" id="text-org4338f82">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> org-sticky-header
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:hook</span> (org-mode . org-sticky-header-mode))
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Show full path in header</span>
+(<span class="org-keyword">setq</span> org-sticky-header-full-path 'full)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Use &gt; instead of / as separator</span>
+(<span class="org-keyword">setq</span> org-sticky-header-outline-path-separator <span class="org-string">" &gt; "</span>)
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org9561845" class="outline-2">
+<h2 id="org9561845">Deft</h2>
+<div class="outline-text-2" id="text-org9561845">
+<p>
+In my continuing use of my knowledge base in OrgMode, Deft seems to be the quickiest way to access it
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">use-package</span> deft
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:bind</span> (<span class="org-string">"&lt;f8&gt;"</span> . deft)
+  <span class="org-builtin">:commands</span> (deft)
+  <span class="org-builtin">:config</span> (<span class="org-keyword">setq</span> deft-directory <span class="org-string">"~/org-kb"</span>
+                deft-extensions '(<span class="org-string">"md"</span> <span class="org-string">"org"</span>)
+                deft-use-filter-string-for-filename t
+                deft-default-extension <span class="org-string">"org"</span>
+                deft-text-mode 'org-mode
+))
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org8855d6e" class="outline-2">
+<h2 id="org8855d6e">Misc nice things</h2>
+<div class="outline-text-2" id="text-org8855d6e">
+<div class="org-src-container">
+<pre class="src src-elisp">(define-key global-map <span class="org-string">"\C-cc"</span> 'org-capture)
+(define-key global-map <span class="org-string">"\C-ca"</span> 'org-agenda)
+
+(<span class="org-keyword">setq</span> org-hide-emphasis-markers t)
+
+(<span class="org-keyword">use-package</span> org-bullets)
+(add-hook 'org-mode-hook (<span class="org-keyword">lambda</span> () (org-bullets-mode 1)))
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Drag-and-drop to `dired`</span>
+(add-hook 'dired-mode-hook 'org-download-enable)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org79b6e48" class="outline-4">
+<h4 id="org79b6e48">make things fancy&#xa0;&#xa0;&#xa0;<span class="tag"><span class="fonts">fonts</span></span></h4>
+<div class="outline-text-4" id="text-org79b6e48">
+<p>
+Ideas from
+<a href="https://zzamboni.org/post/beautifying-org-mode-in-emacs/">https://zzamboni.org/post/beautifying-org-mode-in-emacs/</a>
+</p>
+
+<p>
+Makes the bulleted list have bullets
+</p>
+
+<p>
+This kinda supercedes <a href="font-el.html#org632a7e0">my Font selection</a> but this is all for org-mode, so I put it here
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(font-lock-add-keywords 'org-mode
+    '((<span class="org-string">"^ *</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">(</span></span><span class="org-string">[-]</span><span class="org-string"><span class="org-regexp-grouping-backslash">\\</span></span><span class="org-string"><span class="org-regexp-grouping-construct">)</span></span><span class="org-string"> "</span>
+    (0 (<span class="org-keyword">prog1</span> () (compose-region (match-beginning 1) (match-end 1) <span class="org-string">"&#8226;"</span>))))))
+
+</pre>
+</div>
+
+
+<p>
+Add proportional font for the headlines
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">let*</span> ((variable-tuple
+        (<span class="org-keyword">cond</span> ((x-list-fonts <span class="org-string">"IBM Plex Sans"</span>) '(<span class="org-builtin">:font</span> <span class="org-string">"IBM Plex Sans"</span>))
+              ((x-list-fonts <span class="org-string">"Lucida Grande"</span>)   '(<span class="org-builtin">:font</span> <span class="org-string">"Lucida Grande"</span>))
+              ((x-list-fonts <span class="org-string">"Verdana"</span>)         '(<span class="org-builtin">:font</span> <span class="org-string">"Verdana"</span>))
+              ((x-family-fonts <span class="org-string">"Sans Serif"</span>)    '(<span class="org-builtin">:family</span> <span class="org-string">"Sans Serif"</span>))
+              (nil (<span class="org-warning">warn</span> <span class="org-string">"Cannot find a Sans Serif Font.  Install Source Sans Pro."</span>))))
+       (base-font-color     (face-foreground 'default nil 'default))
+       (headline           `(<span class="org-builtin">:inherit</span> default <span class="org-builtin">:weight</span> bold <span class="org-builtin">:foreground</span> ,base-font-color)))
+
+  (custom-theme-set-faces
+   'user
+   `(org-level-8 ((t (,@headline ,@variable-tuple))))
+   `(org-level-7 ((t (,@headline ,@variable-tuple))))
+   `(org-level-6 ((t (,@headline ,@variable-tuple))))
+   `(org-level-5 ((t (,@headline ,@variable-tuple))))
+   `(org-level-4 ((t (,@headline ,@variable-tuple <span class="org-builtin">:height</span> 1.0))))
+   `(org-level-3 ((t (,@headline ,@variable-tuple <span class="org-builtin">:height</span> 1.0))))
+   `(org-level-2 ((t (,@headline ,@variable-tuple <span class="org-builtin">:height</span> 1.0))))
+   `(org-level-1 ((t (,@headline ,@variable-tuple <span class="org-builtin">:height</span> 1.25))))
+   `(org-document-title ((t (,@headline ,@variable-tuple <span class="org-builtin">:height</span> 1.5 <span class="org-builtin">:underline</span> nil))))))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(custom-theme-set-faces
+ 'user
+'(variable-pitch ((t ( <span class="org-builtin">:family</span> <span class="org-string">"IBM Plex Arabic"</span> <span class="org-builtin">:height</span> 160 <span class="org-builtin">:weight</span> light))))
+'(fixed-pitch ((t ( <span class="org-builtin">:family</span> <span class="org-string">"JetBrains Mono"</span> <span class="org-builtin">:height</span> 140 <span class="org-builtin">:slant</span> normal <span class="org-builtin">:weight</span> light  <span class="org-builtin">:width</span> normal))))
+)
+
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+
+(add-hook 'org-mode-hook 'visual-line-mode)
+
+(custom-theme-set-faces
+ 'user
+ '(org-block ((t (<span class="org-builtin">:inherit</span> fixed-pitch))))
+ '(org-code ((t (<span class="org-builtin">:inherit</span> (shadow fixed-pitch)))))
+ '(org-document-info ((t (<span class="org-builtin">:foreground</span> <span class="org-string">"dark orange"</span>))))
+ '(org-document-info-keyword ((t (<span class="org-builtin">:inherit</span> (shadow fixed-pitch)))))
+ '(org-indent ((t (<span class="org-builtin">:inherit</span> (org-hide fixed-pitch)))))
+ '(org-link ((t (<span class="org-builtin">:foreground</span> <span class="org-string">"dark orange"</span> <span class="org-builtin">:underline</span> t))))
+ '(org-meta-line ((t (<span class="org-builtin">:inherit</span> (font-lock-comment-face fixed-pitch)))))
+ '(org-property-value ((t (<span class="org-builtin">:inherit</span> fixed-pitch))) t)
+ '(org-special-keyword ((t (<span class="org-builtin">:inherit</span> (font-lock-comment-face fixed-pitch)))))
+ '(org-table ((t (<span class="org-builtin">:inherit</span> fixed-pitch <span class="org-builtin">:foreground</span> <span class="org-string">"#83a598"</span>))))
+ '(org-tag ((t (<span class="org-builtin">:inherit</span> (shadow fixed-pitch) <span class="org-builtin">:weight</span> bold <span class="org-builtin">:height</span> 1.0))))
+ '(org-verbatim ((t (<span class="org-builtin">:inherit</span> (shadow fixed-pitch))))))
+
+
+</pre>
+</div>
+
+<p>
+This may belong somewhere else but I put it here because it&rsquo;s really annoying in this new fancy orgmode.
+</p>
+
+<p>
+Anyway, turn off Prelude&rsquo;s marking of text over 80 chars, i.e. &ldquo;the pink text&rdquo;
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">setq</span> prelude-whitespace nil)
+
+
+</pre>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<hr>
+<p>
+<p class="Source">Source: <a href="https://github.com/squarepegsys/literate-dotfiles/blob/master/org-stuff.org">org-stuff.org</a></p><p>Return to <a href="index.html">index</a>.</p>
+</footer>
+</body>
+</html>

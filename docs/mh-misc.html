@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-08-25 -->
+<!-- 2020-03-24 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Direnv config</title>
+<title>Misc</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="Mike Hostetler">
 <style type="text/css">
@@ -203,51 +203,82 @@
 <body>
 <main id="content">
 <header>
-<h1 class="title">Direnv config</h1>
+<h1 class="title">Misc</h1>
 </header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6107db4">Python</a></li>
+<li><a href="#org855646f">Misc Things</a>
+<ul>
+<li><a href="#orgfc290ef">customize the titlebar</a></li>
+<li><a href="#org3e70cf1">Colorize buffer</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
+
+<section id="outline-container-org855646f" class="outline-2">
+<h2 id="org855646f">Misc Things</h2>
+<div class="outline-text-2" id="text-org855646f">
 <p>
-This a basic config for <a href="https://direnv.net/">Direnv</a>, which is really for shell configurations in a per-folder basis. Using it with <a href="https://github.com/wbolster/emacs-direnv">emacs-direnv</a> makes Emacs pick up the per-folder config and use it. 
+Here are some Misc things I don&rsquo;t know where to put anything else.
 </p>
 
-
-<section id="outline-container-org6107db4" class="outline-2">
-<h2 id="org6107db4">Python</h2>
-<div class="outline-text-2" id="text-org6107db4">
 <p>
-The following are defining functions that I use in python projects to define the pyenv folder. <a href="https://objectpartners.com/2019/06/18/managing-python-environments-with-direnv/">I step through what I have in each individual folder here</a>. Of course, I have it in a local <code>org-recipe</code> which  I pull in when I need it 
+This is basically stolen from <a href="https://github.com/sethmdoty/emacs.d/blob/master/emacs.org">https://github.com/sethmdoty/emacs.d/blob/master/emacs.org</a>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh"><span class="org-function-name">use_python</span>() {
-    <span class="org-keyword">if</span> [ -n <span class="org-string">"$(</span><span class="org-sh-quoted-exec">which</span><span class="org-string"> pyenv)"</span> ]; <span class="org-keyword">then</span>
-        <span class="org-builtin">local</span> <span class="org-variable-name">pyversion</span>=$<span class="org-variable-name">1</span>
-        pyenv local ${<span class="org-variable-name">pyversion</span>}
-    <span class="org-keyword">fi</span>
-}
-
-<span class="org-function-name">layout_virtualenv</span>() {
-    <span class="org-builtin">local</span> <span class="org-variable-name">pyversion</span>=$<span class="org-variable-name">1</span>
-    <span class="org-builtin">local</span> <span class="org-variable-name">pvenv</span>=$<span class="org-variable-name">2</span>
-    <span class="org-keyword">if</span> [ -n <span class="org-string">"$(</span><span class="org-sh-quoted-exec">which</span><span class="org-string"> pyenv virtualenv)"</span> ]; <span class="org-keyword">then</span>
-        pyenv virtualenv --force --quiet ${<span class="org-variable-name">pyversion</span>} ${<span class="org-variable-name">pvenv</span>}-${<span class="org-variable-name">pyversion</span>}
-    <span class="org-keyword">fi</span>
-    pyenv local --unset
-}
-
-<span class="org-function-name">layout_activate</span>() {
-    <span class="org-keyword">if</span> [ -n <span class="org-string">"$(</span><span class="org-sh-quoted-exec">which</span><span class="org-string"> pyenv)"</span> ]; <span class="org-keyword">then</span>
-        <span class="org-builtin">source</span> $(<span class="org-sh-quoted-exec">pyenv</span> root)/versions/$<span class="org-variable-name">1</span>/bin/activate
-    <span class="org-keyword">fi</span>
-}
+<pre class="src src-elisp">
+(global-hl-line-mode 1)
 
 </pre>
+</div>
+</div>
+
+<div id="outline-container-orgfc290ef" class="outline-3">
+<h3 id="orgfc290ef">customize the titlebar</h3>
+<div class="outline-text-3" id="text-orgfc290ef">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">frame-title-format</span> ()
+  <span class="org-doc">"Return frame title with current project name, where applicable."</span>
+  (concat
+   <span class="org-string">"emacs - "</span>
+   (<span class="org-keyword">when</span> (<span class="org-keyword">and</span> (<span class="org-keyword">bound-and-true-p</span> projectile-mode)
+              (projectile-project-p))
+     (format <span class="org-string">"[%s] - "</span> (projectile-project-name)))
+   (<span class="org-keyword">let</span> ((file buffer-file-name))
+     (<span class="org-keyword">if</span> file
+          (abbreviate-file-name file)
+       <span class="org-string">"%b"</span>))))
+
+(<span class="org-keyword">setq-default</span> frame-title-format '((<span class="org-builtin">:eval</span> (frame-title-format))))
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3e70cf1" class="outline-3">
+<h3 id="org3e70cf1">Colorize buffer</h3>
+<div class="outline-text-3" id="text-org3e70cf1">
+<div class="org-src-container">
+<pre class="src src-elisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">load package</span>
+(<span class="org-keyword">require</span> '<span class="org-constant">ansi-color</span>)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">function for colorizing</span>
+(<span class="org-keyword">defun</span> <span class="org-function-name">colorize-buffer</span> ()
+  (<span class="org-keyword">interactive</span>)
+  (toggle-read-only)
+  (ansi-color-apply-on-region (point-min) (point-max))
+  (toggle-read-only))
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">add hook to apply the function when magit mode is enabled</span>
+(add-hook 'magit-mode-hook 'colorize-buffer)
+</pre>
+</div>
 </div>
 </div>
 </section>
@@ -255,7 +286,7 @@ The following are defining functions that I use in python projects to define the
 <footer id="postamble" class="status">
 <hr>
 <p>
-<p class="Source">Source: <a href="https://github.com/squarepegsys/literate-dotfiles/blob/master/direnvrc.org">direnvrc.org</a></p><p>Return to <a href="index.html">index</a>.</p>
+<p class="Source">Source: <a href="https://github.com/squarepegsys/literate-dotfiles/blob/master/mh-misc.org">mh-misc.org</a></p><p>Return to <a href="index.html">index</a>.</p>
 </footer>
 </body>
 </html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2020-01-26 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helm Stuff</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Mike Hostetler">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<main id="content">
+<header>
+<h1 class="title">Helm Stuff</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org48711a7">Config</a></li>
+<li><a href="#org8db6bd8">helm-swoop</a></li>
+<li><a href="#org0e23921">helm-fasd</a></li>
+</ul>
+</div>
+</nav>
+
+<section id="outline-container-org48711a7" class="outline-2">
+<h2 id="org48711a7">Config</h2>
+<div class="outline-text-2" id="text-org48711a7">
+<p>
+Seems that I have timing issue with how Helm is loaded &#x2013; this should fix that
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">require</span> '<span class="org-constant">helm-mode</span>)
+(<span class="org-keyword">require</span> '<span class="org-constant">helm-config</span>)
+
+(<span class="org-keyword">with-eval-after-load</span> <span class="org-string">"helm.el"</span>
+  (define-key helm-map (kbd <span class="org-string">"C-c p"</span>) 'ignore))
+
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org2c0a393" class="outline-4">
+<h4 id="org2c0a393">dired-sort</h4>
+<div class="outline-text-4" id="text-org2c0a393">
+<p>
+use helm to sort dired folders!
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">require</span> '<span class="org-constant">dired-quick-sort</span>)
+(dired-quick-sort-setup)
+</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="outline-container-org8db6bd8" class="outline-2">
+<h2 id="org8db6bd8">helm-swoop</h2>
+<div class="outline-text-2" id="text-org8db6bd8">
+<p>
+Let&rsquo;s supercharge our search with <a href="https://github.com/emacsorphanage/helm-swoop">helm-swoop</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> helm-swoop)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Change the keybinds to whatever you like :)</span>
+(global-set-key (kbd <span class="org-string">"s-'"</span>) 'helm-swoop)
+(global-set-key (kbd <span class="org-string">"M-s-'"</span>) 'helm-swoop-back-to-last-point)
+(global-set-key (kbd <span class="org-string">"C-c s-'"</span>) 'helm-multi-swoop)
+(global-set-key (kbd <span class="org-string">"C-x M-i"</span>) 'helm-multi-swoop-all)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">When doing isearch, hand the word over to helm-swoop</span>
+(define-key isearch-mode-map (kbd <span class="org-string">"M-i"</span>) 'helm-swoop-from-isearch)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">From helm-swoop to helm-multi-swoop-all</span>
+(define-key helm-swoop-map (kbd <span class="org-string">"M-i"</span>) 'helm-multi-swoop-all-from-helm-swoop)
+<span class="org-comment-delimiter">;; </span><span class="org-comment">When doing evil-search, hand the word over to helm-swoop</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">(define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Instead of helm-multi-swoop-all, you can also use helm-multi-swoop-current-mode</span>
+(define-key helm-swoop-map (kbd <span class="org-string">"M-m"</span>) 'helm-multi-swoop-current-mode-from-helm-swoop)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Move up and down like isearch</span>
+(define-key helm-swoop-map (kbd <span class="org-string">"C-r"</span>) 'helm-previous-line)
+(define-key helm-swoop-map (kbd <span class="org-string">"C-s"</span>) 'helm-next-line)
+(define-key helm-multi-swoop-map (kbd <span class="org-string">"C-r"</span>) 'helm-previous-line)
+(define-key helm-multi-swoop-map (kbd <span class="org-string">"C-s"</span>) 'helm-next-line)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Save buffer when helm-multi-swoop-edit complete</span>
+(<span class="org-keyword">setq</span> helm-multi-swoop-edit-save t)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">If this value is t, split window inside the current window</span>
+(<span class="org-keyword">setq</span> helm-swoop-split-with-multiple-windows nil)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Split direcion. 'split-window-vertically or 'split-window-horizontally</span>
+(<span class="org-keyword">setq</span> helm-swoop-split-direction 'split-window-vertically)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">If nil, you can slightly boost invoke speed in exchange for text color</span>
+(<span class="org-keyword">setq</span> helm-swoop-speed-or-color nil)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">;; Go to the opposite side of line from the end or beginning of line</span>
+(<span class="org-keyword">setq</span> helm-swoop-move-to-line-cycle t)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Optional face for line numbers</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Face name is `helm-swoop-line-number-face`</span>
+(<span class="org-keyword">setq</span> helm-swoop-use-line-number-face t)
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">If you prefer fuzzy matching</span>
+(<span class="org-keyword">setq</span> helm-swoop-use-fuzzy-match t)
+</pre>
+</div>
+</div>
+</section>
+<section id="outline-container-org0e23921" class="outline-2">
+<h2 id="org0e23921">helm-fasd</h2>
+<div class="outline-text-2" id="text-org0e23921">
+<p>
+This was recommended to me by someone on reddit. I kinda like it. I have it in my <a href="shortcuts-el.html#org38c5db4">Custom prefix</a> section. It does require the fasd tool
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">helm-fasd.el --- Helm source for fasd</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Author: Antti Salminen <a href="mailto:antti.salminen%40gmail.com">&lt;antti.salminen@gmail.com&gt;</a></span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">URL: https://github.com/ajsalminen/helm-fasd</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Package-Requires: ((helm "2.0"))</span>
+
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Commentary:</span>
+
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Code:</span>
+(<span class="org-keyword">require</span> '<span class="org-constant">helm</span>)
+(<span class="org-keyword">require</span> '<span class="org-constant">helm-types</span>)
+(<span class="org-keyword">defvar</span> <span class="org-variable-name">helm-fasd-command</span> nil)
+
+(<span class="org-keyword">defface</span> <span class="org-variable-name">helm-fasd-finish</span>
+  '((t (<span class="org-builtin">:foreground</span> <span class="org-string">"Green"</span>)))
+  <span class="org-doc">"Face used in mode line when fasd process returns."</span>
+  <span class="org-builtin">:group</span> 'helm-fasd)
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">helm-fasd-set-command</span> ()
+  <span class="org-doc">"Return the used fasd command."</span>
+  (<span class="org-keyword">require</span> '<span class="org-constant">helm-for-files</span>)
+  (<span class="org-keyword">setq</span> helm-fasd-command <span class="org-string">"fasd -R -l -a"</span>))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">helm-fasd-init</span> ()
+  <span class="org-doc">"Initialize async locate process for `</span><span class="org-doc"><span class="org-constant">helm-source-fasd</span></span><span class="org-doc">'."</span>
+  (<span class="org-keyword">let</span> ((cmd (concat <span class="org-string">"fasd -R -l -a "</span> (shell-quote-argument helm-pattern))
+             ))
+    (helm-log <span class="org-string">"Starting helm-fasd process"</span>)
+    (helm-log <span class="org-string">"Command line used was:\n\n%s"</span>
+              (concat <span class="org-string">"&gt;&gt;&gt; "</span> (propertize cmd 'face 'font-lock-comment-face) <span class="org-string">"\n\n"</span>))
+    (<span class="org-keyword">prog1</span>
+        (start-process-shell-command
+         <span class="org-string">"fasd-process"</span> helm-buffer
+         cmd)
+      (set-process-sentinel
+       (get-buffer-process helm-buffer)
+       #'(lambda (_process event)
+           (<span class="org-keyword">if</span> (string= event <span class="org-string">"finished\n"</span>)
+               (with-helm-window
+                 (<span class="org-keyword">setq</span> mode-line-format
+                       '(<span class="org-string">" "</span> mode-line-buffer-identification <span class="org-string">" "</span>
+                         (<span class="org-builtin">:eval</span> (format <span class="org-string">"L%s"</span> (helm-candidate-number-at-point))) <span class="org-string">" "</span>
+                         (<span class="org-builtin">:eval</span> (propertize
+                                 (format <span class="org-string">"[fasd process finished - (%s results)]"</span>
+                                         (max (1- (count-lines
+                                                   (point-min) (point-max)))
+                                              0))
+                                 'face 'helm-fasd-finish))))
+                 (force-mode-line-update))
+             (helm-log <span class="org-string">"Error: Fasd %s"</span>
+                       (replace-regexp-in-string <span class="org-string">"\n"</span> <span class="org-string">""</span> event))))))))
+
+
+(<span class="org-keyword">defclass</span> <span class="org-type">helm-fasd-source</span> (helm-source-async helm-type-file)
+  ((init <span class="org-builtin">:initform</span> 'helm-fasd-set-command)
+   (candidates-process <span class="org-builtin">:initform</span> 'helm-fasd-init)
+   (history <span class="org-builtin">:initform</span> 'helm-file-name-history)
+   (keymap <span class="org-builtin">:initform</span> helm-generic-files-map)
+   (help-message <span class="org-builtin">:initform</span> helm-generic-file-help-message)
+   (candidate-number-limit <span class="org-builtin">:initform</span> 9999)
+   (mode-line <span class="org-builtin">:initform</span> helm-read-file-name-mode-line-string)))
+
+(<span class="org-keyword">defvar</span> <span class="org-variable-name">helm-source-fasd</span>
+  (helm-make-source <span class="org-string">"fasd"</span> 'helm-fasd-source
+    ))
+
+<span class="org-comment-delimiter">;;;</span><span class="org-comment">###</span><span class="org-comment"><span class="org-warning">autoload</span></span>
+(<span class="org-keyword">defun</span> <span class="org-function-name">helm-fasd</span> ()
+  <span class="org-doc">"Helm source for fasd."</span>
+  (<span class="org-keyword">interactive</span>)
+  (<span class="org-keyword">require</span> '<span class="org-constant">helm-mode</span>)
+  (<span class="org-keyword">let</span> ((helm-ff-transformer-show-only-basename nil))
+    (helm <span class="org-builtin">:sources</span> 'helm-source-fasd
+          <span class="org-builtin">:buffer</span> <span class="org-string">"*helm fasd*"</span>
+          )))
+
+
+<span class="org-comment-delimiter">;;;</span><span class="org-comment">###</span><span class="org-comment"><span class="org-warning">autoload</span></span>
+(<span class="org-keyword">defun</span> <span class="org-function-name">helm-find-fasd-add-file</span> ()
+  <span class="org-doc">"Add file to fasd database."</span>
+  (<span class="org-keyword">unless</span> (executable-find <span class="org-string">"fasd"</span>) (<span class="org-warning">error</span> <span class="org-string">"Helm-search-fasd: cannot find the fasd executable"</span>))
+  (<span class="org-keyword">let</span> ((file (<span class="org-keyword">if</span> (string= major-mode <span class="org-string">"dired-mode"</span>) dired-directory (buffer-file-name))))
+    (start-process <span class="org-string">"*fasd*"</span> nil <span class="org-string">"fasd"</span> <span class="org-string">"--add"</span> file)))
+
+<span class="org-comment-delimiter">;;;</span><span class="org-comment">###</span><span class="org-comment"><span class="org-warning">autoload</span></span>
+(add-hook 'find-file-hook 'helm-find-fasd-add-file)
+<span class="org-comment-delimiter">;;;</span><span class="org-comment">###</span><span class="org-comment"><span class="org-warning">autoload</span></span>
+(add-hook 'dired-mode-hook 'helm-find-fasd-add-file)
+
+(<span class="org-keyword">provide</span> '<span class="org-constant">helm-fasd</span>)
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">helm-fasd.el ends here</span>
+
+</pre>
+</div>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<hr>
+<p>
+<p class="Source">Source: <a href="https://github.com/squarepegsys/literate-dotfiles/blob/master/helm-stuff-el-.org">helm-stuff-el-.org</a></p><p>Return to <a href="index.html">index</a>.</p>
+</footer>
+</body>
+</html>

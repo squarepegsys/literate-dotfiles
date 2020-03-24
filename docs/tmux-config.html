@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-08-04 -->
+<!-- 2020-01-26 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tmux.conf</title>
@@ -219,13 +219,17 @@
 <h2 id="org92b249d">The Basics</h2>
 <div class="outline-text-2" id="text-org92b249d">
 <p>
+See wiki:Tmux for some of my help
+</p>
+
+<p>
 I find it annoying that <code>C-b</code> is the default prefix for Tmux. I assign it to <code>C-\</code> so it&rsquo;s out of the way and it&rsquo;s something I have to hit on purpose.
 </p>
 
 <div class="org-src-container">
 <pre class="src src-shell">unbind C-b
 <span class="org-builtin">set</span> -g prefix C-<span class="org-string">\ </span><span class="org-comment-delimiter"># </span><span class="org-comment">My key</span>
-bind C-<span class="org-string">\ </span>send-prefix
+<span class="org-builtin">bind</span> C-<span class="org-string">\ </span>send-prefix
 <span class="org-builtin">set</span> -g mouse on
 </pre>
 </div>
@@ -255,6 +259,8 @@ This requires <a href="https://github.com/tmux-plugins/tpm">the Tmux plugin mana
 <span class="org-comment-delimiter"># </span><span class="org-comment">Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)</span>
 run <span class="org-string">'~/.tmux/plugins/tpm/tpm'</span>
 
+
+new-session -s main
 </pre>
 </div>
 </div>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-08-25 -->
+<!-- 2019-10-13 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Direnv config</title>
+<title>Emacs Javascript Config</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="Mike Hostetler">
 <style type="text/css">
@@ -203,50 +203,85 @@
 <body>
 <main id="content">
 <header>
-<h1 class="title">Direnv config</h1>
+<h1 class="title">Emacs Javascript Config</h1>
 </header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6107db4">Python</a></li>
+<li><a href="#orgae9f16d">Setup</a></li>
 </ul>
 </div>
 </nav>
+
+<section id="outline-container-orgae9f16d" class="outline-2">
+<h2 id="orgae9f16d">Setup</h2>
+<div class="outline-text-2" id="text-orgae9f16d">
 <p>
-This a basic config for <a href="https://direnv.net/">Direnv</a>, which is really for shell configurations in a per-folder basis. Using it with <a href="https://github.com/wbolster/emacs-direnv">emacs-direnv</a> makes Emacs pick up the per-folder config and use it. 
+I&rsquo;m grabbing this config from <a href="https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript.html">https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript.html</a>
 </p>
 
-
-<section id="outline-container-org6107db4" class="outline-2">
-<h2 id="org6107db4">Python</h2>
-<div class="outline-text-2" id="text-org6107db4">
 <p>
-The following are defining functions that I use in python projects to define the pyenv folder. <a href="https://objectpartners.com/2019/06/18/managing-python-environments-with-direnv/">I step through what I have in each individual folder here</a>. Of course, I have it in a local <code>org-recipe</code> which  I pull in when I need it 
+This config needs:
+</p>
+
+<ul class="org-ul">
+<li><code>js2-mode</code></li>
+<li><code>js2-refactor</code></li>
+<li><code>xref-js2</code></li>
+<li><code>ag</code> (which I already have)</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">require</span> '<span class="org-constant">js2-mode</span>)
+(add-to-list 'auto-mode-alist '(<span class="org-string">"\\.js\\'"</span> . js2-mode))
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Better imenu</span>
+(add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+</pre>
+</div>
+
+
+<p>
+The following comes from <a href="https://github.com/flycheck/flycheck/issues/579">https://github.com/flycheck/flycheck/issues/579</a> and a couple other sources
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">setq-default</span> js2-ignored-warnings
+              '(<span class="org-string">"msg.extra.trailing.comma"</span> <span class="org-string">"msg.missing.semi"</span> )
+              )
+
+(<span class="org-keyword">defvar</span> <span class="org-variable-name">js2-node-externs</span>
+  (mapcar 'symbol-name
+          '(__dirname __filename Buffer clearInterval clearTimeout require
+                      console exports global module process setInterval setTimeout
+                      querystring setImmediate clearImmediate require))
+)
+
+(<span class="org-keyword">setq</span> js2-include-node-externs t)
+
+</pre>
+</div>
+
+<p>
+now continue on&#x2026;
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh"><span class="org-function-name">use_python</span>() {
-    <span class="org-keyword">if</span> [ -n <span class="org-string">"$(</span><span class="org-sh-quoted-exec">which</span><span class="org-string"> pyenv)"</span> ]; <span class="org-keyword">then</span>
-        <span class="org-builtin">local</span> <span class="org-variable-name">pyversion</span>=$<span class="org-variable-name">1</span>
-        pyenv local ${<span class="org-variable-name">pyversion</span>}
-    <span class="org-keyword">fi</span>
-}
+<pre class="src src-elisp">
+(<span class="org-keyword">require</span> '<span class="org-constant">js2-refactor</span>)
+(<span class="org-keyword">require</span> '<span class="org-constant">xref-js2</span>)
 
-<span class="org-function-name">layout_virtualenv</span>() {
-    <span class="org-builtin">local</span> <span class="org-variable-name">pyversion</span>=$<span class="org-variable-name">1</span>
-    <span class="org-builtin">local</span> <span class="org-variable-name">pvenv</span>=$<span class="org-variable-name">2</span>
-    <span class="org-keyword">if</span> [ -n <span class="org-string">"$(</span><span class="org-sh-quoted-exec">which</span><span class="org-string"> pyenv virtualenv)"</span> ]; <span class="org-keyword">then</span>
-        pyenv virtualenv --force --quiet ${<span class="org-variable-name">pyversion</span>} ${<span class="org-variable-name">pvenv</span>}-${<span class="org-variable-name">pyversion</span>}
-    <span class="org-keyword">fi</span>
-    pyenv local --unset
-}
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(js2r-add-keybindings-with-prefix <span class="org-string">"C-c C-r"</span>)
+(define-key js2-mode-map (kbd <span class="org-string">"C-k"</span>) #'js2r-kill)
 
-<span class="org-function-name">layout_activate</span>() {
-    <span class="org-keyword">if</span> [ -n <span class="org-string">"$(</span><span class="org-sh-quoted-exec">which</span><span class="org-string"> pyenv)"</span> ]; <span class="org-keyword">then</span>
-        <span class="org-builtin">source</span> $(<span class="org-sh-quoted-exec">pyenv</span> root)/versions/$<span class="org-variable-name">1</span>/bin/activate
-    <span class="org-keyword">fi</span>
-}
+<span class="org-comment-delimiter">;; </span><span class="org-comment">js-mode (which js2 is based on) binds "M-." which conflicts with xref, so</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">unbind it.</span>
+(define-key js-mode-map (kbd <span class="org-string">"M-."</span>) nil)
 
+(add-hook 'js2-mode-hook (<span class="org-keyword">lambda</span> ()
+  (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+
+(define-key js2-mode-map (kbd <span class="org-string">"C-k"</span>) #'js2r-kill)
 </pre>
 </div>
 </div>
@@ -255,7 +290,7 @@ The following are defining functions that I use in python projects to define the
 <footer id="postamble" class="status">
 <hr>
 <p>
-<p class="Source">Source: <a href="https://github.com/squarepegsys/literate-dotfiles/blob/master/direnvrc.org">direnvrc.org</a></p><p>Return to <a href="index.html">index</a>.</p>
+<p class="Source">Source: <a href="https://github.com/squarepegsys/literate-dotfiles/blob/master/javascript-el.org">javascript-el.org</a></p><p>Return to <a href="index.html">index</a>.</p>
 </footer>
 </body>
 </html>
